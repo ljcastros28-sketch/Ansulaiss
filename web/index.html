@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ansulais — Comodidad para tu hogar</title>
+<link rel="icon" type="image/svg+xml" href="assets/logosimplificado.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --beige: #f8f2de;
+    --beige-tint: #fdfbf3;
+    --beige-light: #fdf8ec;
+    --maroon: #1a1a1a;
+    --maroon-deep: #0f0f0f;
+    --maroon-hover: #2b2b2b;
+    --navy: #0c1a29;
+    --wood: #8a5a35;
+    --ink: #241a12;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+    overflow-x: hidden;
+  }
+
+  body {
+    background: var(--maroon-deep);
+    color: var(--ink);
+    font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { text-decoration: none; color: inherit; }
+  button { font-family: inherit; border: none; background: none; cursor: pointer; }
+
+  .wrap {
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+
+  /* ---------- NAV ---------- */
+  header.nav {
+    padding: 18px 0;
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--beige-light);
+  }
+
+  .logo-icon {
+    display: block;
+    height: 34px;
+    width: auto;
+    flex-shrink: 0;
+  }
+
+  .logo-icon svg {
+    display: block;
+    height: 100%;
+    width: auto;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .nav-links a {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--beige-light);
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+  }
+
+  .nav-links a:hover {
+    opacity: 1;
+  }
+
+  .nav-links a.is-featured {
+    opacity: 1;
+    font-weight: 700;
+    color: var(--beige-light);
+    position: relative;
+    padding-bottom: 2px;
+  }
+
+  .nav-links a.is-featured::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    height: 2px;
+    background: var(--beige-light);
+    border-radius: 2px;
+  }
+
+  .nav-search {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+    background: rgba(253, 248, 236, 0.08);
+    border: 1px solid rgba(253, 248, 236, 0.18);
+    border-radius: 100px;
+    padding: 6px 6px 6px 16px;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .nav-search:focus-within {
+    border-color: rgba(253, 248, 236, 0.4);
+    background: rgba(253, 248, 236, 0.12);
+  }
+
+  .nav-search input {
+    width: 140px;
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--beige-light);
+    font-family: inherit;
+    font-size: 14px;
+  }
+
+  .nav-search input::placeholder {
+    color: var(--beige-light);
+    opacity: 0.5;
+  }
+
+  .nav-search button {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--beige-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s ease;
+  }
+
+  .nav-search button:hover {
+    background: var(--beige);
+  }
+
+  .nav-search button svg {
+    width: 15px;
+    height: 15px;
+    color: var(--maroon-deep);
+  }
+
+  .whatsapp-float {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 50;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: var(--beige-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.45);
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .whatsapp-float:hover {
+    background: var(--beige);
+    transform: translateY(-3px);
+  }
+
+  .whatsapp-float svg {
+    width: 28px;
+    height: 28px;
+    fill: var(--maroon-deep);
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding-top: 64px;
+    padding-bottom: 90px;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.62;
+  }
+
+  .hero-logo-wrap {
+    position: relative;
+    z-index: 1;
+  }
+
+  h1.hero-logo {
+    display: block;
+    width: 100%;
+    max-width: 920px;
+    color: var(--beige-light);
+  }
+
+  h1.hero-logo svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .hero-row {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    margin-top: 16px;
+  }
+
+  .hero-copy {
+    flex: 0 0 640px;
+  }
+
+  .hero-tagline {
+    display: block;
+    white-space: nowrap;
+    color: var(--beige-light);
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-transform: lowercase;
+    margin-top: 4px;
+  }
+
+  .hero-desc {
+    font-size: 16px;
+    line-height: 1.4;
+    color: var(--beige-light);
+    opacity: 0.8;
+  }
+
+  .hero-desc-short {
+    display: none;
+  }
+
+  .social-links {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-top: 26px;
+    color: var(--beige-light);
+  }
+
+  .social-links a {
+    display: flex;
+    width: 34px;
+    height: 34px;
+    opacity: 0.85;
+    transition: opacity 0.2s ease;
+  }
+
+  .social-links a:hover {
+    opacity: 1;
+  }
+
+  .social-links svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .catalog-peek {
+    flex: 0 0 220px;
+    align-self: flex-start;
+    margin-top: 130px;
+    margin-left: -680px;
+    transition: transform 0.2s ease;
+  }
+
+  .catalog-peek:hover {
+    transform: translateY(-3px);
+  }
+
+  .catalog-peek-frame {
+    background: var(--beige-tint);
+    border-radius: 22px;
+    padding: 14px 14px 26px;
+    box-shadow: 0 16px 30px -12px rgba(36, 26, 18, 0.4);
+  }
+
+  .catalog-peek-media {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .catalog-peek-media img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+
+  .catalog-peek-arrow {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .catalog-peek-arrow svg {
+    width: 15px;
+    height: 15px;
+    stroke: var(--beige);
+  }
+
+  .catalog-peek-caption {
+    display: block;
+    margin-top: 14px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--maroon);
+    text-align: center;
+  }
+
+  /* ---------- QUE BUSCAS ---------- */
+  .quequieres {
+    position: relative;
+    z-index: 3;
+    background: var(--maroon-deep);
+    padding: 90px 0 100px;
+  }
+
+  .quequieres-title {
+    color: var(--beige-light);
+    font-size: clamp(2.4rem, 5.5vw, 4rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    max-width: 700px;
+    margin-bottom: 48px;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  }
+
+  .quequieres-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .quequieres-card {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    border-radius: 20px;
+    overflow: hidden;
+    display: block;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow:
+      inset 0 0 30px 4px rgba(0, 0, 0, 0.22),
+      inset 0 0 0 1px rgba(0, 0, 0, 0.15);
+  }
+
+  .quequieres-card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      inset 0 0 34px 5px rgba(0, 0, 0, 0.26),
+      inset 0 0 0 1px rgba(0, 0, 0, 0.18);
+  }
+
+  .quequieres-card img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .quequieres-card:hover img {
+    transform: scale(1.06);
+  }
+
+  .quequieres-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0.02) 55%, rgba(0, 0, 0, 0.12) 100%);
+  }
+
+  .quequieres-card-label {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--beige-light);
+    font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+    font-weight: 400;
+    line-height: 1.2;
+    text-transform: lowercase;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.45);
+  }
+
+  /* ---------- NOSOTROS ---------- */
+  .nosotros {
+    position: relative;
+    z-index: 3;
+    background: var(--beige-light);
+  }
+
+  .nosotros-fade {
+    height: 320px;
+    background: linear-gradient(to bottom,
+      rgb(15, 15, 15) 0%,
+      rgb(16, 16, 16) 10%,
+      rgb(23, 22, 22) 20%,
+      rgb(41, 40, 39) 30%,
+      rgb(76, 75, 72) 40%,
+      rgb(134, 132, 126) 50%,
+      rgb(192, 188, 179) 60%,
+      rgb(227, 223, 212) 70%,
+      rgb(245, 241, 229) 80%,
+      rgb(252, 247, 235) 90%,
+      rgb(253, 248, 236) 100%);
+  }
+
+  .nosotros-intro {
+    position: relative;
+    padding: 260px 0 280px;
+  }
+
+  .nosotros-intro-blob-wrap {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: min(130vw, 1500px);
+    height: min(130vw, 1500px);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .nosotros-intro-blob {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    animation: nosotros-blob-spin 90s linear infinite;
+    will-change: transform;
+  }
+
+  @keyframes nosotros-blob-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nosotros-intro-blob { animation: none; }
+  }
+
+  .nosotros-intro-title {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    padding: 0 24px;
+    text-align: center;
+    color: #fff;
+    mix-blend-mode: difference;
+    font-size: clamp(6rem, 21vw, 26rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+  }
+
+  .nosotros-lead {
+    padding-top: 180px;
+    padding-bottom: 40px;
+  }
+
+  .nosotros-lead p {
+    max-width: 700px;
+    font-size: clamp(1.4rem, 2.4vw, 2rem);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: rgba(36, 26, 18, 0.75);
+  }
+
+  @media (min-width: 900px) {
+    .nosotros-lead p {
+      max-width: none;
+      font-size: 2.6rem;
+    }
+  }
+
+  .nosotros-lead strong {
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  .nosotros-card {
+    background: #fff;
+    border-radius: 28px;
+    padding: 56px;
+    margin: 60px 0 110px;
+    box-shadow: 0 30px 60px -35px rgba(26, 26, 26, 0.3);
+  }
+
+  .nosotros-card-inner {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    margin-bottom: 56px;
+    padding-bottom: 56px;
+    border-bottom: 1px solid rgba(26, 26, 26, 0.08);
+  }
+
+  .nosotros-card-media {
+    flex: 0 0 260px;
+  }
+
+  .nosotros-card-media img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+    border-radius: 16px;
+  }
+
+  .nosotros-card-text p {
+    font-size: clamp(1.1rem, 1.7vw, 1.4rem);
+    line-height: 1.45;
+    color: var(--ink);
+    opacity: 0.85;
+  }
+
+  .nosotros-card-text strong {
+    font-weight: 700;
+    color: var(--maroon);
+    opacity: 1;
+  }
+
+  .nosotros-card-stats {
+    display: flex;
+    gap: 56px;
+    flex-wrap: wrap;
+  }
+
+  .nosotros-card-stat {
+    flex: 1;
+    min-width: 170px;
+  }
+
+  .nosotros-card-stat-number {
+    display: flex;
+    align-items: baseline;
+    gap: 3px;
+    font-size: clamp(2.6rem, 5vw, 3.8rem);
+    font-weight: 800;
+    color: var(--maroon);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .nosotros-card-stat-number .symbol {
+    font-weight: 400;
+    font-size: 0.55em;
+  }
+
+  .nosotros-card-stat-label {
+    display: block;
+    font-size: 15px;
+    color: var(--ink);
+    opacity: 0.65;
+    max-width: 200px;
+    line-height: 1.35;
+  }
+
+  .nosotros-video-feature {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: clamp(320px, 43.75vw, 620px);
+    overflow: hidden;
+  }
+
+  .nosotros-video-feature-media {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .nosotros-video-feature-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 10, 10, 0.4);
+  }
+
+  .nosotros-video-feature-text {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 32px;
+    text-align: center;
+    color: #fff;
+    font-size: clamp(1.6rem, 3.2vw, 2.6rem);
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  }
+
+  .nosotros-video-feature-text strong {
+    font-weight: 800;
+  }
+
+  .nosotros-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 70px 48px 90px;
+  }
+
+  .nosotros-cta-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 19px 42px;
+    border-radius: 100px;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    box-shadow: 0 14px 30px -12px rgba(26, 26, 26, 0.25);
+    transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .nosotros-cta-item:hover {
+    transform: translateY(-2px);
+  }
+
+  .nosotros-cta-catalogo {
+    background: #fff;
+    color: var(--maroon);
+  }
+
+  .nosotros-cta-contacto {
+    background: var(--maroon);
+    color: var(--beige-light);
+  }
+
+  .nosotros-cta-contacto:hover {
+    background: var(--maroon-hover);
+  }
+
+  /* ---------- FOOTER ---------- */
+  .site-footer {
+    position: relative;
+    z-index: 3;
+    background: var(--maroon-deep);
+    color: var(--beige-light);
+    padding-top: 80px;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 60px;
+    padding-bottom: 60px;
+  }
+
+  .footer-logo-icon {
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 20px;
+  }
+
+  .footer-logo-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .footer-tagline {
+    font-size: 15px;
+    line-height: 1.5;
+    opacity: 0.75;
+    max-width: 320px;
+    margin-bottom: 24px;
+  }
+
+  .footer-col h4 {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    opacity: 0.55;
+    margin-bottom: 18px;
+  }
+
+  .footer-col a,
+  .footer-col p {
+    display: block;
+    color: var(--beige-light);
+    opacity: 0.8;
+    font-size: 15px;
+    line-height: 1.9;
+    transition: opacity 0.2s ease;
+  }
+
+  .footer-col a:hover { opacity: 1; }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(253, 248, 236, 0.12);
+    padding: 24px 0 32px;
+    text-align: center;
+    font-size: 13px;
+    opacity: 0.5;
+  }
+
+  /* ---------- SCROLL REVEAL ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 0.8s cubic-bezier(.22,.61,.36,1), transform 0.8s cubic-bezier(.22,.61,.36,1);
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-delay-1 { transition-delay: 0.12s; }
+  .reveal-delay-2 { transition-delay: 0.24s; }
+  .reveal-delay-3 { transition-delay: 0.36s; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 900px) {
+    .wrap { padding: 0 24px; }
+
+    header.nav { position: relative; z-index: 10; }
+
+    .nav-inner {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+    }
+
+    .logo { justify-self: center; }
+
+    .menu-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      justify-self: start;
+      width: 34px;
+      height: 34px;
+      flex-shrink: 0;
+    }
+
+    .menu-toggle svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--beige-light);
+    }
+
+    .nav-search {
+      justify-self: end;
+      padding: 6px;
+      border: none;
+      background: none;
+    }
+
+    .nav-search input { display: none; }
+
+    .whatsapp-float {
+      right: 16px;
+      bottom: 16px;
+      width: 52px;
+      height: 52px;
+    }
+
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 22px;
+      background: var(--maroon-deep);
+      padding: 26px 24px 30px;
+      border-top: 1px solid rgba(253, 248, 236, 0.12);
+    }
+
+    .nav-links.open { display: flex; }
+
+    .nav-links a { font-size: 17px; }
+
+    .nav-home-only { display: none; }
+
+    .hero-row {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-top: 28px;
+      gap: 0;
+    }
+
+    .hero-copy {
+      display: none;
+    }
+
+    .hero-tagline {
+      white-space: normal;
+      font-size: 22px;
+      margin-top: 10px;
+    }
+
+    .catalog-peek {
+      display: block;
+      flex: none;
+      width: 150px;
+      margin: 22px 0 0;
+    }
+
+    .catalog-peek-frame {
+      padding: 8px 8px 14px;
+      border-radius: 16px;
+    }
+
+    .catalog-peek-media {
+      border-radius: 9px;
+    }
+
+    .catalog-peek-arrow {
+      width: 26px;
+      height: 26px;
+      top: 6px;
+      right: 6px;
+    }
+
+    .catalog-peek-arrow svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    .catalog-peek-caption {
+      font-size: 12px;
+      margin-top: 8px;
+    }
+
+    .quequieres { padding: 56px 0 60px; }
+
+    .quequieres-title {
+      font-size: 2.1rem;
+      margin-bottom: 26px;
+    }
+
+    .quequieres-grid { gap: 10px; }
+
+    .quequieres-card-label {
+      font-size: 1.15rem;
+    }
+
+    .nosotros-fade {
+      height: 220px;
+    }
+
+    .nosotros-intro {
+      padding: 100px 0 120px;
+    }
+
+    .nosotros-lead {
+      padding-top: 160px;
+      padding-bottom: 30px;
+    }
+
+    .nosotros-card {
+      padding: 32px 24px;
+      margin: 30px 0 60px;
+      border-radius: 20px;
+    }
+
+    .nosotros-card-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+      margin-bottom: 32px;
+      padding-bottom: 32px;
+    }
+
+    .nosotros-card-media {
+      flex: 0 0 auto;
+      width: 100%;
+    }
+
+    .nosotros-card-stats {
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .nosotros-video-feature {
+      height: 125vw;
+    }
+
+    .nosotros-video-feature-text {
+      font-size: 1.4rem;
+      padding: 0 24px;
+    }
+
+    .nosotros-cta {
+      flex-direction: column;
+      padding: 50px 24px 64px;
+    }
+
+    .nosotros-cta-item {
+      width: 100%;
+    }
+
+    .site-footer {
+      padding-top: 56px;
+    }
+
+    .footer-top {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      padding-bottom: 40px;
+    }
+
+  }
+</style>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <button class="menu-toggle" id="menuToggle" aria-label="Menú" aria-expanded="false" aria-controls="navLinks">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M3 6h18"></path>
+          <path d="M3 12h18"></path>
+          <path d="M3 18h18"></path>
+        </svg>
+      </button>
+
+      <div class="logo">
+        <span class="logo-icon">
+          <svg id="logoIconSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340.36 440.13">
+            <path fill="currentColor" d="M340.36,440.13h0s-93.46,0-93.46,0h0c-.83-50.35-41.89-90.73-92.24-90.73h-56.31l-1.49,90.73H0V0h0c55.52,0,100.52,45.01,100.51,100.52v75.5s29.48,10.76,29.48,10.76c58.68,21.41,111.61,57.1,150.95,105.62,22.8,28.12,39.91,57.88,49.43,90.9,5.9,20.47,9.99,40.51,9.99,56.83ZM100.52,184.7v88.69h63.7c8.02,0,11.27-10.33,4.69-14.92l-68.39-73.77Z"/>
+          </svg>
+        </span>
+      </div>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#inicio" class="is-featured nav-home-only">Inicio</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#catalogo">Catálogo</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+
+      <form class="nav-search" role="search" action="#catalogo">
+        <input type="text" name="q" placeholder="Buscar..." aria-label="Buscar productos">
+        <button type="submit" aria-label="Buscar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </header>
+
+  <a class="whatsapp-float" href="https://wa.me/message/ISVNRLUQCE27G1" target="_blank" rel="noopener noreferrer" aria-label="Escríbenos por WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 2C6.477 2 2 6.477 2 12c0 1.75.457 3.437 1.323 4.927L2 22l5.223-1.302A9.94 9.94 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.09c-1.56 0-3.06-.42-4.36-1.2l-.313-.185-3.09.77.79-3.06-.196-.313A7.94 7.94 0 0 1 4.09 12c0-4.36 3.55-7.91 7.91-7.91 4.36 0 7.91 3.55 7.91 7.91 0 4.36-3.55 7.91-7.91 7.91z"></path>
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"></path>
+    </svg>
+  </a>
+
+  <section class="hero" id="inicio">
+    <div class="hero-bg">
+      <img src="assets/hero_bg.jpg" alt="">
+    </div>
+
+    <div class="wrap">
+
+      <div class="hero-logo-wrap">
+        <h1 class="hero-logo" aria-label="Ansulais — Comodidad para tu hogar">
+          <svg id="logoCompletoSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 525.0433959960938 87.83148193359375" aria-hidden="true">
+            <path fill="currentColor" d="M141.35,41.95v44.21h-16.64v-40.05c0-5.72-4.45-10.58-10.16-10.8-7.94-.31-13.73,4.96-13.73,14.13v36.72h-16.64V22.93h15.92v9.27h.24c4.04-7.72,11.05-10.93,19.01-10.93,13.43,0,21.99,8.79,21.99,20.68Z"/>
+            <path fill="currentColor" d="M216.09,42.19h-16.28c-.95-6.3-4.64-8.32-11.29-8.32-6.3,0-10.1,1.54-10.1,6.18,0,4.28,8.08,5.7,16.04,7.25,18.03,3.4,23.37,9.56,23.53,18.27.2,11.16-8.57,20.41-19.66,21.74-23.57,2.82-38.45-6.01-38.45-21.34h17.11c0,5.11,3.09,9.27,13.67,9.27,6.66,0,10.7-2.73,10.7-6.54,0-4.16-5.59-5.58-17.11-7.72-14.74-2.61-22.1-8.2-22.1-18.54,0-12.48,9.27-21.15,25.55-21.15,19.01,0,27.69,8.08,28.4,20.92Z"/>
+            <path fill="currentColor" d="M254.11,22.93v39.57c0,6.22,5.04,11.46,11.25,11.28,7.26-.21,12.4-5.63,12.4-14.02V22.93h16.64v63.22h-15.92v-8.91h-.24c-3.92,6.77-10.34,10.58-19.25,10.58-13.67,0-21.51-8.56-21.51-22.82V22.93h16.64Z"/>
+            <path fill="currentColor" d="M334.32.83v85.33h-16.64V.83h16.64Z"/>
+            <path fill="currentColor" d="M408.71,74.39c0,6.18,1.31,8.32,3.68,9.27v2.49h-17.94c-.83-2.49-1.43-4.75-1.54-7.49-6.06,6.54-12.36,9.15-20.44,9.15-11.53,0-19.25-7.13-19.25-18.42,0-8.2,2.97-17.94,19.85-20.44l11.88-1.78c6.18-.95,7.49-2.14,7.49-5.35,0-4.4-2.73-7.25-10.93-7.25-6.18,0-9.63,2.73-10.22,8.8h-16.04c1.31-13.31,7.61-22.1,27.81-22.1,16.28,0,25.67,6.89,25.67,17.83v35.3ZM392.43,63.22v-7.84c-2.85,1.78-5.47,2.61-11.88,3.57-6.65.95-10.69,3.33-10.7,9.38,0,4.11,3.2,7.5,7.31,7.61,7.5.19,15.27-4.84,15.27-12.71Z"/>
+            <path fill="currentColor" d="M447.92,0v15.45h-16.64V0h16.64ZM447.92,22.93v63.22h-16.64V22.93h16.64Z"/>
+            <path fill="currentColor" d="M523.14,42.19h-16.28c-.95-6.3-4.64-8.32-11.29-8.32-6.3,0-10.1,1.54-10.1,6.18,0,4.28,8.08,5.7,16.04,7.25,18.03,3.4,23.37,9.56,23.53,18.27.2,11.16-8.57,20.41-19.66,21.74-23.57,2.82-38.45-6.01-38.45-21.34h17.11c0,5.11,3.09,9.27,13.67,9.27,6.65,0,10.7-2.73,10.7-6.54,0-4.16-5.58-5.58-17.11-7.72-14.74-2.61-22.1-8.2-22.1-18.54,0-12.48,9.27-21.15,25.55-21.15,19.01,0,27.69,8.08,28.4,20.92Z"/>
+            <path fill="currentColor" d="M65.98,86.16h0s-18.12,0-18.12,0h0c-.16-9.76-8.12-17.59-17.88-17.59h-10.92l-.29,17.59H0V.83h0c10.76,0,19.49,8.73,19.49,19.49v14.64s5.71,2.09,5.71,2.09c11.38,4.15,21.64,11.07,29.26,20.48,4.42,5.45,7.74,11.22,9.58,17.62,1.14,3.97,1.94,7.85,1.94,11.02ZM19.49,36.64v17.19h12.35c1.55,0,2.18-2,.91-2.89l-13.26-14.3Z"/>
+          </svg>
+        </h1>
+        <p class="hero-tagline">Comodidad para tu hogar</p>
+      </div>
+
+      <div class="hero-row">
+        <div class="hero-copy">
+          <p class="hero-desc">
+            Muebles tapizados y de madera hechos para acompañar tu día a día.
+            Diseñamos cada pieza con materiales seleccionados y acabados
+            pensados para durar, desde el concepto hasta el último detalle.
+            Combinamos maderas nobles y tapizados suaves en piezas que se
+            adaptan a cualquier espacio, para que encuentres el mueble
+            ideal para tu hogar.
+          </p>
+          <p class="hero-desc-short">
+            Muebles tapizados y de madera hechos para acompañar tu día a día.
+          </p>
+        </div>
+
+        <a class="catalog-peek" href="#catalogo">
+          <div class="catalog-peek-frame">
+            <div class="catalog-peek-media">
+              <img src="assets/catalog_peek.jpg" alt="Comedor 4 puestos expandible">
+              <span class="catalog-peek-arrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 17 17 7"></path>
+                  <path d="M9 7h8v8"></path>
+                </svg>
+              </span>
+            </div>
+            <span class="catalog-peek-caption">Ver catálogo</span>
+          </div>
+        </a>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="quequieres">
+    <div class="wrap">
+      <h2 class="quequieres-title reveal">¿Qué buscas el día de hoy?</h2>
+      <div class="quequieres-grid">
+        <div class="quequieres-card reveal" data-category="comedores">
+          <img src="assets/qh_comedores.jpg" alt="Comedores" loading="lazy">
+          <span class="quequieres-card-label">comedores</span>
+        </div>
+        <div class="quequieres-card reveal reveal-delay-1" data-category="salas">
+          <img src="assets/qh_salas.jpg" alt="Salas y sofás" loading="lazy">
+          <span class="quequieres-card-label">salas &amp; sofás</span>
+        </div>
+        <div class="quequieres-card reveal reveal-delay-2" data-category="alcobas">
+          <img src="assets/qh_alcobas.jpg" alt="Alcobas" loading="lazy">
+          <span class="quequieres-card-label">alcobas</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="nosotros" id="nosotros">
+
+    <div class="nosotros-fade"></div>
+
+    <div class="nosotros-intro">
+      <div class="nosotros-intro-blob-wrap">
+        <img class="nosotros-intro-blob" src="assets/nosotrosbola.svg" alt="" aria-hidden="true" width="1500" height="1500" loading="lazy" decoding="async">
+      </div>
+      <h2 class="nosotros-intro-title reveal">Nosotros</h2>
+    </div>
+
+    <div class="wrap nosotros-lead reveal">
+      <p>Ansulais nació del oficio de un ebanista dedicado a la <strong>fabricación de muebles</strong>, que sentó las bases de lo que somos hoy.</p>
+    </div>
+
+    <div class="wrap">
+      <div class="nosotros-card reveal">
+        <div class="nosotros-card-inner">
+          <div class="nosotros-card-media">
+            <img src="assets/nosotros_lijado.jpg" alt="Proceso de lijado de una mesa" loading="lazy">
+          </div>
+          <div class="nosotros-card-text">
+            <p>Somos una <strong>empresa familiar</strong>, fabricantes ante todo, y eso significa que cada mueble que sale de nuestras manos lleva más de tres décadas de experiencia y cuidado en cada detalle.</p>
+          </div>
+        </div>
+        <div class="nosotros-card-stats">
+          <div class="nosotros-card-stat">
+            <span class="nosotros-card-stat-number"><span class="symbol">+</span>30</span>
+            <span class="nosotros-card-stat-label">Años de experiencia</span>
+          </div>
+          <div class="nosotros-card-stat">
+            <span class="nosotros-card-stat-number"><span class="symbol">+</span>1000</span>
+            <span class="nosotros-card-stat-label">Familias que confiaron en nosotros</span>
+          </div>
+          <div class="nosotros-card-stat">
+            <span class="nosotros-card-stat-number"><span class="symbol">%</span>100</span>
+            <span class="nosotros-card-stat-label">Hecho a mano</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nosotros-video-feature reveal">
+      <video id="deliveryVideo" class="nosotros-video-feature-media" autoplay muted loop playsinline poster="assets/nosotros_entrega_poster.jpg">
+        <source src="assets/nosotros_entrega.mp4" type="video/mp4">
+      </video>
+      <div class="nosotros-video-feature-overlay"></div>
+      <p class="nosotros-video-feature-text"><strong>Nuestro compromiso no termina en la fábrica:</strong> entregamos e instalamos cada mueble en tu hogar.</p>
+    </div>
+
+    <div class="nosotros-cta">
+      <a class="nosotros-cta-item nosotros-cta-catalogo reveal" href="#catalogo">Ver catálogo</a>
+      <a class="nosotros-cta-item nosotros-cta-contacto reveal reveal-delay-1" href="https://wa.me/message/ISVNRLUQCE27G1" target="_blank" rel="noopener noreferrer">Contáctanos</a>
+    </div>
+
+  </section>
+
+  <footer class="site-footer">
+    <div class="wrap footer-top">
+      <div class="footer-brand">
+        <span class="footer-logo-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340.36 440.13" aria-hidden="true">
+            <path fill="currentColor" d="M340.36,440.13h0s-93.46,0-93.46,0h0c-.83-50.35-41.89-90.73-92.24-90.73h-56.31l-1.49,90.73H0V0h0c55.52,0,100.52,45.01,100.51,100.52v75.5s29.48,10.76,29.48,10.76c58.68,21.41,111.61,57.1,150.95,105.62,22.8,28.12,39.91,57.88,49.43,90.9,5.9,20.47,9.99,40.51,9.99,56.83ZM100.52,184.7v88.69h63.7c8.02,0,11.27-10.33,4.69-14.92l-68.39-73.77Z"/>
+          </svg>
+        </span>
+        <p class="footer-tagline">Muebles tapizados y de madera hechos para acompañar tu día a día.</p>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M2 6C2 3.79086 3.79086 2 6 2H18C20.2091 2 22 3.79086 22 6V18C22 20.2091 20.2091 22 18 22H6C3.79086 22 2 20.2091 2 18V6ZM6 4C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20H12V13H11C10.4477 13 10 12.5523 10 12C10 11.4477 10.4477 11 11 11H12V9.5C12 7.567 13.567 6 15.5 6H16.1C16.6523 6 17.1 6.44772 17.1 7C17.1 7.55228 16.6523 8 16.1 8H15.5C14.6716 8 14 8.67157 14 9.5V11H16.1C16.6523 11 17.1 11.4477 17.1 12C17.1 12.5523 16.6523 13 16.1 13H14V20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4H6Z" fill="currentColor"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor" d="M22.3,8.4c-0.8,0-1.4,0.6-1.4,1.4c0,0.8,0.6,1.4,1.4,1.4c0.8,0,1.4-0.6,1.4-1.4C23.7,9,23.1,8.4,22.3,8.4z"/>
+              <path fill="currentColor" d="M16,10.2c-3.3,0-5.9,2.7-5.9,5.9s2.7,5.9,5.9,5.9s5.9-2.7,5.9-5.9S19.3,10.2,16,10.2z M16,19.9c-2.1,0-3.8-1.7-3.8-3.8   c0-2.1,1.7-3.8,3.8-3.8c2.1,0,3.8,1.7,3.8,3.8C19.8,18.2,18.1,19.9,16,19.9z"/>
+              <path fill="currentColor" d="M20.8,4h-9.5C7.2,4,4,7.2,4,11.2v9.5c0,4,3.2,7.2,7.2,7.2h9.5c4,0,7.2-3.2,7.2-7.2v-9.5C28,7.2,24.8,4,20.8,4z M25.7,20.8   c0,2.7-2.2,5-5,5h-9.5c-2.7,0-5-2.2-5-5v-9.5c0-2.7,2.2-5,5-5h9.5c2.7,0,5,2.2,5,5V20.8z"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21 8V16C21 18.7614 18.7614 21 16 21H8C5.23858 21 3 18.7614 3 16V8C3 5.23858 5.23858 3 8 3H16C18.7614 3 21 5.23858 21 8Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M10 12C8.34315 12 7 13.3431 7 15C7 16.6569 8.34315 18 10 18C11.6569 18 13 16.6569 13 15V6C13.3333 7 14.6 9 17 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Enlaces</h4>
+        <a href="#inicio">Inicio</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#catalogo">Catálogo</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Visítanos</h4>
+        <p>Crr 51 # 76-32<br>Bogotá D.C.</p>
+        <a href="https://wa.me/message/ISVNRLUQCE27G1" target="_blank" rel="noopener noreferrer">Escríbenos por WhatsApp</a>
+      </div>
+    </div>
+
+    <div class="wrap footer-bottom">
+      <p>&copy; 2026 Ansulais. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    var deliveryVideo = document.getElementById('deliveryVideo');
+    if (deliveryVideo) {
+      deliveryVideo.playbackRate = 0.6;
+    }
+
+    var menuToggle = document.getElementById('menuToggle');
+    var navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', function () {
+      var isOpen = navLinks.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', isOpen);
+    });
+    navLinks.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        navLinks.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    var revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(function (el) {
+      revealObserver.observe(el);
+    });
+  </script>
+
+</body>
+</html>

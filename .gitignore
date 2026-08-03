@@ -1,0 +1,8 @@
+.claude/
+node_modules/
+.DS_Store
+Thumbs.db
+
+# Excluded: too large for GitHub (100MB hard limit / keeps repo light)
+SALAS Y SOFÁS/ANSULAIS.pdf
+nosotros/IMG_5901.MOV
