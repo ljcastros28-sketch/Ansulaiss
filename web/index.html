@@ -503,7 +503,7 @@
     text-align: center;
     color: #fff;
     mix-blend-mode: difference;
-    font-size: clamp(6rem, 21vw, 26rem);
+    font-size: clamp(3.5rem, 21vw, 26rem);
     font-weight: 600;
     letter-spacing: -0.03em;
   }
@@ -1143,7 +1143,7 @@
     </div>
 
     <div class="nosotros-video-feature reveal">
-      <video id="deliveryVideo" class="nosotros-video-feature-media" autoplay muted loop playsinline poster="assets/nosotros_entrega_poster.jpg">
+      <video id="deliveryVideo" class="nosotros-video-feature-media" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/nosotros_entrega_poster.jpg">
         <source src="assets/nosotros_entrega.mp4" type="video/mp4">
       </video>
       <div class="nosotros-video-feature-overlay"></div>
@@ -1211,7 +1211,26 @@
   <script>
     var deliveryVideo = document.getElementById('deliveryVideo');
     if (deliveryVideo) {
-      deliveryVideo.playbackRate = 0.6;
+      var applyPlaybackRate = function () {
+        try { deliveryVideo.playbackRate = 0.6; } catch (e) {}
+      };
+      applyPlaybackRate();
+      deliveryVideo.addEventListener('loadedmetadata', applyPlaybackRate);
+
+      var tryPlayVideo = function () {
+        var playPromise = deliveryVideo.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+          playPromise.catch(function () {});
+        }
+      };
+      tryPlayVideo();
+      deliveryVideo.addEventListener('canplay', tryPlayVideo);
+
+      var resumeVideoOnInteraction = function () {
+        if (deliveryVideo.paused) tryPlayVideo();
+      };
+      document.addEventListener('touchstart', resumeVideoOnInteraction, { once: true, passive: true });
+      document.addEventListener('click', resumeVideoOnInteraction, { once: true });
     }
 
     var menuToggle = document.getElementById('menuToggle');
