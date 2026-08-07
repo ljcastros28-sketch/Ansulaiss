@@ -24,11 +24,11 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   html, body {
-    height: 100%;
     overflow-x: hidden;
   }
 
   body {
+    padding-top: 82px;
     background: var(--maroon-deep);
     color: var(--ink);
     font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, 'Segoe UI', sans-serif;
@@ -46,6 +46,12 @@
 
   /* ---------- NAV ---------- */
   header.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--maroon-deep);
     padding: 18px 0;
   }
 
@@ -782,7 +788,6 @@
   @media (max-width: 900px) {
     .wrap { padding: 0 24px; }
 
-    header.nav { position: relative; z-index: 10; }
 
     .nav-inner {
       display: grid;
