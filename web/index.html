@@ -369,87 +369,6 @@
     text-align: center;
   }
 
-  /* ---------- QUE BUSCAS ---------- */
-  .quequieres {
-    position: relative;
-    z-index: 3;
-    background: var(--maroon-deep);
-    padding: 90px 0 100px;
-    scroll-margin-top: 82px;
-  }
-
-  .quequieres-title {
-    color: var(--beige-light);
-    font-size: clamp(2.4rem, 5.5vw, 4rem);
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    line-height: 1.15;
-    max-width: 700px;
-    margin-bottom: 48px;
-    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-  }
-
-  .quequieres-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-
-  .quequieres-card {
-    position: relative;
-    aspect-ratio: 3 / 4;
-    border-radius: 20px;
-    overflow: hidden;
-    display: block;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow:
-      inset 0 0 30px 4px rgba(0, 0, 0, 0.22),
-      inset 0 0 0 1px rgba(0, 0, 0, 0.15);
-  }
-
-  .quequieres-card:hover {
-    transform: translateY(-4px);
-    box-shadow:
-      inset 0 0 34px 5px rgba(0, 0, 0, 0.26),
-      inset 0 0 0 1px rgba(0, 0, 0, 0.18);
-  }
-
-  .quequieres-card img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-  }
-
-  .quequieres-card:hover img {
-    transform: scale(1.06);
-  }
-
-  .quequieres-card::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0.02) 55%, rgba(0, 0, 0, 0.12) 100%);
-  }
-
-  .quequieres-card-label {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: var(--beige-light);
-    font-size: clamp(1.6rem, 2.8vw, 2.2rem);
-    font-weight: 400;
-    line-height: 1.2;
-    text-transform: lowercase;
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.45);
-  }
-
   /* ---------- NOSOTROS ---------- */
   .nosotros {
     position: relative;
@@ -905,26 +824,6 @@
       margin-top: 8px;
     }
 
-    .quequieres { padding: 56px 0 60px; }
-
-    .quequieres-title {
-      font-size: 2.1rem;
-      margin-bottom: 26px;
-    }
-
-    .quequieres-grid {
-      grid-template-columns: 1fr;
-      gap: 14px;
-    }
-
-    .quequieres-card {
-      aspect-ratio: 16 / 10;
-    }
-
-    .quequieres-card-label {
-      font-size: 1.15rem;
-    }
-
     .nosotros-fade {
       height: 220px;
     }
@@ -1016,11 +915,11 @@
       <nav class="nav-links" id="navLinks">
         <a href="#inicio" class="is-featured nav-home-only">Inicio</a>
         <a href="#nosotros">Nosotros</a>
-        <a href="#catalogo">Catálogo</a>
+        <a href="catalogo.html">Catálogo</a>
         <a href="#contacto">Contacto</a>
       </nav>
 
-      <form class="nav-search" role="search" action="#catalogo">
+      <form class="nav-search" role="search" action="catalogo.html">
         <input type="text" name="q" placeholder="Buscar..." aria-label="Buscar productos">
         <button type="submit" aria-label="Buscar">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -1077,7 +976,7 @@
           </p>
         </div>
 
-        <a class="catalog-peek" href="#catalogo">
+        <a class="catalog-peek" href="catalogo.html">
           <div class="catalog-peek-frame">
             <div class="catalog-peek-media">
               <img src="assets/catalog_peek.jpg" alt="Comedor 4 puestos expandible">
@@ -1095,26 +994,6 @@
 
     </div>
 
-  </section>
-
-  <section class="quequieres" id="catalogo">
-    <div class="wrap">
-      <h2 class="quequieres-title reveal">¿Qué buscas el día de hoy?</h2>
-      <div class="quequieres-grid">
-        <div class="quequieres-card reveal" data-category="comedores">
-          <img src="assets/qh_comedores.jpg" alt="Comedores" loading="lazy">
-          <span class="quequieres-card-label">comedores</span>
-        </div>
-        <a class="quequieres-card reveal reveal-delay-1" href="catalogo-salas.html" data-category="salas">
-          <img src="assets/qh_salas.jpg" alt="Salas y sofás" loading="lazy">
-          <span class="quequieres-card-label">salas &amp; sofás</span>
-        </a>
-        <div class="quequieres-card reveal reveal-delay-2" data-category="alcobas">
-          <img src="assets/qh_alcobas.jpg" alt="Alcobas" loading="lazy">
-          <span class="quequieres-card-label">alcobas</span>
-        </div>
-      </div>
-    </div>
   </section>
 
   <section class="nosotros" id="nosotros">
@@ -1168,7 +1047,7 @@
     </div>
 
     <div class="nosotros-cta">
-      <a class="nosotros-cta-item nosotros-cta-catalogo reveal" href="#catalogo">Ver catálogo</a>
+      <a class="nosotros-cta-item nosotros-cta-catalogo reveal" href="catalogo.html">Ver catálogo</a>
       <a class="nosotros-cta-item nosotros-cta-contacto reveal reveal-delay-1" href="https://wa.me/message/ISVNRLUQCE27G1" target="_blank" rel="noopener noreferrer">Contáctanos</a>
     </div>
 
@@ -1209,7 +1088,7 @@
         <h4>Enlaces</h4>
         <a href="#inicio">Inicio</a>
         <a href="#nosotros">Nosotros</a>
-        <a href="#catalogo">Catálogo</a>
+        <a href="catalogo.html">Catálogo</a>
         <a href="#contacto">Contacto</a>
       </div>
 

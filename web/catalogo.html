@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catálogo — Ansulais</title>
+<link rel="icon" type="image/svg+xml" href="assets/logosimplificado.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --beige: #f8f2de;
+    --beige-tint: #fdfbf3;
+    --beige-light: #fdf8ec;
+    --maroon: #1a1a1a;
+    --maroon-deep: #0f0f0f;
+    --maroon-hover: #2b2b2b;
+    --navy: #0c1a29;
+    --wood: #8a5a35;
+    --ink: #241a12;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    overflow-x: hidden;
+  }
+
+  body {
+    padding-top: 82px;
+    background: var(--maroon-deep);
+    color: var(--ink);
+    font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  a { text-decoration: none; color: inherit; }
+  button { font-family: inherit; border: none; background: none; cursor: pointer; }
+
+  .wrap {
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+
+  /* ---------- NAV ---------- */
+  header.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--maroon-deep);
+    padding: 18px 0;
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--beige-light);
+  }
+
+  .logo-icon {
+    display: block;
+    height: 34px;
+    width: auto;
+    flex-shrink: 0;
+  }
+
+  .logo-icon svg {
+    display: block;
+    height: 100%;
+    width: auto;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .nav-links a {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--beige-light);
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+  }
+
+  .nav-links a:hover {
+    opacity: 1;
+  }
+
+  .nav-links a.is-featured {
+    opacity: 1;
+    font-weight: 700;
+    color: var(--beige-light);
+    position: relative;
+    padding-bottom: 2px;
+  }
+
+  .nav-links a.is-featured::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    height: 2px;
+    background: var(--beige-light);
+    border-radius: 2px;
+  }
+
+  .nav-search {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+    background: rgba(253, 248, 236, 0.08);
+    border: 1px solid rgba(253, 248, 236, 0.18);
+    border-radius: 100px;
+    padding: 6px 6px 6px 16px;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .nav-search:focus-within {
+    border-color: rgba(253, 248, 236, 0.4);
+    background: rgba(253, 248, 236, 0.12);
+  }
+
+  .nav-search input {
+    width: 140px;
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--beige-light);
+    font-family: inherit;
+    font-size: 14px;
+  }
+
+  .nav-search input::placeholder {
+    color: var(--beige-light);
+    opacity: 0.5;
+  }
+
+  .nav-search button {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--beige-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s ease;
+  }
+
+  .nav-search button:hover {
+    background: var(--beige);
+  }
+
+  .nav-search button svg {
+    width: 15px;
+    height: 15px;
+    color: var(--maroon-deep);
+  }
+
+  .whatsapp-float {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 50;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: var(--beige-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.45);
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .whatsapp-float:hover {
+    background: var(--beige);
+    transform: translateY(-3px);
+  }
+
+  .whatsapp-float svg {
+    width: 28px;
+    height: 28px;
+    fill: var(--maroon-deep);
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+
+  /* ---------- QUE BUSCAS (picker) ---------- */
+  .quequieres {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--maroon-deep);
+    padding: 64px 0;
+  }
+
+  .quequieres-title {
+    color: var(--beige-light);
+    font-size: clamp(2.4rem, 5.5vw, 4rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    max-width: 700px;
+    margin-bottom: 48px;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  }
+
+  .quequieres-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .quequieres-card {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    border-radius: 20px;
+    overflow: hidden;
+    display: block;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow:
+      inset 0 0 30px 4px rgba(0, 0, 0, 0.22),
+      inset 0 0 0 1px rgba(0, 0, 0, 0.15);
+  }
+
+  .quequieres-card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      inset 0 0 34px 5px rgba(0, 0, 0, 0.26),
+      inset 0 0 0 1px rgba(0, 0, 0, 0.18);
+  }
+
+  .quequieres-card img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .quequieres-card:hover img {
+    transform: scale(1.06);
+  }
+
+  .quequieres-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0.02) 55%, rgba(0, 0, 0, 0.12) 100%);
+  }
+
+  .quequieres-card-label {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--beige-light);
+    font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+    font-weight: 400;
+    line-height: 1.2;
+    text-transform: lowercase;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.45);
+  }
+
+  .quequieres-card-soon {
+    margin-top: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    opacity: 0.65;
+  }
+
+  /* ---------- FOOTER ---------- */
+  .site-footer {
+    position: relative;
+    z-index: 3;
+    background: var(--maroon-deep);
+    color: var(--beige-light);
+    padding-top: 80px;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 60px;
+    padding-bottom: 60px;
+  }
+
+  .footer-logo-icon {
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 20px;
+  }
+
+  .footer-logo-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .footer-tagline {
+    font-size: 15px;
+    line-height: 1.5;
+    opacity: 0.75;
+    max-width: 320px;
+    margin-bottom: 24px;
+  }
+
+  .social-links {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    color: var(--beige-light);
+  }
+
+  .social-links a {
+    display: flex;
+    width: 34px;
+    height: 34px;
+    opacity: 0.85;
+    transition: opacity 0.2s ease;
+  }
+
+  .social-links a:hover { opacity: 1; }
+
+  .social-links svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .footer-col h4 {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    opacity: 0.55;
+    margin-bottom: 18px;
+  }
+
+  .footer-col a,
+  .footer-col p {
+    display: block;
+    color: var(--beige-light);
+    opacity: 0.8;
+    font-size: 15px;
+    line-height: 1.9;
+    transition: opacity 0.2s ease;
+  }
+
+  .footer-col a:hover { opacity: 1; }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(253, 248, 236, 0.12);
+    padding: 24px 0 32px;
+    text-align: center;
+    font-size: 13px;
+    opacity: 0.5;
+  }
+
+  /* ---------- SCROLL REVEAL ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 0.8s cubic-bezier(.22,.61,.36,1), transform 0.8s cubic-bezier(.22,.61,.36,1);
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-delay-1 { transition-delay: 0.12s; }
+  .reveal-delay-2 { transition-delay: 0.24s; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 900px) {
+    .wrap { padding: 0 24px; }
+
+    .nav-inner {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+    }
+
+    .logo { justify-self: center; }
+
+    .menu-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      justify-self: start;
+      width: 34px;
+      height: 34px;
+      flex-shrink: 0;
+    }
+
+    .menu-toggle svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--beige-light);
+    }
+
+    .nav-search {
+      justify-self: end;
+      padding: 6px;
+      border: none;
+      background: none;
+    }
+
+    .nav-search input { display: none; }
+
+    .whatsapp-float {
+      right: 16px;
+      bottom: 16px;
+      width: 52px;
+      height: 52px;
+    }
+
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 22px;
+      background: var(--maroon-deep);
+      padding: 26px 24px 30px;
+      border-top: 1px solid rgba(253, 248, 236, 0.12);
+    }
+
+    .nav-links.open { display: flex; }
+
+    .nav-links a { font-size: 17px; }
+
+    .quequieres { padding: 44px 0 52px; }
+
+    .quequieres-title {
+      font-size: 2.1rem;
+      margin-bottom: 26px;
+    }
+
+    .quequieres-grid {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .quequieres-card {
+      aspect-ratio: 16 / 10;
+    }
+
+    .quequieres-card-label {
+      font-size: 1.15rem;
+    }
+
+    .site-footer {
+      padding-top: 56px;
+    }
+
+    .footer-top {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      padding-bottom: 40px;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <button class="menu-toggle" id="menuToggle" aria-label="Menú" aria-expanded="false" aria-controls="navLinks">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M3 6h18"></path>
+          <path d="M3 12h18"></path>
+          <path d="M3 18h18"></path>
+        </svg>
+      </button>
+
+      <a class="logo" href="index.html" aria-label="Ir al inicio">
+        <span class="logo-icon">
+          <svg id="logoIconSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340.36 440.13">
+            <path fill="currentColor" d="M340.36,440.13h0s-93.46,0-93.46,0h0c-.83-50.35-41.89-90.73-92.24-90.73h-56.31l-1.49,90.73H0V0h0c55.52,0,100.52,45.01,100.51,100.52v75.5s29.48,10.76,29.48,10.76c58.68,21.41,111.61,57.1,150.95,105.62,22.8,28.12,39.91,57.88,49.43,90.9,5.9,20.47,9.99,40.51,9.99,56.83ZM100.52,184.7v88.69h63.7c8.02,0,11.27-10.33,4.69-14.92l-68.39-73.77Z"/>
+          </svg>
+        </span>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html#inicio">Inicio</a>
+        <a href="index.html#nosotros">Nosotros</a>
+        <a href="catalogo.html" class="is-featured">Catálogo</a>
+        <a href="index.html#contacto">Contacto</a>
+      </nav>
+
+      <form class="nav-search" role="search" action="catalogo.html">
+        <input type="text" name="q" placeholder="Buscar..." aria-label="Buscar productos">
+        <button type="submit" aria-label="Buscar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </header>
+
+  <a class="whatsapp-float" href="https://wa.me/message/ISVNRLUQCE27G1" target="_blank" rel="noopener noreferrer" aria-label="Escríbenos por WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 2C6.477 2 2 6.477 2 12c0 1.75.457 3.437 1.323 4.927L2 22l5.223-1.302A9.94 9.94 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.09c-1.56 0-3.06-.42-4.36-1.2l-.313-.185-3.09.77.79-3.06-.196-.313A7.94 7.94 0 0 1 4.09 12c0-4.36 3.55-7.91 7.91-7.91 4.36 0 7.91 3.55 7.91 7.91 0 4.36-3.55 7.91-7.91 7.91z"></path>
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"></path>
+    </svg>
+  </a>
+
+  <section class="quequieres">
+    <div class="wrap">
+      <h2 class="quequieres-title reveal">¿Qué buscas el día de hoy?</h2>
+      <div class="quequieres-grid">
+        <div class="quequieres-card reveal" data-category="comedores">
+          <img src="assets/qh_comedores.jpg" alt="Comedores" loading="lazy">
+          <span class="quequieres-card-label">comedores<span class="quequieres-card-soon">próximamente</span></span>
+        </div>
+        <a class="quequieres-card reveal reveal-delay-1" href="catalogo-salas.html" data-category="salas">
+          <img src="assets/qh_salas.jpg" alt="Salas y sofás" loading="lazy">
+          <span class="quequieres-card-label">salas &amp; sofás</span>
+        </a>
+        <div class="quequieres-card reveal reveal-delay-2" data-category="alcobas">
+          <img src="assets/qh_alcobas.jpg" alt="Alcobas" loading="lazy">
+          <span class="quequieres-card-label">alcobas<span class="quequieres-card-soon">próximamente</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wrap footer-top">
+      <div class="footer-brand">
+        <span class="footer-logo-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340.36 440.13" aria-hidden="true">
+            <path fill="currentColor" d="M340.36,440.13h0s-93.46,0-93.46,0h0c-.83-50.35-41.89-90.73-92.24-90.73h-56.31l-1.49,90.73H0V0h0c55.52,0,100.52,45.01,100.51,100.52v75.5s29.48,10.76,29.48,10.76c58.68,21.41,111.61,57.1,150.95,105.62,22.8,28.12,39.91,57.88,49.43,90.9,5.9,20.47,9.99,40.51,9.99,56.83ZM100.52,184.7v88.69h63.7c8.02,0,11.27-10.33,4.69-14.92l-68.39-73.77Z"/>
+          </svg>
+        </span>
+        <p class="footer-tagline">Muebles tapizados y de madera hechos para acompañar tu día a día.</p>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M2 6C2 3.79086 3.79086 2 6 2H18C20.2091 2 22 3.79086 22 6V18C22 20.2091 20.2091 22 18 22H6C3.79086 22 2 20.2091 2 18V6ZM6 4C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20H12V13H11C10.4477 13 10 12.5523 10 12C10 11.4477 10.4477 11 11 11H12V9.5C12 7.567 13.567 6 15.5 6H16.1C16.6523 6 17.1 6.44772 17.1 7C17.1 7.55228 16.6523 8 16.1 8H15.5C14.6716 8 14 8.67157 14 9.5V11H16.1C16.6523 11 17.1 11.4477 17.1 12C17.1 12.5523 16.6523 13 16.1 13H14V20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4H6Z" fill="currentColor"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor" d="M22.3,8.4c-0.8,0-1.4,0.6-1.4,1.4c0,0.8,0.6,1.4,1.4,1.4c0.8,0,1.4-0.6,1.4-1.4C23.7,9,23.1,8.4,22.3,8.4z"/>
+              <path fill="currentColor" d="M16,10.2c-3.3,0-5.9,2.7-5.9,5.9s2.7,5.9,5.9,5.9s5.9-2.7,5.9-5.9S19.3,10.2,16,10.2z M16,19.9c-2.1,0-3.8-1.7-3.8-3.8   c0-2.1,1.7-3.8,3.8-3.8c2.1,0,3.8,1.7,3.8,3.8C19.8,18.2,18.1,19.9,16,19.9z"/>
+              <path fill="currentColor" d="M20.8,4h-9.5C7.2,4,4,7.2,4,11.2v9.5c0,4,3.2,7.2,7.2,7.2h9.5c4,0,7.2-3.2,7.2-7.2v-9.5C28,7.2,24.8,4,20.8,4z M25.7,20.8   c0,2.7-2.2,5-5,5h-9.5c-2.7,0-5-2.2-5-5v-9.5c0-2.7,2.2-5,5-5h9.5c2.7,0,5,2.2,5,5V20.8z"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21 8V16C21 18.7614 18.7614 21 16 21H8C5.23858 21 3 18.7614 3 16V8C3 5.23858 5.23858 3 8 3H16C18.7614 3 21 5.23858 21 8Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M10 12C8.34315 12 7 13.3431 7 15C7 16.6569 8.34315 18 10 18C11.6569 18 13 16.6569 13 15V6C13.3333 7 14.6 9 17 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Enlaces</h4>
+        <a href="index.html#inicio">Inicio</a>
+        <a href="index.html#nosotros">Nosotros</a>
+        <a href="catalogo.html">Catálogo</a>
+        <a href="index.html#contacto">Contacto</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Visítanos</h4>
+        <p>Crr 51 # 76-32<br>Bogotá D.C.</p>
+        <a href="https://wa.me/message/ISVNRLUQCE27G1" target="_blank" rel="noopener noreferrer">Escríbenos por WhatsApp</a>
+      </div>
+    </div>
+
+    <div class="wrap footer-bottom">
+      <p>&copy; 2026 Ansulais. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    var menuToggle = document.getElementById('menuToggle');
+    var navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', function () {
+      var isOpen = navLinks.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', isOpen);
+    });
+    navLinks.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        navLinks.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    var revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(function (el) {
+      revealObserver.observe(el);
+    });
+  </script>
+
+</body>
+</html>
