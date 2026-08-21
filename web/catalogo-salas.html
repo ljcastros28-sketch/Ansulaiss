@@ -857,8 +857,18 @@
     function twoLineTitle(name) {
       var words = name.split(" ");
       if (words.length < 2) return name;
-      var mid = Math.ceil(words.length / 2);
-      return words.slice(0, mid).join(" ") + '<br class="title-break">' + words.slice(mid).join(" ");
+      var bestSplit = 1;
+      var bestDiff = Infinity;
+      for (var i = 1; i < words.length; i++) {
+        var line1 = words.slice(0, i).join(" ");
+        var line2 = words.slice(i).join(" ");
+        var diff = Math.abs(line1.length - line2.length);
+        if (diff < bestDiff) {
+          bestDiff = diff;
+          bestSplit = i;
+        }
+      }
+      return words.slice(0, bestSplit).join(" ") + '<br class="title-break">' + words.slice(bestSplit).join(" ");
     }
 
     var grid = document.getElementById("catalogGrid");
