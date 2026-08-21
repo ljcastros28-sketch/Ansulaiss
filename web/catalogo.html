@@ -218,24 +218,24 @@
   }
 
   .quequieres .wrap {
-    max-width: 1600px;
+    max-width: min(95vw, 2000px);
   }
 
   .quequieres-title {
     color: var(--beige-light);
-    font-size: clamp(2.4rem, 5.5vw, 4.6rem);
+    font-size: clamp(2.6rem, 6.5vw, 5.6rem);
     font-weight: 700;
     letter-spacing: -0.01em;
-    line-height: 1.15;
-    max-width: 800px;
-    margin-bottom: 56px;
+    line-height: 1.12;
+    max-width: 950px;
+    margin-bottom: 64px;
     text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
   }
 
   .quequieres-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
+    gap: clamp(24px, 3vw, 48px);
   }
 
   .quequieres-card {
@@ -286,9 +286,9 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 0 20px;
+    padding: 0 28px;
     color: var(--beige-light);
-    font-size: clamp(1.6rem, 2.8vw, 2.6rem);
+    font-size: clamp(1.8rem, 3.6vw, 3.2rem);
     font-weight: 400;
     line-height: 1.25;
     text-transform: lowercase;
