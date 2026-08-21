@@ -230,6 +230,14 @@
     opacity: 0.62;
   }
 
+  .hero-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 55%, var(--maroon-deep) 100%);
+    pointer-events: none;
+  }
+
   .hero-logo-wrap {
     position: relative;
     z-index: 1;
