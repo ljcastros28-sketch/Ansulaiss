@@ -1150,6 +1150,29 @@
       });
     });
 
+    var scrollSpySections = Array.prototype.map.call(
+      navLinks.querySelectorAll('a[href^="#"]'),
+      function (link) {
+        return { link: link, section: document.getElementById(link.getAttribute('href').slice(1)) };
+      }
+    ).filter(function (item) { return item.section; });
+
+    function updateActiveNavLink() {
+      var scrollPos = window.scrollY + 110;
+      var current = scrollSpySections[0];
+      scrollSpySections.forEach(function (item) {
+        if (item.section.offsetTop <= scrollPos) current = item;
+      });
+      scrollSpySections.forEach(function (item) {
+        item.link.classList.toggle('is-featured', item === current);
+      });
+    }
+
+    if (scrollSpySections.length) {
+      window.addEventListener('scroll', updateActiveNavLink, { passive: true });
+      updateActiveNavLink();
+    }
+
     var revealObserver = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
