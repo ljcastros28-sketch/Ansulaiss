@@ -238,7 +238,47 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 26px;
-    padding: 36px 0 110px;
+    padding: 36px 0 60px;
+  }
+
+  /* ---------- CATALOG CTA ---------- */
+  .catalog-cta {
+    padding: 20px 0 90px;
+    text-align: center;
+  }
+
+  .catalog-cta-text {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--ink);
+    opacity: 0.75;
+    margin-bottom: 22px;
+  }
+
+  .catalog-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 28px;
+    border-radius: 100px;
+    background: var(--maroon);
+    color: var(--beige-light);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    box-shadow: 0 14px 30px -14px rgba(26, 26, 26, 0.35);
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  .catalog-cta-btn:hover {
+    background: var(--maroon-hover);
+    transform: translateY(-2px);
+  }
+
+  .catalog-cta-btn svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
   }
 
   .product-card {
@@ -631,8 +671,12 @@
     .catalog-grid {
       grid-template-columns: repeat(2, 1fr);
       gap: 16px;
-      padding: 24px 0 70px;
+      padding: 24px 0 40px;
     }
+
+    .catalog-cta { padding: 10px 0 60px; }
+    .catalog-cta-text { font-size: 16px; }
+    .catalog-cta-btn { width: 100%; justify-content: center; }
 
     .product-card-info { padding: 12px 14px 16px; }
     .product-card-info h3 { font-size: 14px; }
@@ -747,6 +791,19 @@
       </div>
     </div>
   </div>
+
+  <section class="catalog-cta">
+    <div class="wrap">
+      <p class="catalog-cta-text">¿No encuentras lo que buscas? Escríbenos y cuéntanos qué necesitas.</p>
+      <a class="catalog-cta-btn" href="https://wa.me/message/ISVNRLUQCE27G1" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+          <path d="M12 2C6.477 2 2 6.477 2 12c0 1.75.457 3.437 1.323 4.927L2 22l5.223-1.302A9.94 9.94 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.09c-1.56 0-3.06-.42-4.36-1.2l-.313-.185-3.09.77.79-3.06-.196-.313A7.94 7.94 0 0 1 4.09 12c0-4.36 3.55-7.91 7.91-7.91 4.36 0 7.91 3.55 7.91 7.91 0 4.36-3.55 7.91-7.91 7.91z"></path>
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"></path>
+        </svg>
+        Escríbenos por WhatsApp
+      </a>
+    </div>
+  </section>
 
   <footer class="site-footer">
     <div class="wrap footer-top">
