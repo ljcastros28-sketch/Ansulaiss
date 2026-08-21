@@ -554,6 +554,81 @@
     line-height: 1.35;
   }
 
+  .materiales {
+    margin: 0 0 110px;
+  }
+
+  .materiales-head {
+    margin: 0 0 40px;
+  }
+
+  .materiales-head h3 {
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    margin-bottom: 14px;
+  }
+
+  .materiales-head p {
+    font-size: clamp(1rem, 1.4vw, 1.15rem);
+    line-height: 1.5;
+    color: var(--ink);
+    opacity: 0.75;
+  }
+
+  .materiales-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .material-card {
+    background: #fff;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px -35px rgba(26, 26, 26, 0.3);
+  }
+
+  .material-card-media img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+  }
+
+  .material-card-body {
+    padding: 32px;
+  }
+
+  .material-card-body h4 {
+    font-size: clamp(1.4rem, 2vw, 1.8rem);
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+
+  .material-card-body p {
+    font-size: clamp(1rem, 1.3vw, 1.1rem);
+    line-height: 1.5;
+    color: var(--ink);
+    opacity: 0.8;
+  }
+
+  .material-card-body p strong {
+    color: var(--maroon);
+    font-weight: 700;
+    opacity: 1;
+  }
+
+  .materiales-note {
+    margin: 32px 0 0;
+    max-width: 620px;
+    font-size: 0.95rem;
+    color: var(--ink);
+    opacity: 0.6;
+  }
+
   .nosotros-video-feature {
     position: relative;
     display: flex;
@@ -882,6 +957,23 @@
       gap: 28px;
     }
 
+    .materiales {
+      margin: 0 0 60px;
+    }
+
+    .materiales-head {
+      margin-bottom: 28px;
+    }
+
+    .materiales-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .material-card-body {
+      padding: 24px;
+    }
+
     .nosotros-video-feature {
       height: 125vw;
     }
@@ -1056,6 +1148,36 @@
             <span class="nosotros-card-stat-label">Hecho a mano</span>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="materiales reveal">
+        <div class="materiales-head">
+          <h3>Elige la madera de tu mueble</h3>
+          <p>Fabricamos en dos maderas macizas de excelente acabado. Tú decides cuál se ajusta mejor a tu presupuesto y al uso que le darás a la pieza.</p>
+        </div>
+        <div class="materiales-grid">
+          <div class="material-card">
+            <div class="material-card-media">
+              <img src="assets/pino.jpg" alt="Árbol de pino" loading="lazy">
+            </div>
+            <div class="material-card-body">
+              <h4>Pino</h4>
+              <p>Una madera un poco más costosa, pero que le da <strong>mayor duración</strong> a la construcción de la pieza. Acabado excelente.</p>
+            </div>
+          </div>
+          <div class="material-card">
+            <div class="material-card-media">
+              <img src="assets/quercus-petraeaarbol.jpg" alt="Árbol de flor morado" loading="lazy">
+            </div>
+            <div class="material-card-body">
+              <h4>Flor morado</h4>
+              <p>Una alternativa <strong>más económica</strong> que el pino, sin renunciar a un acabado igual de excelente.</p>
+            </div>
+          </div>
+        </div>
+        <p class="materiales-note">Cuéntanos tu presupuesto y el uso que le darás al mueble: te asesoramos para escoger la madera ideal.</p>
       </div>
     </div>
 
