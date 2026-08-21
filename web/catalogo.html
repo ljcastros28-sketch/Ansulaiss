@@ -217,21 +217,25 @@
     padding: 64px 0;
   }
 
+  .quequieres .wrap {
+    max-width: 1600px;
+  }
+
   .quequieres-title {
     color: var(--beige-light);
-    font-size: clamp(2.4rem, 5.5vw, 4rem);
+    font-size: clamp(2.4rem, 5.5vw, 4.6rem);
     font-weight: 700;
     letter-spacing: -0.01em;
     line-height: 1.15;
-    max-width: 700px;
-    margin-bottom: 48px;
+    max-width: 800px;
+    margin-bottom: 56px;
     text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
   }
 
   .quequieres-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    gap: 32px;
   }
 
   .quequieres-card {
@@ -282,10 +286,11 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+    padding: 0 20px;
     color: var(--beige-light);
-    font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+    font-size: clamp(1.6rem, 2.8vw, 2.6rem);
     font-weight: 400;
-    line-height: 1.2;
+    line-height: 1.25;
     text-transform: lowercase;
     text-shadow: 0 2px 5px rgba(0, 0, 0, 0.45);
   }
@@ -485,6 +490,10 @@
       font-size: 1.15rem;
     }
 
+    .quequieres-card-break {
+      display: none;
+    }
+
     .site-footer {
       padding-top: 56px;
     }
@@ -553,7 +562,7 @@
         </div>
         <a class="quequieres-card reveal reveal-delay-1" href="catalogo-salas.html" data-category="salas">
           <img src="assets/qh_salas.jpg" alt="Salas y sofás" loading="lazy">
-          <span class="quequieres-card-label">salas &amp; sofás</span>
+          <span class="quequieres-card-label">salas &amp;<br class="quequieres-card-break">sofás</span>
         </a>
         <div class="quequieres-card reveal reveal-delay-2" data-category="alcobas">
           <img src="assets/qh_alcobas.jpg" alt="Alcobas" loading="lazy">
