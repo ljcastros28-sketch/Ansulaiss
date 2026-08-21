@@ -577,56 +577,48 @@
     opacity: 0.75;
   }
 
-  .materiales-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
-  }
-
-  .material-card {
-    background: #fff;
-    border-radius: 24px;
-    overflow: hidden;
+  .material-feature {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    background: var(--maroon-deep);
+    border-radius: 28px;
+    padding: 40px;
     box-shadow: 0 30px 60px -35px rgba(26, 26, 26, 0.3);
   }
 
-  .material-card-media img {
+  .material-feature-media {
+    flex: 0 0 440px;
+  }
+
+  .material-feature-media img {
     width: 100%;
     aspect-ratio: 4 / 3;
     object-fit: cover;
     display: block;
+    border-radius: 18px;
   }
 
-  .material-card-body {
-    padding: 32px;
+  .material-feature-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
 
-  .material-card-body h4 {
-    font-size: clamp(1.4rem, 2vw, 1.8rem);
-    font-weight: 800;
-    color: var(--ink);
-    margin-bottom: 10px;
-  }
-
-  .material-card-body p {
+  .material-feature-list li {
     font-size: clamp(1rem, 1.3vw, 1.1rem);
     line-height: 1.5;
-    color: var(--ink);
-    opacity: 0.8;
+    color: var(--beige-light);
+    opacity: 0.75;
   }
 
-  .material-card-body p strong {
-    color: var(--maroon);
+  .material-feature-list li strong {
+    display: block;
+    color: #fff;
     font-weight: 700;
     opacity: 1;
-  }
-
-  .materiales-note {
-    margin: 32px 0 0;
-    max-width: 620px;
-    font-size: 0.95rem;
-    color: var(--ink);
-    opacity: 0.6;
+    margin-bottom: 2px;
   }
 
   .nosotros-video-feature {
@@ -965,13 +957,17 @@
       margin-bottom: 28px;
     }
 
-    .materiales-grid {
-      grid-template-columns: 1fr;
-      gap: 20px;
+    .material-feature {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 24px;
+      padding: 24px;
+      border-radius: 20px;
     }
 
-    .material-card-body {
-      padding: 24px;
+    .material-feature-media {
+      flex: 0 0 auto;
+      width: 100%;
     }
 
     .nosotros-video-feature {
@@ -1154,30 +1150,20 @@
     <div class="wrap">
       <div class="materiales reveal">
         <div class="materiales-head">
-          <h3>Elige la madera de tu mueble</h3>
-          <p>Fabricamos en dos maderas macizas de excelente acabado. Tú decides cuál se ajusta mejor a tu presupuesto y al uso que le darás a la pieza.</p>
+          <h3>Nuestra madera principal: flor morado</h3>
+          <p>Es la madera con la que fabricamos la mayoría de nuestras piezas: maciza, noble y con un acabado excelente para acompañar tu hogar por muchos años.</p>
         </div>
-        <div class="materiales-grid">
-          <div class="material-card">
-            <div class="material-card-media">
-              <img src="assets/pino.jpg" alt="Árbol de pino" loading="lazy">
-            </div>
-            <div class="material-card-body">
-              <h4>Pino</h4>
-              <p>Una madera un poco más costosa, pero que le da <strong>mayor duración</strong> a la construcción de la pieza. Acabado excelente.</p>
-            </div>
+        <div class="material-feature">
+          <div class="material-feature-media">
+            <img src="assets/quercus-petraeaarbol.jpg" alt="Árbol de flor morado" loading="lazy">
           </div>
-          <div class="material-card">
-            <div class="material-card-media">
-              <img src="assets/quercus-petraeaarbol.jpg" alt="Árbol de flor morado" loading="lazy">
-            </div>
-            <div class="material-card-body">
-              <h4>Flor morado</h4>
-              <p>Una alternativa <strong>más económica</strong> que el pino, sin renunciar a un acabado igual de excelente.</p>
-            </div>
-          </div>
+          <ul class="material-feature-list">
+            <li><strong>Resistente y duradera</strong> Aguanta bien el uso diario de una casa sin perder firmeza con el tiempo.</li>
+            <li><strong>Acabado excelente</strong> Su veta y color permiten un pulido fino y uniforme en cada mueble.</li>
+            <li><strong>Buena relación precio-calidad</strong> Un costo accesible sin sacrificar la calidad de la construcción.</li>
+            <li><strong>Fácil de trabajar</strong> Se talla y ensambla con precisión, ideal para diseños detallados.</li>
+          </ul>
         </div>
-        <p class="materiales-note">Cuéntanos tu presupuesto y el uso que le darás al mueble: te asesoramos para escoger la madera ideal.</p>
       </div>
     </div>
 
