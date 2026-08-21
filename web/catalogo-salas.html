@@ -309,6 +309,10 @@
     line-height: 1.3;
   }
 
+  .title-break {
+    display: none;
+  }
+
   .product-card-tag {
     display: inline-block;
     margin-top: 8px;
@@ -632,6 +636,7 @@
 
     .product-card-info { padding: 12px 14px 16px; }
     .product-card-info h3 { font-size: 14px; }
+    .title-break { display: block; }
 
     .lightbox-arrow { width: 38px; height: 38px; }
     .lightbox-arrow svg { width: 16px; height: 16px; }
@@ -822,7 +827,7 @@
       { name: "Sofá Base en Madera y Metal", tag: "sofa", folder: "sofa_patas_metal", images: ["sofa_frente", "sofa_tres_cuartos", "sofa_detras"] },
       { name: "Sofá Patas Redondas", tag: "sofa", folder: "sofa_patas_redondas", images: ["sofa_frente", "sofa_tres_cuartos", "closed_up_pata"] },
       { name: "Sofá Minimalista", tag: "sofa", folder: "sofa_simple_sinlineas", images: ["sofa_frente", "sofa_tres_cuartos", "sofa_closedup_costura"] },
-      { name: "Sofá 3 Puestos Cojines de Líneas", tag: "sofa", folder: "sofa_tres_puestos_lineas_cojines", images: ["sofa_de_lado", "sofa_de_espaldas"] },
+      { name: "Sofá 3 Puestos Cojines de Líneas", tag: "sofa", folder: "sofa_tres_puestos_lineas_cojines", images: ["sofa_frente", "sofa_de_lado", "sofa_de_espaldas"] },
       { name: "Sofá 3 Puestos con Botones", tag: "sofa", folder: "sofa_trespuestos_botones", images: ["sofa_de_frente", "sofa_tres_cuartos", "closed_up"] },
       { name: "Sofá Cama en L Compacto", tag: "cama", folder: "sofacama_L_pequena", images: ["salaLpequenadefrente", "salaLotroangulo", "salaLpequena_abierta"] },
       { name: "Sofá Cama con Botones", tag: "cama", folder: "sofacama_botones", images: ["sofa_frente", "sofa_picado", "sofa_extendido"] },
@@ -849,6 +854,13 @@
       return basePath + product.folder + "/" + imageName + ".jpg";
     }
 
+    function twoLineTitle(name) {
+      var words = name.split(" ");
+      if (words.length < 2) return name;
+      var mid = Math.ceil(words.length / 2);
+      return words.slice(0, mid).join(" ") + '<br class="title-break">' + words.slice(mid).join(" ");
+    }
+
     var grid = document.getElementById("catalogGrid");
 
     products.forEach(function (product, index) {
@@ -863,7 +875,7 @@
           '<span class="product-card-count">' + product.images.length + ' fotos</span>' +
         '</span>' +
         '<span class="product-card-info">' +
-          '<h3>' + product.name + '</h3>' +
+          '<h3>' + twoLineTitle(product.name) + '</h3>' +
           '<span class="product-card-tag">' + tagLabels[product.tag] + '</span>' +
         '</span>';
       card.addEventListener("click", function () { openLightbox(index); });
