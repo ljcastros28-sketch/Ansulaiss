@@ -353,14 +353,6 @@
     display: none;
   }
 
-  .product-card-desc {
-    margin-top: 6px;
-    font-size: 13px;
-    line-height: 1.4;
-    color: var(--ink);
-    opacity: 0.65;
-  }
-
   .product-card-tag {
     display: inline-block;
     margin-top: 8px;
@@ -969,7 +961,6 @@
         '</span>' +
         '<span class="product-card-info">' +
           '<h3>' + twoLineTitle(product.name) + '</h3>' +
-          '<span class="product-card-desc">' + product.desc + '</span>' +
           '<span class="product-card-tag">' + tagLabels[product.tag] + '</span>' +
         '</span>';
       card.addEventListener("click", function () { openLightbox(index); });

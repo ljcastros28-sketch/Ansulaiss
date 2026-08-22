@@ -621,6 +621,62 @@
     margin-bottom: 2px;
   }
 
+  .material-foam {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+    background: var(--maroon-deep);
+    border-radius: 28px;
+    padding: 40px;
+    margin-top: 28px;
+    box-shadow: 0 30px 60px -35px rgba(26, 26, 26, 0.3);
+  }
+
+  .material-foam-text h4 {
+    font-size: clamp(1.3rem, 2vw, 1.6rem);
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.01em;
+    margin-bottom: 10px;
+  }
+
+  .material-foam-text p {
+    font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+    line-height: 1.5;
+    color: var(--beige-light);
+    opacity: 0.8;
+    max-width: 520px;
+  }
+
+  .material-foam-text strong {
+    color: #fff;
+    font-weight: 700;
+    opacity: 1;
+  }
+
+  .material-foam-badges {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .material-foam-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 18px;
+    border-radius: 100px;
+    background: rgba(253, 248, 236, 0.08);
+    border: 1px solid rgba(253, 248, 236, 0.18);
+    color: var(--beige-light);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+
   .nosotros-video-feature {
     position: relative;
     display: flex;
@@ -1060,6 +1116,20 @@
       width: 100%;
     }
 
+    .material-foam {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 24px;
+      padding: 24px;
+      border-radius: 20px;
+      margin-top: 20px;
+    }
+
+    .material-foam-badges {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+
     .nosotros-video-feature {
       height: 125vw;
     }
@@ -1272,6 +1342,18 @@
             <li><strong>Buena relación precio-calidad</strong> Un costo accesible sin sacrificar la calidad de la construcción.</li>
             <li><strong>Fácil de trabajar</strong> Se talla y ensambla con precisión, ideal para diseños detallados.</li>
           </ul>
+        </div>
+
+        <div class="material-foam reveal">
+          <div class="material-foam-text">
+            <h4>Espuma certificada Espumados</h4>
+            <p>El relleno de nuestros sofás es espuma de alta densidad de <strong>Espumados</strong>, la empresa colombiana líder del sector con más de 45 años de trayectoria y acreditación internacional.</p>
+          </div>
+          <div class="material-foam-badges">
+            <span class="material-foam-badge">Sello CertiPUR-US</span>
+            <span class="material-foam-badge">ISO 9001 · 14001 · 45001</span>
+            <span class="material-foam-badge">+45 años de trayectoria</span>
+          </div>
         </div>
       </div>
     </div>
