@@ -353,6 +353,14 @@
     display: none;
   }
 
+  .product-card-desc {
+    margin-top: 6px;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--ink);
+    opacity: 0.65;
+  }
+
   .product-card-tag {
     display: inline-block;
     margin-top: 8px;
@@ -360,6 +368,13 @@
     font-weight: 600;
     opacity: 0.55;
     text-transform: capitalize;
+  }
+
+  .catalog-note {
+    font-size: 14px;
+    color: var(--ink);
+    opacity: 0.65;
+    padding-top: 4px;
   }
 
   /* ---------- LIGHTBOX ---------- */
@@ -467,6 +482,14 @@
     font-size: 13px;
     opacity: 0.6;
     flex-shrink: 0;
+  }
+
+  .lightbox-desc {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+    opacity: 0.8;
   }
 
   .lightbox-code {
@@ -758,6 +781,8 @@
       <button class="filter-btn" data-filter="cama">Sofá cama</button>
     </div>
 
+    <p class="catalog-note">Fabricamos sobre pedido: medidas, telas y acabados se ajustan a lo que necesites.</p>
+
     <div class="catalog-grid" id="catalogGrid"></div>
   </div>
 
@@ -780,6 +805,7 @@
           <h3 id="lightboxTitle"></h3>
           <span id="lightboxCounter"></span>
         </div>
+        <span class="lightbox-desc" id="lightboxDesc"></span>
         <span class="lightbox-code" id="lightboxCode"></span>
         <a class="lightbox-whatsapp" id="lightboxWhatsapp" href="#" target="_blank" rel="noopener noreferrer">
           <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -867,41 +893,41 @@
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
     var products = [
-      { name: "Sala en L Clásica", tag: "en-l", folder: "salaL_basica2", images: ["sala_frente", "sofa_tres_cuartos", "sofa_detras"] },
-      { name: "Sala en L Cojines de Líneas", tag: "en-l", folder: "salaL_lineascojines", images: ["sala_frente", "sala_tres_cuartos", "sala_picado_delado"] },
-      { name: "Sala en L de Un Brazo", tag: "en-l", folder: "salaL_un_brazo", images: ["sofa_de_frente", "sofa_tres_cuartos", "sofa_angulo2"] },
-      { name: "Sala en L con Baúl", tag: "en-l", folder: "sala_L_baul", images: ["sofa_de_frente", "sofa_tres_cuartos", "sofa_abierto"] },
-      { name: "Sofá Marco de Madera", tag: "sofa", folder: "sala_basemadera_hastabrazos", images: ["sofa_defrente", "sofa_de_lado", "sofa_frente_lado"] },
-      { name: "Sala Modular en Cuero", tag: "en-l", folder: "salamodular_cuero", images: ["salaL_frente", "sofa_angulo2", "sala_detras"] },
-      { name: "Sofá en L Patas Delgadas", tag: "en-l", folder: "sofaL_patasdelgadas", images: ["sofa_de_frente", "sofa_tres_cuartos", "sofa_toma_picada"] },
-      { name: "Sofá en L Rinconero", tag: "en-l", folder: "sofaL_unbrazoy_pared", images: ["sala_frente", "sala_tres_cuartos", "sala_picado"] },
-      { name: "Sofá 2 Puestos con Botones", tag: "sofa", folder: "sofa_2_puestos_botones", images: ["sofa_de_frente", "sofa_tres_cuartos", "sofa_detras"] },
-      { name: "Sofá Clásico", tag: "sofa", folder: "sofa_basico", images: ["sofa_de_frente", "sofa_de_lado", "sofa_patas"] },
-      { name: "Sofá de Líneas Curvas", tag: "sofa", folder: "sofa_curvas", images: ["sofa_frente", "sofa_tres_cuartos", "sofa_detras"] },
-      { name: "Sofá 2 Puestos Capitoneado", tag: "sofa", folder: "sofa_dospuestos_capitoneado4puntos", images: ["sofa_frente", "sofa_tres_cuartos", "sofa_detras"] },
-      { name: "Sofá Patas de Metal", tag: "sofa", folder: "sofa_pata_metal2", images: ["sofa_frente", "sofa_tres_cuartos", "sofa_arriba"] },
-      { name: "Sofá Patas de Madera", tag: "sofa", folder: "sofa_patas_madera", images: ["sofa_de_frente", "sofa_tres_cuartos", "sofa_de_lado"] },
-      { name: "Sofá Base en Madera y Metal", tag: "sofa", folder: "sofa_patas_metal", images: ["sofa_frente", "sofa_tres_cuartos", "sofa_detras"] },
-      { name: "Sofá Patas Redondas", tag: "sofa", folder: "sofa_patas_redondas", images: ["sofa_frente", "sofa_tres_cuartos", "closed_up_pata"] },
-      { name: "Sofá Minimalista", tag: "sofa", folder: "sofa_simple_sinlineas", images: ["sofa_frente", "sofa_tres_cuartos", "sofa_closedup_costura"] },
-      { name: "Sofá 3 Puestos Cojines de Líneas", tag: "sofa", folder: "sofa_tres_puestos_lineas_cojines", images: ["sofa_frente", "sofa_de_lado", "sofa_de_espaldas"] },
-      { name: "Sofá 3 Puestos con Botones", tag: "sofa", folder: "sofa_trespuestos_botones", images: ["sofa_de_frente", "sofa_tres_cuartos", "closed_up"] },
-      { name: "Sofá Cama en L Compacto", tag: "cama", folder: "sofacama_L_pequena", images: ["salaLpequenadefrente", "salaLotroangulo", "salaLpequena_abierta"] },
-      { name: "Sofá Cama con Botones", tag: "cama", folder: "sofacama_botones", images: ["sofa_frente", "sofa_picado", "sofa_extendido"] },
-      { name: "Sofá Cama Costuras Vistas", tag: "cama", folder: "sofacama_costurasvstas", images: ["sofa_frente", "sofa_tres_cuartos", "sofa_extendido"] },
-      { name: "Sofá Cama de Líneas", tag: "cama", folder: "sofacama_lineas", images: ["sofa_frente", "sofa_tres_cuartos", "sofa_extendido"] },
-      { name: "Sofá Cama Cojines de Líneas", tag: "cama", folder: "sofacama_lineas_cojines", images: ["sofa_de_frente", "sofa_de_lado", "sofa_closed_up_lineas", "sofa_extendido"] },
-      { name: "Sofá 3 Puestos Patas de Madera", tag: "sofa", folder: "sofatrespuestos_patamadera", images: ["sofa_frente", "sofa_tres_cuartos", "sofa_detras"] },
-      { name: "Sala en L Baja Moderna", tag: "en-l", folder: "SalaL_bajamoderna", images: ["sala_frente", "sala_tres_cuartos", "salda_detras"] },
-      { name: "Sala en L Redonda", tag: "en-l", folder: "salaL_redonda", images: ["sala_frente", "sala_tres_cuartos", "sala_detras"] },
-      { name: "Sofá con Mesa de Apoyo", tag: "sofa", folder: "sofa_con_mesasoporte", images: ["sofa_frente", "sofa_tres_cuartos", "sofa_delado"] },
-      { name: "Sofá Líneas en Espaldar", tag: "sofa", folder: "sofa_lineaenespaldar", images: ["sofa_frente", "sofa_tres_cuartos", "sofa_detras"] },
-      { name: "Sofá Madera al Frente", tag: "sofa", folder: "sofa_madera_al_frente", images: ["sofa_frente", "sofa_tres_cuartos", "sofa_angulo2"] },
-      { name: "Sofá Patas en U", tag: "sofa", folder: "sofa_patasU_cuadrada", images: ["sofa_frente", "sofa_tres_cuartos", "sofa_closedup"] },
-      { name: "Sofá Rústico Capitoneado", tag: "sofa", folder: "sofa_rustico", images: ["sofa_frente", "sofa_tres_cuartos", "tres_cuartos2"] },
-      { name: "Sofá Cama Crema con Rayas", tag: "cama", folder: "sofacama_kremaconrayas", images: ["sofa_frente", "sofa_ters_cuartos", "sofa_abierto"] },
-      { name: "Sofá Cama Patas Metálicas", tag: "cama", folder: "sofacama_patasmetalicas", images: ["sofa_frente", "sofa_trescuartos", "sofaextendido"] },
-      { name: "Sofá Rayas en Asiento y Espaldar", tag: "sofa", folder: "sofarayasasientoyespaldar", images: ["sofafrente", "sofa_tres_cuartos", "sofa_lado"] }
+      { name: "Sala en L Aurora", desc: "Silueta clásica en L, cómoda y versátil para el centro de cualquier sala.", tag: "en-l", folder: "salaL_basica2", images: ["sala_frente", "sofa_tres_cuartos", "sofa_detras"] },
+      { name: "Sala en L Bruma", desc: "Cojines con costuras de líneas que le dan textura al espaldar.", tag: "en-l", folder: "salaL_lineascojines", images: ["sala_frente", "sala_tres_cuartos", "sala_picado_delado"] },
+      { name: "Sala en L Vela", desc: "Un solo brazo lateral: silueta más liviana para espacios reducidos.", tag: "en-l", folder: "salaL_un_brazo", images: ["sofa_de_frente", "sofa_tres_cuartos", "sofa_angulo2"] },
+      { name: "Sala en L Cofre", desc: "Trae baúl con espacio de guardado escondido bajo el puesto largo.", tag: "en-l", folder: "sala_L_baul", images: ["sofa_de_frente", "sofa_tres_cuartos", "sofa_abierto"] },
+      { name: "Sofá Cedro", desc: "Base y brazos en madera vista, un contraste cálido con el tapizado.", tag: "sofa", folder: "sala_basemadera_hastabrazos", images: ["sofa_defrente", "sofa_de_lado", "sofa_frente_lado"] },
+      { name: "Sala Modular Toscana", desc: "Módulos en cuero que se acomodan a la forma de tu espacio.", tag: "en-l", folder: "salamodular_cuero", images: ["salaL_frente", "sofa_angulo2", "sala_detras"] },
+      { name: "Sofá en L Nova", desc: "Patas delgadas y bajas que aligeran visualmente la sala en L.", tag: "en-l", folder: "sofaL_patasdelgadas", images: ["sofa_de_frente", "sofa_tres_cuartos", "sofa_toma_picada"] },
+      { name: "Sofá en L Rincón", desc: "Pensado para esquinas: un brazo y un costado abierto contra la pared.", tag: "en-l", folder: "sofaL_unbrazoy_pared", images: ["sala_frente", "sala_tres_cuartos", "sala_picado"] },
+      { name: "Sofá Dueto", desc: "Dos puestos con capitoné de botones en el espaldar.", tag: "sofa", folder: "sofa_2_puestos_botones", images: ["sofa_de_frente", "sofa_tres_cuartos", "sofa_detras"] },
+      { name: "Sofá Esencial", desc: "Líneas simples y atemporales, el sofá de siempre bien hecho.", tag: "sofa", folder: "sofa_basico", images: ["sofa_de_frente", "sofa_de_lado", "sofa_patas"] },
+      { name: "Sofá Cala", desc: "Brazos y espaldar en curva para un perfil suave y envolvente.", tag: "sofa", folder: "sofa_curvas", images: ["sofa_frente", "sofa_tres_cuartos", "sofa_detras"] },
+      { name: "Sofá Bruno", desc: "Dos puestos con capitoné de cuatro puntos, un acabado más formal.", tag: "sofa", folder: "sofa_dospuestos_capitoneado4puntos", images: ["sofa_frente", "sofa_tres_cuartos", "sofa_detras"] },
+      { name: "Sofá Urbano", desc: "Patas delgadas en metal para un look más industrial y moderno.", tag: "sofa", folder: "sofa_pata_metal2", images: ["sofa_frente", "sofa_tres_cuartos", "sofa_arriba"] },
+      { name: "Sofá Roble", desc: "Patas torneadas en madera maciza, un acabado tradicional.", tag: "sofa", folder: "sofa_patas_madera", images: ["sofa_de_frente", "sofa_tres_cuartos", "sofa_de_lado"] },
+      { name: "Sofá Andino", desc: "Base mixta en madera y metal, firme y con acabado moderno.", tag: "sofa", folder: "sofa_patas_metal", images: ["sofa_frente", "sofa_tres_cuartos", "sofa_detras"] },
+      { name: "Sofá Vega", desc: "Patas redondas y compactas, un perfil sencillo y equilibrado.", tag: "sofa", folder: "sofa_patas_redondas", images: ["sofa_frente", "sofa_tres_cuartos", "closed_up_pata"] },
+      { name: "Sofá Prado", desc: "Sin costuras visibles: superficie limpia y de líneas mínimas.", tag: "sofa", folder: "sofa_simple_sinlineas", images: ["sofa_frente", "sofa_tres_cuartos", "sofa_closedup_costura"] },
+      { name: "Sofá Sena", desc: "Tres puestos con cojines de costura en línea en el espaldar.", tag: "sofa", folder: "sofa_tres_puestos_lineas_cojines", images: ["sofa_frente", "sofa_de_lado", "sofa_de_espaldas"] },
+      { name: "Sofá Trío", desc: "Tres puestos con capitoné de botones, un clásico de sala grande.", tag: "sofa", folder: "sofa_trespuestos_botones", images: ["sofa_de_frente", "sofa_tres_cuartos", "closed_up"] },
+      { name: "Sofá Cama Sauco", desc: "Versión compacta en L que se abre y se convierte en cama.", tag: "cama", folder: "sofacama_L_pequena", images: ["salaLpequenadefrente", "salaLotroangulo", "salaLpequena_abierta"] },
+      { name: "Sofá Cama Aldo", desc: "Capitoné de botones de día, cama cómoda cuando la necesitas.", tag: "cama", folder: "sofacama_botones", images: ["sofa_frente", "sofa_picado", "sofa_extendido"] },
+      { name: "Sofá Cama Fresno", desc: "Costuras vistas que marcan el diseño del espaldar y los puestos.", tag: "cama", folder: "sofacama_costurasvstas", images: ["sofa_frente", "sofa_tres_cuartos", "sofa_extendido"] },
+      { name: "Sofá Cama Haya", desc: "Líneas de costura simples en espaldar y asiento.", tag: "cama", folder: "sofacama_lineas", images: ["sofa_frente", "sofa_tres_cuartos", "sofa_extendido"] },
+      { name: "Sofá Cama Olmo", desc: "Cojines con costura de líneas, combina estilo y función de cama.", tag: "cama", folder: "sofacama_lineas_cojines", images: ["sofa_de_frente", "sofa_de_lado", "sofa_closed_up_lineas", "sofa_extendido"] },
+      { name: "Sofá Encina", desc: "Tres puestos sobre patas de madera maciza torneada.", tag: "sofa", folder: "sofatrespuestos_patamadera", images: ["sofa_frente", "sofa_tres_cuartos", "sofa_detras"] },
+      { name: "Sala en L Costa", desc: "Perfil bajo y moderno, ideal para salas de techo bajo o abiertas.", tag: "en-l", folder: "SalaL_bajamoderna", images: ["sala_frente", "sala_tres_cuartos", "salda_detras"] },
+      { name: "Sala en L Delta", desc: "Formas redondeadas en brazos y espaldar, más suave a la vista.", tag: "en-l", folder: "salaL_redonda", images: ["sala_frente", "sala_tres_cuartos", "sala_detras"] },
+      { name: "Sofá Valle", desc: "Incluye una mesa de apoyo integrada a un costado.", tag: "sofa", folder: "sofa_con_mesasoporte", images: ["sofa_frente", "sofa_tres_cuartos", "sofa_delado"] },
+      { name: "Sofá Liria", desc: "Costuras de línea que recorren todo el espaldar.", tag: "sofa", folder: "sofa_lineaenespaldar", images: ["sofa_frente", "sofa_tres_cuartos", "sofa_detras"] },
+      { name: "Sofá Guayacán", desc: "Estructura en madera visible al frente, entre los puestos.", tag: "sofa", folder: "sofa_madera_al_frente", images: ["sofa_frente", "sofa_tres_cuartos", "sofa_angulo2"] },
+      { name: "Sofá Sierra", desc: "Base en U de perfil cuadrado, un look sólido y contemporáneo.", tag: "sofa", folder: "sofa_patasU_cuadrada", images: ["sofa_frente", "sofa_tres_cuartos", "sofa_closedup"] },
+      { name: "Sofá Tíbar", desc: "Capitoné rústico de botones grandes, un estilo cálido y artesanal.", tag: "sofa", folder: "sofa_rustico", images: ["sofa_frente", "sofa_tres_cuartos", "tres_cuartos2"] },
+      { name: "Sofá Cama Pampa", desc: "Rayas sutiles sobre tono crema, un clásico fácil de combinar.", tag: "cama", folder: "sofacama_kremaconrayas", images: ["sofa_frente", "sofa_ters_cuartos", "sofa_abierto"] },
+      { name: "Sofá Cama Milo", desc: "Patas en metal delgado, base ligera para cualquier sala.", tag: "cama", folder: "sofacama_patasmetalicas", images: ["sofa_frente", "sofa_trescuartos", "sofaextendido"] },
+      { name: "Sofá Iris", desc: "Rayas en asiento y espaldar que marcan un patrón limpio y actual.", tag: "sofa", folder: "sofarayasasientoyespaldar", images: ["sofafrente", "sofa_tres_cuartos", "sofa_lado"] }
     ];
 
     var tagLabels = { sofa: "Sofá", "en-l": "Sala en L", cama: "Sofá cama" };
@@ -943,6 +969,7 @@
         '</span>' +
         '<span class="product-card-info">' +
           '<h3>' + twoLineTitle(product.name) + '</h3>' +
+          '<span class="product-card-desc">' + product.desc + '</span>' +
           '<span class="product-card-tag">' + tagLabels[product.tag] + '</span>' +
         '</span>';
       card.addEventListener("click", function () { openLightbox(index); });
@@ -972,6 +999,7 @@
     var lightboxImage = document.getElementById("lightboxImage");
     var lightboxTitle = document.getElementById("lightboxTitle");
     var lightboxCounter = document.getElementById("lightboxCounter");
+    var lightboxDesc = document.getElementById("lightboxDesc");
     var lightboxCode = document.getElementById("lightboxCode");
     var lightboxWhatsapp = document.getElementById("lightboxWhatsapp");
     var currentProductIndex = 0;
@@ -990,6 +1018,7 @@
       lightboxImage.alt = product.name;
       lightboxTitle.textContent = product.name;
       lightboxCounter.textContent = (currentImageIndex + 1) + " / " + product.images.length;
+      lightboxDesc.textContent = product.desc;
       lightboxCode.textContent = "Artículo " + code;
 
       var message = "Hola, quiero más información sobre el artículo " + code + " (" + product.name + ").";
