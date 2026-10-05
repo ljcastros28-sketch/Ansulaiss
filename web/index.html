@@ -261,6 +261,7 @@
     display: block;
     width: 100%;
     max-width: 920px;
+    min-width: 0;
     color: var(--maroon);
   }
 
@@ -1173,14 +1174,17 @@
 
   <section class="hero" id="inicio">
     <div class="hero-bg">
-      <img src="assets/sofa123.jpg" alt="" loading="eager">
+      <picture>
+        <source media="(max-width: 900px)" srcset="assets/sofa123_9-16.jpg">
+        <img src="assets/sofa123.jpg" alt="" loading="eager">
+      </picture>
     </div>
 
     <div class="wrap hero-inner">
 
       <div class="hero-head">
         <h1 class="hero-logo" aria-label="Ansulais — Comodidad para tu hogar">
-          <svg id="logoCompletoSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 525.0433959960938 87.83148193359375" aria-hidden="true">
+          <svg id="logoCompletoSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 525.0433959960938 87.83148193359375" width="525" height="88" aria-hidden="true">
             <path fill="currentColor" d="M141.35,41.95v44.21h-16.64v-40.05c0-5.72-4.45-10.58-10.16-10.8-7.94-.31-13.73,4.96-13.73,14.13v36.72h-16.64V22.93h15.92v9.27h.24c4.04-7.72,11.05-10.93,19.01-10.93,13.43,0,21.99,8.79,21.99,20.68Z"/>
             <path fill="currentColor" d="M216.09,42.19h-16.28c-.95-6.3-4.64-8.32-11.29-8.32-6.3,0-10.1,1.54-10.1,6.18,0,4.28,8.08,5.7,16.04,7.25,18.03,3.4,23.37,9.56,23.53,18.27.2,11.16-8.57,20.41-19.66,21.74-23.57,2.82-38.45-6.01-38.45-21.34h17.11c0,5.11,3.09,9.27,13.67,9.27,6.66,0,10.7-2.73,10.7-6.54,0-4.16-5.59-5.58-17.11-7.72-14.74-2.61-22.1-8.2-22.1-18.54,0-12.48,9.27-21.15,25.55-21.15,19.01,0,27.69,8.08,28.4,20.92Z"/>
             <path fill="currentColor" d="M254.11,22.93v39.57c0,6.22,5.04,11.46,11.25,11.28,7.26-.21,12.4-5.63,12.4-14.02V22.93h16.64v63.22h-15.92v-8.91h-.24c-3.92,6.77-10.34,10.58-19.25,10.58-13.67,0-21.51-8.56-21.51-22.82V22.93h16.64Z"/>
