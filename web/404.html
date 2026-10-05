@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Página no encontrada — Ansulais</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0f0f0f">
+<!-- GitHub Pages sirve esta página para cualquier ruta que no exista, a cualquier
+     profundidad (ansulais.com/a/b/c), por eso los enlaces empiezan con "/". -->
+<link rel="icon" type="image/svg+xml" href="/assets/logosimplificado.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --beige: #f8f2de; --beige-tint: #fdfbf3; --beige-light: #fdf8ec;
+    --maroon: #1a1a1a; --maroon-deep: #0f0f0f; --maroon-hover: #2b2b2b;
+    --wood: #8a5a35; --ink: #241a12;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    font-family: 'Montserrat', sans-serif;
+    background: var(--maroon-deep);
+    color: var(--beige-light);
+    text-align: center;
+  }
+  main { max-width: 520px; }
+  .logo { width: 54px; height: 70px; margin: 0 auto 28px; display: block; color: var(--beige); }
+  .code { font-size: 14px; font-weight: 700; letter-spacing: 4px; color: var(--wood); }
+  h1 { margin-top: 12px; font-size: clamp(28px, 6vw, 40px); font-weight: 800; line-height: 1.15; }
+  p { margin-top: 16px; font-size: 16px; line-height: 1.6; opacity: 0.75; }
+  form {
+    display: flex;
+    margin: 30px auto 0;
+    max-width: 420px;
+    background: var(--beige-light);
+    border-radius: 100px;
+    padding: 5px;
+  }
+  input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    background: transparent;
+    padding: 0 18px;
+    font: 500 15px 'Montserrat', sans-serif;
+    color: var(--ink);
+    outline: none;
+  }
+  form button {
+    border: 0;
+    border-radius: 100px;
+    padding: 12px 22px;
+    background: var(--maroon);
+    color: var(--beige-light);
+    font: 700 14px 'Montserrat', sans-serif;
+    cursor: pointer;
+  }
+  .links { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 26px; }
+  .links a {
+    padding: 12px 24px;
+    border-radius: 100px;
+    border: 1px solid rgba(253, 248, 236, 0.3);
+    color: var(--beige-light);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .links a:hover { background: var(--beige-light); color: var(--maroon); }
+</style>
+</head>
+<body>
+  <main>
+    <svg class="logo" viewBox="0 0 340.36 440.13" aria-hidden="true">
+      <path fill="currentColor" d="M340.36,440.13h0s-93.46,0-93.46,0h0c-.83-50.35-41.89-90.73-92.24-90.73h-56.31l-1.49,90.73H0V0h0c55.52,0,100.52,45.01,100.51,100.52v75.5s29.48,10.76,29.48,10.76c58.68,21.41,111.61,57.1,150.95,105.62,22.8,28.12,39.91,57.88,49.43,90.9,5.9,20.47,9.99,40.51,9.99,56.83ZM100.52,184.7v88.69h63.7c8.02,0,11.27-10.33,4.69-14.92l-68.39-73.77Z"/>
+    </svg>
+    <span class="code">ERROR 404</span>
+    <h1>No encontramos esta página</h1>
+    <p>Puede que el enlace esté mal escrito o que la página ya no exista. Busca lo que necesitas o sigue explorando:</p>
+    <form action="/search.html" role="search">
+      <input type="text" name="q" placeholder="Ej: sofá cama, comedor redondo..." aria-label="Buscar en el catálogo">
+      <button type="submit">Buscar</button>
+    </form>
+    <div class="links">
+      <a href="/">Ir al inicio</a>
+      <a href="/catalogo.html">Ver catálogo</a>
+      <a href="https://wa.me/message/ISVNRLUQCE27G1" target="_blank" rel="noopener noreferrer">Escríbenos por WhatsApp</a>
+    </div>
+  </main>
+</body>
+</html>

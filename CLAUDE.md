@@ -3,7 +3,8 @@
 Sitio web estático de **Ansulais** (fabricante de muebles de madera y tapizados, Bogotá, Colombia). HTML/CSS/JS plano, **sin build ni frameworks**. Se despliega automático a GitHub Pages vía GitHub Actions al hacer push a `main`.
 
 - Repo: https://github.com/ljcastros28-sketch/Ansulaiss.git
-- Sitio en vivo: https://ljcastros28-sketch.github.io/Ansulaiss/
+- Sitio en vivo: https://ljcastros28-sketch.github.io/Ansulaiss/ → pasa a **https://ansulais.com** cuando se conecte el dominio
+- Dominio `ansulais.com`: comprado en Google Domains, hoy administrado en **Squarespace Domains** (solo registro + DNS). El sitio NO se aloja en Squarespace: sigue en GitHub Pages. El dominio se configura en GitHub → Settings → Pages → Custom domain (con deploy por Actions, un archivo `CNAME` se ignora, no hace falta). DNS en Squarespace: 4 registros A `@` → 185.199.108.153 / 109.153 / 110.153 / 111.153 y CNAME `www` → `ljcastros28-sketch.github.io`.
 - Carpeta publicada: **`web/`** — todo lo que se ve en el sitio vive ahí.
 
 ## Regla de oro: qué se sube a git
@@ -29,14 +30,21 @@ Workflow típico de cada cambio:
 | `privacidad.html` | Política de tratamiento de datos (Ley 1581 de 2012, Colombia) |
 | `cookies.html` | Política de cookies (el sitio NO usa analítica/tracking, solo Google Fonts + una preferencia local de "ya viste el aviso") |
 | `terminos.html` | Términos y condiciones (venta sobre pedido, Ley 1480 de 2011) |
+| `404.html` | Página de error de GitHub Pages. Sus enlaces empiezan con `/` porque se sirve en cualquier ruta |
 | `reembolsos.html` | Garantía, cambios y devoluciones (explica por qué no aplica derecho de retracto estándar al ser piezas personalizadas, pero sí la garantía legal) |
 
 Cada página es **standalone**: CSS y JS están inline en su propio `<style>`/`<script>`, **duplicados entre páginas a propósito** (no hay build ni archivos compartidos/includes). Si cambias algo que debe verse igual en todas (header, footer, cookie banner, nav-search, page-loader), **hay que replicar el cambio a mano en cada archivo HTML**.
+
+Archivos de soporte en `web/`: `robots.txt`, `sitemap.xml` (agregar ahí cualquier página nueva), `apple-touch-icon.png` (ícono para celulares), `assets/og-ansulais.jpg` (imagen 1200×630 de vista previa al compartir el link; es el único `.jpg` permitido, porque WhatsApp/Facebook no siempre leen WebP).
+
+**Cada página nueva** debe llevar en el `<head>` el mismo bloque que las demás: `description`, `canonical` (`https://ansulais.com/<archivo>`), `theme-color`, `apple-touch-icon` y las etiquetas `og:*` / `twitter:card`. `index.html` además tiene los datos del negocio en JSON-LD (`FurnitureStore`): si cambia dirección, horario, teléfono o redes, actualizarlo ahí también.
 
 ## Datos de la empresa (usar siempre estos, no inventar)
 
 - Dirección: Crr 51 # 76-32, Bogotá D.C.
 - Correo: ansulais31@gmail.com
+- Teléfono / WhatsApp: +57 300 492 8400
+- Dominio: ansulais.com (alojado en GitHub Pages, dominio registrado en Squarespace Domains; así está declarado en `privacidad.html` sección 5 y `cookies.html` sección 3)
 - WhatsApp float / CTA: `https://wa.me/message/ISVNRLUQCE27G1`
 - Número usado en el link del lightbox de catálogo: `WHATSAPP_NUMBER = "573004928400"` → `https://wa.me/573004928400?text=...`
 - Horario: Lunes a sábado 11:00 a.m.–6:00 p.m., domingos 11:00 a.m.–3:00 p.m.
@@ -98,3 +106,4 @@ Fotos de catálogo en: `web/assets/catalogo/{salas,comedores,alcobas}/<carpeta>/
 - **2026-10-05** — Nueva sección de alcobas: `catalogo-alcobas.html` con 13 piezas (fotos de `alcobas_fondoblanco/` copiadas a `web/assets/catalogo/alcobas/`); tarjeta de alcobas en `catalogo.html` ya enlaza (sin "próximamente"); piezas agregadas a `offerPool` (index) y a `catalog` + filtro "Alcobas" (search).
 - **2026-10-05** — Optimización de carga: todas las fotos del sitio pasan a WebP (catálogo: de ~110 MB a ~9.5 MB, con miniaturas `-sm.webp` para tarjetas y `srcset`); el hero usa `fetchpriority="high"`; el video de Nosotros pasa a `preload="none"` y se reproduce/pausa con `IntersectionObserver`; el lightbox precarga la foto anterior y la siguiente. Nuevo `tools/optimizar_fotos.py`, `README.md` para ingenieros y comentarios que documentan el array `products` en cada catálogo.
 - **2026-10-05** — Buscador reescrito para ir directo al destino: código de artículo / nombre de pieza → abre la pieza; tipo de mueble → catálogo con filtro; palabras como horario, garantía, madera → la sección correspondiente. Tolera tildes, plurales y errores de tipeo. Los 3 catálogos aceptan `?filtro=` y `?pieza=`. `search.html` (`catalog`) ahora incluye `desc` y `filtro`.
+- **2026-10-05** — Preparación para el dominio `ansulais.com`: etiquetas SEO y de vista previa al compartir (descripción, canonical, Open Graph) en las 10 páginas, JSON-LD del negocio en index, `robots.txt`, `sitemap.xml`, `404.html`, ícono para celulares y favicon con modo oscuro. Políticas: dominio ansulais.com, proveedores (GitHub Pages, Squarespace Domains, Google Fonts) y transferencia internacional; se corrigieron los plazos de la Ley 1581 (consultas 10 días hábiles, reclamos 15) que estaban invertidos. Se sacaron de git 189 `.jpg` sin uso (86 MB) vía `.gitignore`; siguen en el disco.
