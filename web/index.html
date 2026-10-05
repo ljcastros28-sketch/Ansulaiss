@@ -221,10 +221,13 @@
     }
 
     .trust-marquee {
-      position: relative;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 79%;
       z-index: 2;
-      margin-top: -130px;
       background: transparent;
+      padding: 0;
     }
   }
 
@@ -246,7 +249,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, rgba(253, 248, 236, 0) 70%, var(--beige-light) 100%);
+    background: linear-gradient(to bottom, rgba(253, 248, 236, 0) 86%, var(--beige-light) 100%);
     pointer-events: none;
   }
 
@@ -1157,6 +1160,7 @@
     }
 
     .trust-marquee {
+      margin-top: 28px;
       padding: 18px 0;
     }
 
@@ -1424,9 +1428,7 @@
 
     </div>
 
-  </section>
-
-  <div class="trust-marquee" aria-hidden="true">
+    <div class="trust-marquee" aria-hidden="true">
     <div class="trust-marquee-track">
       <div class="trust-marquee-group">
         <div class="trust-marquee-item">
@@ -1490,6 +1492,8 @@
       </div>
     </div>
   </div>
+
+  </section>
 
   <section class="quequieres">
     <h2 class="quequieres-title reveal">¿Qué ofrecemos?</h2>
