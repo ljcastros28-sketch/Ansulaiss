@@ -376,6 +376,7 @@
   }
 
   .quequieres-scroll-outer {
+    position: relative;
     max-width: 1360px;
     margin: 0 auto;
     padding: 0 48px;
@@ -388,19 +389,47 @@
     scroll-snap-type: x proximity;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    cursor: grab;
     padding: 4px 0 12px;
     -webkit-mask-image: linear-gradient(to right, transparent 0, #000 160px, #000 calc(100% - 160px), transparent 100%);
     mask-image: linear-gradient(to right, transparent 0, #000 160px, #000 calc(100% - 160px), transparent 100%);
   }
 
-  .quequieres-scroll.is-dragging {
-    cursor: grabbing;
-    scroll-snap-type: none;
-  }
-
   .quequieres-scroll::-webkit-scrollbar {
     display: none;
+  }
+
+  .quequieres-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--beige-light);
+    color: var(--maroon-deep);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 26px -10px rgba(0, 0, 0, 0.55);
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .quequieres-arrow:hover {
+    background: var(--beige);
+  }
+
+  .quequieres-arrow svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .quequieres-arrow-prev {
+    left: 14px;
+  }
+
+  .quequieres-arrow-next {
+    right: 14px;
   }
 
   .quequieres-item {
@@ -1066,6 +1095,10 @@
       padding: 0 24px;
     }
 
+    .quequieres-arrow {
+      display: none;
+    }
+
     .quequieres-scroll {
       gap: 12px;
       padding: 4px 0 12px;
@@ -1295,7 +1328,13 @@
   <section class="quequieres">
     <h2 class="quequieres-title reveal">¿Qué ofrecemos?</h2>
     <div class="quequieres-scroll-outer">
+      <button class="quequieres-arrow quequieres-arrow-prev" type="button" aria-label="Ver anteriores">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
       <div class="quequieres-scroll" id="quequieresScroll"></div>
+      <button class="quequieres-arrow quequieres-arrow-next" type="button" aria-label="Ver siguientes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
     </div>
   </section>
 
@@ -1569,47 +1608,26 @@
         track.appendChild(a);
       });
 
-      var isDown = false;
-      var didDrag = false;
-      var startX = 0;
-      var startScroll = 0;
+      var prevBtn = document.querySelector('.quequieres-arrow-prev');
+      var nextBtn = document.querySelector('.quequieres-arrow-next');
 
-      track.addEventListener('wheel', function (e) {
-        if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
-        var maxScroll = track.scrollWidth - track.clientWidth;
-        var atStart = track.scrollLeft <= 0;
-        var atEnd = track.scrollLeft >= maxScroll - 1;
-        if ((e.deltaY < 0 && atStart) || (e.deltaY > 0 && atEnd)) return;
-        track.scrollLeft += e.deltaY;
-        e.preventDefault();
-      }, { passive: false });
+      function offerStep() {
+        var item = track.querySelector('.quequieres-item');
+        var gap = 18;
+        var width = item ? item.getBoundingClientRect().width : 290;
+        return (width + gap) * 2;
+      }
 
-      track.addEventListener('mousedown', function (e) {
-        isDown = true;
-        didDrag = false;
-        startX = e.pageX;
-        startScroll = track.scrollLeft;
-        track.classList.add('is-dragging');
-      });
-
-      window.addEventListener('mouseup', function () {
-        isDown = false;
-        track.classList.remove('is-dragging');
-      });
-
-      window.addEventListener('mousemove', function (e) {
-        if (!isDown) return;
-        var delta = e.pageX - startX;
-        if (Math.abs(delta) > 4) didDrag = true;
-        track.scrollLeft = startScroll - delta;
-      });
-
-      track.addEventListener('click', function (e) {
-        if (didDrag) {
-          e.preventDefault();
-          didDrag = false;
-        }
-      }, true);
+      if (prevBtn) {
+        prevBtn.addEventListener('click', function () {
+          track.scrollBy({ left: -offerStep(), behavior: 'smooth' });
+        });
+      }
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function () {
+          track.scrollBy({ left: offerStep(), behavior: 'smooth' });
+        });
+      }
     })();
 
     var deliveryVideo = document.getElementById('deliveryVideo');
