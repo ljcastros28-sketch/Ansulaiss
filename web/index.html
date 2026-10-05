@@ -385,7 +385,7 @@
     display: flex;
     gap: 18px;
     overflow-x: auto;
-    scroll-snap-type: x mandatory;
+    scroll-snap-type: x proximity;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     cursor: grab;
@@ -1559,7 +1559,7 @@
         shuffled[i] = shuffled[j];
         shuffled[j] = tmp;
       }
-      shuffled.forEach(function (item, index) {
+      shuffled.slice(0, 16).forEach(function (item, index) {
         var a = document.createElement('a');
         a.className = 'quequieres-item reveal reveal-delay-' + (index % 3);
         a.href = item.href;
@@ -1575,10 +1575,13 @@
       var startScroll = 0;
 
       track.addEventListener('wheel', function (e) {
-        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-          track.scrollLeft += e.deltaY;
-          e.preventDefault();
-        }
+        if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+        var maxScroll = track.scrollWidth - track.clientWidth;
+        var atStart = track.scrollLeft <= 0;
+        var atEnd = track.scrollLeft >= maxScroll - 1;
+        if ((e.deltaY < 0 && atStart) || (e.deltaY > 0 && atEnd)) return;
+        track.scrollLeft += e.deltaY;
+        e.preventDefault();
       }, { passive: false });
 
       track.addEventListener('mousedown', function (e) {
