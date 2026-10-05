@@ -390,8 +390,8 @@
     scrollbar-width: none;
     cursor: grab;
     padding: 4px 0 12px;
-    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
-    mask-image: linear-gradient(to right, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 160px, #000 calc(100% - 160px), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0, #000 160px, #000 calc(100% - 160px), transparent 100%);
   }
 
   .quequieres-scroll.is-dragging {
@@ -1069,8 +1069,8 @@
     .quequieres-scroll {
       gap: 12px;
       padding: 4px 0 12px;
-      -webkit-mask-image: linear-gradient(to right, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
-      mask-image: linear-gradient(to right, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0, #000 56px, #000 calc(100% - 56px), transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0, #000 56px, #000 calc(100% - 56px), transparent 100%);
     }
 
     .quequieres-item {
@@ -1559,7 +1559,7 @@
         shuffled[i] = shuffled[j];
         shuffled[j] = tmp;
       }
-      shuffled.slice(0, 16).forEach(function (item, index) {
+      shuffled.forEach(function (item, index) {
         var a = document.createElement('a');
         a.className = 'quequieres-item reveal reveal-delay-' + (index % 3);
         a.href = item.href;
