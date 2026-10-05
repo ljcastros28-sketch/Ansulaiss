@@ -252,6 +252,10 @@
   .search-empty a:hover { background: var(--maroon-hover); transform: translateY(-2px); }
   .search-empty a svg { width: 18px; height: 18px; }
 
+  .search-suggest { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 22px; }
+  .search-empty .search-suggest a { padding: 9px 18px; font-size: 13px; font-weight: 600; color: var(--ink); background: var(--beige-tint); border: 1px solid rgba(26, 26, 26, 0.1); }
+  .search-empty .search-suggest a:hover { color: var(--beige-light); background: var(--maroon); }
+
   /* ---------- FOOTER ---------- */
   .site-footer { position: relative; z-index: 3; background: var(--maroon-deep); color: var(--beige-light); padding-top: 80px; }
   .footer-top { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 60px; padding-bottom: 60px; }
@@ -478,7 +482,12 @@
       <div class="search-grid" id="searchGrid"></div>
 
       <div class="search-empty" id="searchEmpty">
-        <p>No encontramos piezas que coincidan con tu búsqueda.</p>
+        <p>No encontramos piezas que coincidan con tu búsqueda. Explora por categoría o cuéntanos qué buscas:</p>
+        <div class="search-suggest">
+          <a href="catalogo-salas.html">Salas y sofás</a>
+          <a href="catalogo-comedores.html">Comedores</a>
+          <a href="catalogo-alcobas.html">Alcobas</a>
+        </div>
         <a href="https://wa.me/message/ISVNRLUQCE27G1" target="_blank" rel="noopener noreferrer">
           <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
             <path d="M12 2C6.477 2 2 6.477 2 12c0 1.75.457 3.437 1.323 4.927L2 22l5.223-1.302A9.94 9.94 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.09c-1.56 0-3.06-.42-4.36-1.2l-.313-.185-3.09.77.79-3.06-.196-.313A7.94 7.94 0 0 1 4.09 12c0-4.36 3.55-7.91 7.91-7.91 4.36 0 7.91 3.55 7.91 7.91 0 4.36-3.55 7.91-7.91 7.91z"></path>
@@ -636,85 +645,318 @@
     }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
 
     // ---------- Search data ----------
+    // Las mismas 72 piezas de los tres catálogos (salas, comedores, alcobas):
+    //   tag    -> página del catálogo donde vive la pieza
+    //   filtro -> data-filter de esa página al que pertenece (copiar el "tag" del catálogo)
+    //   desc   -> copia del "desc" del catálogo; el buscador también busca en este texto
     var catalog = [
-      { name: "Sala en L Aurora", tag: "catalogo-salas.html", cat: "Sala en L", img: "assets/catalogo/salas/salaL_basica2/sala_frente-sm.webp" },
-      { name: "Sala en L Bruma", tag: "catalogo-salas.html", cat: "Sala en L", img: "assets/catalogo/salas/salaL_lineascojines/sala_frente-sm.webp" },
-      { name: "Sala en L Vela", tag: "catalogo-salas.html", cat: "Sala en L", img: "assets/catalogo/salas/salaL_un_brazo/sofa_de_frente-sm.webp" },
-      { name: "Sala en L Cofre", tag: "catalogo-salas.html", cat: "Sala en L", img: "assets/catalogo/salas/sala_L_baul/sofa_de_frente-sm.webp" },
-      { name: "Sofá Cedro", tag: "catalogo-salas.html", cat: "Sofá", img: "assets/catalogo/salas/sala_basemadera_hastabrazos/sofa_defrente-sm.webp" },
-      { name: "Sala Modular Toscana", tag: "catalogo-salas.html", cat: "Sala en L", img: "assets/catalogo/salas/salamodular_cuero/salaL_frente-sm.webp" },
-      { name: "Sofá en L Nova", tag: "catalogo-salas.html", cat: "Sala en L", img: "assets/catalogo/salas/sofaL_patasdelgadas/sofa_de_frente-sm.webp" },
-      { name: "Sofá en L Rincón", tag: "catalogo-salas.html", cat: "Sala en L", img: "assets/catalogo/salas/sofaL_unbrazoy_pared/sala_frente-sm.webp" },
-      { name: "Sofá Dueto", tag: "catalogo-salas.html", cat: "Sofá", img: "assets/catalogo/salas/sofa_2_puestos_botones/sofa_de_frente-sm.webp" },
-      { name: "Sofá Esencial", tag: "catalogo-salas.html", cat: "Sofá", img: "assets/catalogo/salas/sofa_basico/sofa_de_frente-sm.webp" },
-      { name: "Sofá Cala", tag: "catalogo-salas.html", cat: "Sofá", img: "assets/catalogo/salas/sofa_curvas/sofa_frente-sm.webp" },
-      { name: "Sofá Bruno", tag: "catalogo-salas.html", cat: "Sofá", img: "assets/catalogo/salas/sofa_dospuestos_capitoneado4puntos/sofa_frente-sm.webp" },
-      { name: "Sofá Urbano", tag: "catalogo-salas.html", cat: "Sofá", img: "assets/catalogo/salas/sofa_pata_metal2/sofa_frente-sm.webp" },
-      { name: "Sofá Roble", tag: "catalogo-salas.html", cat: "Sofá", img: "assets/catalogo/salas/sofa_patas_madera/sofa_de_frente-sm.webp" },
-      { name: "Sofá Andino", tag: "catalogo-salas.html", cat: "Sofá", img: "assets/catalogo/salas/sofa_patas_metal/sofa_frente-sm.webp" },
-      { name: "Sofá Vega", tag: "catalogo-salas.html", cat: "Sofá", img: "assets/catalogo/salas/sofa_patas_redondas/sofa_frente-sm.webp" },
-      { name: "Sofá Prado", tag: "catalogo-salas.html", cat: "Sofá", img: "assets/catalogo/salas/sofa_simple_sinlineas/sofa_frente-sm.webp" },
-      { name: "Sofá Sena", tag: "catalogo-salas.html", cat: "Sofá", img: "assets/catalogo/salas/sofa_tres_puestos_lineas_cojines/sofa_frente-sm.webp" },
-      { name: "Sofá Trío", tag: "catalogo-salas.html", cat: "Sofá", img: "assets/catalogo/salas/sofa_trespuestos_botones/sofa_de_frente-sm.webp" },
-      { name: "Sofá Cama Sauco", tag: "catalogo-salas.html", cat: "Sofá cama", img: "assets/catalogo/salas/sofacama_L_pequena/salaLpequenadefrente-sm.webp" },
-      { name: "Sofá Cama Aldo", tag: "catalogo-salas.html", cat: "Sofá cama", img: "assets/catalogo/salas/sofacama_botones/sofa_frente-sm.webp" },
-      { name: "Sofá Cama Fresno", tag: "catalogo-salas.html", cat: "Sofá cama", img: "assets/catalogo/salas/sofacama_costurasvstas/sofa_frente-sm.webp" },
-      { name: "Sofá Cama Haya", tag: "catalogo-salas.html", cat: "Sofá cama", img: "assets/catalogo/salas/sofacama_lineas/sofa_frente-sm.webp" },
-      { name: "Sofá Cama Olmo", tag: "catalogo-salas.html", cat: "Sofá cama", img: "assets/catalogo/salas/sofacama_lineas_cojines/sofa_de_frente-sm.webp" },
-      { name: "Sofá Encina", tag: "catalogo-salas.html", cat: "Sofá", img: "assets/catalogo/salas/sofatrespuestos_patamadera/sofa_frente-sm.webp" },
-      { name: "Sala en L Costa", tag: "catalogo-salas.html", cat: "Sala en L", img: "assets/catalogo/salas/SalaL_bajamoderna/sala_frente-sm.webp" },
-      { name: "Sala en L Delta", tag: "catalogo-salas.html", cat: "Sala en L", img: "assets/catalogo/salas/salaL_redonda/sala_frente-sm.webp" },
-      { name: "Sofá Valle", tag: "catalogo-salas.html", cat: "Sofá", img: "assets/catalogo/salas/sofa_con_mesasoporte/sofa_frente-sm.webp" },
-      { name: "Sofá Liria", tag: "catalogo-salas.html", cat: "Sofá", img: "assets/catalogo/salas/sofa_lineaenespaldar/sofa_frente-sm.webp" },
-      { name: "Sofá Guayacán", tag: "catalogo-salas.html", cat: "Sofá", img: "assets/catalogo/salas/sofa_madera_al_frente/sofa_frente-sm.webp" },
-      { name: "Sofá Sierra", tag: "catalogo-salas.html", cat: "Sofá", img: "assets/catalogo/salas/sofa_patasU_cuadrada/sofa_frente-sm.webp" },
-      { name: "Sofá Tíbar", tag: "catalogo-salas.html", cat: "Sofá", img: "assets/catalogo/salas/sofa_rustico/sofa_frente-sm.webp" },
-      { name: "Sofá Cama Pampa", tag: "catalogo-salas.html", cat: "Sofá cama", img: "assets/catalogo/salas/sofacama_kremaconrayas/sofa_frente-sm.webp" },
-      { name: "Sofá Cama Milo", tag: "catalogo-salas.html", cat: "Sofá cama", img: "assets/catalogo/salas/sofacama_patasmetalicas/sofa_frente-sm.webp" },
-      { name: "Sofá Iris", tag: "catalogo-salas.html", cat: "Sofá", img: "assets/catalogo/salas/sofarayasasientoyespaldar/sofafrente-sm.webp" },
-      { name: "Comedor Carrara", tag: "catalogo-comedores.html", cat: "Comedor", img: "assets/catalogo/comedores/Comedor4puestos_tapamarmolizada/comedor1-sm.webp" },
-      { name: "Comedor Arco", tag: "catalogo-comedores.html", cat: "Comedor", img: "assets/catalogo/comedores/comedor4puestos_maderamesaconcava/comedor1-sm.webp" },
-      { name: "Comedor Cristal", tag: "catalogo-comedores.html", cat: "Comedor", img: "assets/catalogo/comedores/comedor4puestos_semividrio/comedor1-sm.webp" },
-      { name: "Comedor Duna", tag: "catalogo-comedores.html", cat: "Comedor", img: "assets/catalogo/comedores/comedor4puestos_vidrio/comedor1-sm.webp" },
-      { name: "Comedor Vera", tag: "catalogo-comedores.html", cat: "Comedor", img: "assets/catalogo/comedores/comedor4puestosbanca_semividrio/comedor1-sm.webp" },
-      { name: "Comedor Kioto", tag: "catalogo-comedores.html", cat: "Comedor", img: "assets/catalogo/comedores/comedor4puestosvidrio_mesabarril/comedor1-sm.webp" },
-      { name: "Comedor Praga", tag: "catalogo-comedores.html", cat: "Comedor", img: "assets/catalogo/comedores/comedor4puestosvidriomesabarril_tonooscuro/comedor1-sm.webp" },
-      { name: "Comedor Amalfi", tag: "catalogo-comedores.html", cat: "Comedor", img: "assets/catalogo/comedores/comedor6puestos_banca_semividrio/comedor1-sm.webp" },
-      { name: "Comedor Capri", tag: "catalogo-comedores.html", cat: "Comedor", img: "assets/catalogo/comedores/comedor6puestos_basemetalica/comedor1-sm.webp" },
-      { name: "Comedor Positano", tag: "catalogo-comedores.html", cat: "Comedor", img: "assets/catalogo/comedores/comedor6puestos_madera/comedor1-sm.webp" },
-      { name: "Comedor Sabana", tag: "catalogo-comedores.html", cat: "Comedor", img: "assets/catalogo/comedores/comedor6puestos_tapablanca/comedor1-sm.webp" },
-      { name: "Comedor Meseta", tag: "catalogo-comedores.html", cat: "Comedor", img: "assets/catalogo/comedores/comedor6puestos_tapamadera/comedor1-sm.webp" },
-      { name: "Comedor Altiplano", tag: "catalogo-comedores.html", cat: "Comedor", img: "assets/catalogo/comedores/comedor6puestos_vidriomacizo/comedor1-sm.webp" },
-      { name: "Comedor Cordillera", tag: "catalogo-comedores.html", cat: "Comedor", img: "assets/catalogo/comedores/comedor6puestosbanca_expandible/comedor1-sm.webp" },
-      { name: "Comedor Boreal", tag: "catalogo-comedores.html", cat: "Comedor", img: "assets/catalogo/comedores/comedor6puestosmadera_basecruzada/comedor1-sm.webp" },
-      { name: "Comedor Austral", tag: "catalogo-comedores.html", cat: "Comedor", img: "assets/catalogo/comedores/comedor6puestosmadera_vidrioenelcentro/comedor1-sm.webp" },
-      { name: "Comedor Solsticio", tag: "catalogo-comedores.html", cat: "Comedor", img: "assets/catalogo/comedores/comedor6puestossemividrio_sillacoca/comedor1-sm.webp" },
-      { name: "Comedor Equinoccio", tag: "catalogo-comedores.html", cat: "Comedor", img: "assets/catalogo/comedores/comedorexpandible_baseV/comedor1-sm.webp" },
-      { name: "Comedor Ártico", tag: "catalogo-comedores.html", cat: "Comedor", img: "assets/catalogo/comedores/comedorexpandible_tapacircular/comedor1-sm.webp" },
-      { name: "Comedor Nórdico", tag: "catalogo-comedores.html", cat: "Comedor", img: "assets/catalogo/comedores/comedorovalado_basedobleapalillada/comedor1-sm.webp" },
-      { name: "Comedor Escandia", tag: "catalogo-comedores.html", cat: "Comedor", img: "assets/catalogo/comedores/comedorredondo_basecono/comedor1-sm.webp" },
-      { name: "Comedor Nube", tag: "catalogo-comedores.html", cat: "Comedor", img: "assets/catalogo/comedores/comedortaparedonda_baseapalillada/comedor1-sm.webp" },
-      { name: "Comedor Roca", tag: "catalogo-comedores.html", cat: "Comedor", img: "assets/catalogo/comedores/comedorunicolortaparedonda/comedor-sm.webp" },
-      { name: "Comedor Basalto", tag: "catalogo-comedores.html", cat: "Comedor", img: "assets/catalogo/comedores/comedorvidrio4puestos/comedor1-sm.webp" },
-      { name: "Alcoba Listón", tag: "catalogo-alcobas.html", cat: "Alcoba", img: "assets/catalogo/alcobas/camatableroexpandido/cama1-sm.webp" },
-      { name: "Alcoba Ámbar", tag: "catalogo-alcobas.html", cat: "Alcoba", img: "assets/catalogo/alcobas/camatableroexpandido_mesasuncajon/cama1-sm.webp" },
-      { name: "Alcoba Ocaso", tag: "catalogo-alcobas.html", cat: "Alcoba", img: "assets/catalogo/alcobas/camatableroextendido_mesasflotantesuncajon/cama1-sm.webp" },
-      { name: "Alcoba Cacao", tag: "catalogo-alcobas.html", cat: "Alcoba", img: "assets/catalogo/alcobas/tableroextendidoduotono/cama1-sm.webp" },
-      { name: "Alcoba Faro", tag: "catalogo-alcobas.html", cat: "Alcoba", img: "assets/catalogo/alcobas/tableroextendidoduotonoluces/cama1-sm.webp" },
-      { name: "Alcoba Lino", tag: "catalogo-alcobas.html", cat: "Alcoba", img: "assets/catalogo/alcobas/camadoble_bicolor/cama1-sm.webp" },
-      { name: "Alcoba Alba", tag: "catalogo-alcobas.html", cat: "Alcoba", img: "assets/catalogo/alcobas/camaduotono/cama1-sm.webp" },
-      { name: "Alcoba Luna", tag: "catalogo-alcobas.html", cat: "Alcoba", img: "assets/catalogo/alcobas/camaespaldarsemicurvo_doble/cama1-sm.webp" },
-      { name: "Alcoba Brisa", tag: "catalogo-alcobas.html", cat: "Alcoba", img: "assets/catalogo/alcobas/duotonodoslineas/cama1-sm.webp" },
-      { name: "Cama Nido Plaza", tag: "catalogo-alcobas.html", cat: "Cama nido", img: "assets/catalogo/alcobas/camanido_espaldarcapitoneado/cama1-sm.webp" },
-      { name: "Cama Nido Niebla", tag: "catalogo-alcobas.html", cat: "Cama nido", img: "assets/catalogo/alcobas/camanido_espaldargris_doble/cama1-sm.webp" },
-      { name: "Cama Nido Arena", tag: "catalogo-alcobas.html", cat: "Cama nido", img: "assets/catalogo/alcobas/camanido_espaldartapizado/cama1-sm.webp" },
-      { name: "Cama Sencilla Arca", tag: "catalogo-alcobas.html", cat: "Cama sencilla", img: "assets/catalogo/alcobas/camasencilla_cajones/cama1-sm.webp" }
+      { name: "Sala en L Aurora", desc: "Silueta clásica en L, cómoda y versátil para el centro de cualquier sala.", tag: "catalogo-salas.html", filtro: "en-l", cat: "Sala en L", img: "assets/catalogo/salas/salaL_basica2/sala_frente-sm.webp" },
+      { name: "Sala en L Bruma", desc: "Cojines con costuras de líneas que le dan textura al espaldar.", tag: "catalogo-salas.html", filtro: "en-l", cat: "Sala en L", img: "assets/catalogo/salas/salaL_lineascojines/sala_frente-sm.webp" },
+      { name: "Sala en L Vela", desc: "Un solo brazo lateral: silueta más liviana para espacios reducidos.", tag: "catalogo-salas.html", filtro: "en-l", cat: "Sala en L", img: "assets/catalogo/salas/salaL_un_brazo/sofa_de_frente-sm.webp" },
+      { name: "Sala en L Cofre", desc: "Trae baúl con espacio de guardado escondido bajo el puesto largo.", tag: "catalogo-salas.html", filtro: "en-l", cat: "Sala en L", img: "assets/catalogo/salas/sala_L_baul/sofa_de_frente-sm.webp" },
+      { name: "Sofá Cedro", desc: "Base y brazos en madera vista, un contraste cálido con el tapizado.", tag: "catalogo-salas.html", filtro: "sofa", cat: "Sofá", img: "assets/catalogo/salas/sala_basemadera_hastabrazos/sofa_defrente-sm.webp" },
+      { name: "Sala Modular Toscana", desc: "Módulos en cuero que se acomodan a la forma de tu espacio.", tag: "catalogo-salas.html", filtro: "en-l", cat: "Sala en L", img: "assets/catalogo/salas/salamodular_cuero/salaL_frente-sm.webp" },
+      { name: "Sofá en L Nova", desc: "Patas delgadas y bajas que aligeran visualmente la sala en L.", tag: "catalogo-salas.html", filtro: "en-l", cat: "Sala en L", img: "assets/catalogo/salas/sofaL_patasdelgadas/sofa_de_frente-sm.webp" },
+      { name: "Sofá en L Rincón", desc: "Pensado para esquinas: un brazo y un costado abierto contra la pared.", tag: "catalogo-salas.html", filtro: "en-l", cat: "Sala en L", img: "assets/catalogo/salas/sofaL_unbrazoy_pared/sala_frente-sm.webp" },
+      { name: "Sofá Dueto", desc: "Dos puestos con capitoné de botones en el espaldar.", tag: "catalogo-salas.html", filtro: "sofa", cat: "Sofá", img: "assets/catalogo/salas/sofa_2_puestos_botones/sofa_de_frente-sm.webp" },
+      { name: "Sofá Esencial", desc: "Líneas simples y atemporales, el sofá de siempre bien hecho.", tag: "catalogo-salas.html", filtro: "sofa", cat: "Sofá", img: "assets/catalogo/salas/sofa_basico/sofa_de_frente-sm.webp" },
+      { name: "Sofá Cala", desc: "Brazos y espaldar en curva para un perfil suave y envolvente.", tag: "catalogo-salas.html", filtro: "sofa", cat: "Sofá", img: "assets/catalogo/salas/sofa_curvas/sofa_frente-sm.webp" },
+      { name: "Sofá Bruno", desc: "Dos puestos con capitoné de cuatro puntos, un acabado más formal.", tag: "catalogo-salas.html", filtro: "sofa", cat: "Sofá", img: "assets/catalogo/salas/sofa_dospuestos_capitoneado4puntos/sofa_frente-sm.webp" },
+      { name: "Sofá Urbano", desc: "Patas delgadas en metal para un look más industrial y moderno.", tag: "catalogo-salas.html", filtro: "sofa", cat: "Sofá", img: "assets/catalogo/salas/sofa_pata_metal2/sofa_frente-sm.webp" },
+      { name: "Sofá Roble", desc: "Patas torneadas en madera maciza, un acabado tradicional.", tag: "catalogo-salas.html", filtro: "sofa", cat: "Sofá", img: "assets/catalogo/salas/sofa_patas_madera/sofa_de_frente-sm.webp" },
+      { name: "Sofá Andino", desc: "Base mixta en madera y metal, firme y con acabado moderno.", tag: "catalogo-salas.html", filtro: "sofa", cat: "Sofá", img: "assets/catalogo/salas/sofa_patas_metal/sofa_frente-sm.webp" },
+      { name: "Sofá Vega", desc: "Patas redondas y compactas, un perfil sencillo y equilibrado.", tag: "catalogo-salas.html", filtro: "sofa", cat: "Sofá", img: "assets/catalogo/salas/sofa_patas_redondas/sofa_frente-sm.webp" },
+      { name: "Sofá Prado", desc: "Sin costuras visibles: superficie limpia y de líneas mínimas.", tag: "catalogo-salas.html", filtro: "sofa", cat: "Sofá", img: "assets/catalogo/salas/sofa_simple_sinlineas/sofa_frente-sm.webp" },
+      { name: "Sofá Sena", desc: "Tres puestos con cojines de costura en línea en el espaldar.", tag: "catalogo-salas.html", filtro: "sofa", cat: "Sofá", img: "assets/catalogo/salas/sofa_tres_puestos_lineas_cojines/sofa_frente-sm.webp" },
+      { name: "Sofá Trío", desc: "Tres puestos con capitoné de botones, un clásico de sala grande.", tag: "catalogo-salas.html", filtro: "sofa", cat: "Sofá", img: "assets/catalogo/salas/sofa_trespuestos_botones/sofa_de_frente-sm.webp" },
+      { name: "Sofá Cama Sauco", desc: "Versión compacta en L que se abre y se convierte en cama.", tag: "catalogo-salas.html", filtro: "cama", cat: "Sofá cama", img: "assets/catalogo/salas/sofacama_L_pequena/salaLpequenadefrente-sm.webp" },
+      { name: "Sofá Cama Aldo", desc: "Capitoné de botones de día, cama cómoda cuando la necesitas.", tag: "catalogo-salas.html", filtro: "cama", cat: "Sofá cama", img: "assets/catalogo/salas/sofacama_botones/sofa_frente-sm.webp" },
+      { name: "Sofá Cama Fresno", desc: "Costuras vistas que marcan el diseño del espaldar y los puestos.", tag: "catalogo-salas.html", filtro: "cama", cat: "Sofá cama", img: "assets/catalogo/salas/sofacama_costurasvstas/sofa_frente-sm.webp" },
+      { name: "Sofá Cama Haya", desc: "Líneas de costura simples en espaldar y asiento.", tag: "catalogo-salas.html", filtro: "cama", cat: "Sofá cama", img: "assets/catalogo/salas/sofacama_lineas/sofa_frente-sm.webp" },
+      { name: "Sofá Cama Olmo", desc: "Cojines con costura de líneas, combina estilo y función de cama.", tag: "catalogo-salas.html", filtro: "cama", cat: "Sofá cama", img: "assets/catalogo/salas/sofacama_lineas_cojines/sofa_de_frente-sm.webp" },
+      { name: "Sofá Encina", desc: "Tres puestos sobre patas de madera maciza torneada.", tag: "catalogo-salas.html", filtro: "sofa", cat: "Sofá", img: "assets/catalogo/salas/sofatrespuestos_patamadera/sofa_frente-sm.webp" },
+      { name: "Sala en L Costa", desc: "Perfil bajo y moderno, ideal para salas de techo bajo o abiertas.", tag: "catalogo-salas.html", filtro: "en-l", cat: "Sala en L", img: "assets/catalogo/salas/SalaL_bajamoderna/sala_frente-sm.webp" },
+      { name: "Sala en L Delta", desc: "Formas redondeadas en brazos y espaldar, más suave a la vista.", tag: "catalogo-salas.html", filtro: "en-l", cat: "Sala en L", img: "assets/catalogo/salas/salaL_redonda/sala_frente-sm.webp" },
+      { name: "Sofá Valle", desc: "Incluye una mesa de apoyo integrada a un costado.", tag: "catalogo-salas.html", filtro: "sofa", cat: "Sofá", img: "assets/catalogo/salas/sofa_con_mesasoporte/sofa_frente-sm.webp" },
+      { name: "Sofá Liria", desc: "Costuras de línea que recorren todo el espaldar.", tag: "catalogo-salas.html", filtro: "sofa", cat: "Sofá", img: "assets/catalogo/salas/sofa_lineaenespaldar/sofa_frente-sm.webp" },
+      { name: "Sofá Guayacán", desc: "Estructura en madera visible al frente, entre los puestos.", tag: "catalogo-salas.html", filtro: "sofa", cat: "Sofá", img: "assets/catalogo/salas/sofa_madera_al_frente/sofa_frente-sm.webp" },
+      { name: "Sofá Sierra", desc: "Base en U de perfil cuadrado, un look sólido y contemporáneo.", tag: "catalogo-salas.html", filtro: "sofa", cat: "Sofá", img: "assets/catalogo/salas/sofa_patasU_cuadrada/sofa_frente-sm.webp" },
+      { name: "Sofá Tíbar", desc: "Capitoné rústico de botones grandes, un estilo cálido y artesanal.", tag: "catalogo-salas.html", filtro: "sofa", cat: "Sofá", img: "assets/catalogo/salas/sofa_rustico/sofa_frente-sm.webp" },
+      { name: "Sofá Cama Pampa", desc: "Rayas sutiles sobre tono crema, un clásico fácil de combinar.", tag: "catalogo-salas.html", filtro: "cama", cat: "Sofá cama", img: "assets/catalogo/salas/sofacama_kremaconrayas/sofa_frente-sm.webp" },
+      { name: "Sofá Cama Milo", desc: "Patas en metal delgado, base ligera para cualquier sala.", tag: "catalogo-salas.html", filtro: "cama", cat: "Sofá cama", img: "assets/catalogo/salas/sofacama_patasmetalicas/sofa_frente-sm.webp" },
+      { name: "Sofá Iris", desc: "Rayas en asiento y espaldar que marcan un patrón limpio y actual.", tag: "catalogo-salas.html", filtro: "sofa", cat: "Sofá", img: "assets/catalogo/salas/sofarayasasientoyespaldar/sofafrente-sm.webp" },
+      { name: "Comedor Carrara", desc: "Mesa con tapa de acabado marmolizado y 4 puestos tapizados en tono neutro.", tag: "catalogo-comedores.html", filtro: "clasicos", cat: "Comedor", img: "assets/catalogo/comedores/Comedor4puestos_tapamarmolizada/comedor1-sm.webp" },
+      { name: "Comedor Arco", desc: "Mesa en madera con borde cóncavo y 4 sillas de líneas rectas.", tag: "catalogo-comedores.html", filtro: "clasicos", cat: "Comedor", img: "assets/catalogo/comedores/comedor4puestos_maderamesaconcava/comedor1-sm.webp" },
+      { name: "Comedor Cristal", desc: "Base en madera con inserto de vidrio en el centro de la mesa, 4 puestos.", tag: "catalogo-comedores.html", filtro: "vidrio", cat: "Comedor", img: "assets/catalogo/comedores/comedor4puestos_semividrio/comedor1-sm.webp" },
+      { name: "Comedor Duna", desc: "Tapa en vidrio templado sobre base en madera, 4 puestos.", tag: "catalogo-comedores.html", filtro: "vidrio", cat: "Comedor", img: "assets/catalogo/comedores/comedor4puestos_vidrio/comedor1-sm.webp" },
+      { name: "Comedor Vera", desc: "Mesa semividrio con banca a un lado y sillas al otro, 4 puestos.", tag: "catalogo-comedores.html", filtro: "vidrio", cat: "Comedor", img: "assets/catalogo/comedores/comedor4puestosbanca_semividrio/comedor1-sm.webp" },
+      { name: "Comedor Kioto", desc: "Base tipo barril en madera con tapa de vidrio, 4 puestos.", tag: "catalogo-comedores.html", filtro: "vidrio", cat: "Comedor", img: "assets/catalogo/comedores/comedor4puestosvidrio_mesabarril/comedor1-sm.webp" },
+      { name: "Comedor Praga", desc: "Misma base tipo barril en tono oscuro, con tapa de vidrio, 4 puestos.", tag: "catalogo-comedores.html", filtro: "vidrio", cat: "Comedor", img: "assets/catalogo/comedores/comedor4puestosvidriomesabarril_tonooscuro/comedor1-sm.webp" },
+      { name: "Comedor Amalfi", desc: "Mesa semividrio para 6 puestos, con banca incluida en un costado.", tag: "catalogo-comedores.html", filtro: "vidrio", cat: "Comedor", img: "assets/catalogo/comedores/comedor6puestos_banca_semividrio/comedor1-sm.webp" },
+      { name: "Comedor Capri", desc: "Base en metal y tapa en madera, 6 puestos con líneas modernas.", tag: "catalogo-comedores.html", filtro: "clasicos", cat: "Comedor", img: "assets/catalogo/comedores/comedor6puestos_basemetalica/comedor1-sm.webp" },
+      { name: "Comedor Positano", desc: "Comedor completamente en madera, 6 puestos con acabado natural.", tag: "catalogo-comedores.html", filtro: "clasicos", cat: "Comedor", img: "assets/catalogo/comedores/comedor6puestos_madera/comedor1-sm.webp" },
+      { name: "Comedor Sabana", desc: "Mesa con tapa en tono blanco y base en madera, 6 puestos.", tag: "catalogo-comedores.html", filtro: "clasicos", cat: "Comedor", img: "assets/catalogo/comedores/comedor6puestos_tapablanca/comedor1-sm.webp" },
+      { name: "Comedor Meseta", desc: "Tapa maciza en madera con vetas visibles, 6 puestos.", tag: "catalogo-comedores.html", filtro: "clasicos", cat: "Comedor", img: "assets/catalogo/comedores/comedor6puestos_tapamadera/comedor1-sm.webp" },
+      { name: "Comedor Altiplano", desc: "Base sólida en madera con tapa de vidrio, 6 puestos.", tag: "catalogo-comedores.html", filtro: "vidrio", cat: "Comedor", img: "assets/catalogo/comedores/comedor6puestos_vidriomacizo/comedor1-sm.webp" },
+      { name: "Comedor Cordillera", desc: "Mesa expandible con banca, se ajusta de 6 a más puestos.", tag: "catalogo-comedores.html", filtro: "expandibles", cat: "Comedor", img: "assets/catalogo/comedores/comedor6puestosbanca_expandible/comedor1-sm.webp" },
+      { name: "Comedor Boreal", desc: "Base cruzada en madera maciza, 6 puestos, un clásico robusto.", tag: "catalogo-comedores.html", filtro: "clasicos", cat: "Comedor", img: "assets/catalogo/comedores/comedor6puestosmadera_basecruzada/comedor1-sm.webp" },
+      { name: "Comedor Austral", desc: "Mesa en madera con inserto de vidrio en el centro, 6 puestos.", tag: "catalogo-comedores.html", filtro: "vidrio", cat: "Comedor", img: "assets/catalogo/comedores/comedor6puestosmadera_vidrioenelcentro/comedor1-sm.webp" },
+      { name: "Comedor Solsticio", desc: "Mesa semividrio con sillas de espaldar curvo, 6 puestos.", tag: "catalogo-comedores.html", filtro: "vidrio", cat: "Comedor", img: "assets/catalogo/comedores/comedor6puestossemividrio_sillacoca/comedor1-sm.webp" },
+      { name: "Comedor Equinoccio", desc: "Mesa expandible sobre base en V, ideal si necesitas más puestos ocasionalmente.", tag: "catalogo-comedores.html", filtro: "expandibles", cat: "Comedor", img: "assets/catalogo/comedores/comedorexpandible_baseV/comedor1-sm.webp" },
+      { name: "Comedor Ártico", desc: "Tapa circular que se extiende para recibir más invitados.", tag: "catalogo-comedores.html", filtro: "expandibles", cat: "Comedor", img: "assets/catalogo/comedores/comedorexpandible_tapacircular/comedor1-sm.webp" },
+      { name: "Comedor Nórdico", desc: "Mesa ovalada sobre base doble tipo apalillada, líneas suaves.", tag: "catalogo-comedores.html", filtro: "redondos", cat: "Comedor", img: "assets/catalogo/comedores/comedorovalado_basedobleapalillada/comedor1-sm.webp" },
+      { name: "Comedor Escandia", desc: "Mesa redonda sobre base tipo cono, ideal para espacios compactos.", tag: "catalogo-comedores.html", filtro: "redondos", cat: "Comedor", img: "assets/catalogo/comedores/comedorredondo_basecono/comedor1-sm.webp" },
+      { name: "Comedor Nube", desc: "Tapa redonda sobre base apalillada, un diseño liviano a la vista.", tag: "catalogo-comedores.html", filtro: "redondos", cat: "Comedor", img: "assets/catalogo/comedores/comedortaparedonda_baseapalillada/comedor1-sm.webp" },
+      { name: "Comedor Roca", desc: "Tapa redonda en un solo color, minimalista y fácil de combinar.", tag: "catalogo-comedores.html", filtro: "redondos", cat: "Comedor", img: "assets/catalogo/comedores/comedorunicolortaparedonda/comedor-sm.webp" },
+      { name: "Comedor Basalto", desc: "Mesa de vidrio para 4 puestos, base delgada y moderna.", tag: "catalogo-comedores.html", filtro: "vidrio", cat: "Comedor", img: "assets/catalogo/comedores/comedorvidrio4puestos/comedor1-sm.webp" },
+      { name: "Alcoba Listón", desc: "Cabecero extendido con paneles laterales de listones verticales, mesas de noche flotantes y base tipo plataforma.", tag: "catalogo-alcobas.html", filtro: "tableros", cat: "Alcoba", img: "assets/catalogo/alcobas/camatableroexpandido/cama1-sm.webp" },
+      { name: "Alcoba Ámbar", desc: "Cabecero extendido con luz indirecta y lámparas de lectura, mesas de noche de un cajón con entrepaño abierto.", tag: "catalogo-alcobas.html", filtro: "tableros", cat: "Alcoba", img: "assets/catalogo/alcobas/camatableroexpandido_mesasuncajon/cama1-sm.webp" },
+      { name: "Alcoba Ocaso", desc: "Cabecero extendido en madera que integra mesas de noche flotantes de un cajón y apliques de luz.", tag: "catalogo-alcobas.html", filtro: "tableros", cat: "Alcoba", img: "assets/catalogo/alcobas/camatableroextendido_mesasflotantesuncajon/cama1-sm.webp" },
+      { name: "Alcoba Cacao", desc: "Cabecero extendido en madera de tono oscuro con repisa, mesas de noche flotantes con frente blanco.", tag: "catalogo-alcobas.html", filtro: "tableros", cat: "Alcoba", img: "assets/catalogo/alcobas/tableroextendidoduotono/cama1-sm.webp" },
+      { name: "Alcoba Faro", desc: "Cabecero extendido en blanco y madera con nichos iluminados a los lados y mesas de noche a juego.", tag: "catalogo-alcobas.html", filtro: "tableros", cat: "Alcoba", img: "assets/catalogo/alcobas/tableroextendidoduotonoluces/cama1-sm.webp" },
+      { name: "Alcoba Lino", desc: "Cabecero en madera con franja blanca y mesas de noche de dos cajones en la misma combinación.", tag: "catalogo-alcobas.html", filtro: "clasicas", cat: "Alcoba", img: "assets/catalogo/alcobas/camadoble_bicolor/cama1-sm.webp" },
+      { name: "Alcoba Alba", desc: "Cama de base flotante con cabecero alto en madera y mesas de noche en dos tonos.", tag: "catalogo-alcobas.html", filtro: "clasicas", cat: "Alcoba", img: "assets/catalogo/alcobas/camaduotono/cama1-sm.webp" },
+      { name: "Alcoba Luna", desc: "Cabecero con borde superior suavemente curvo, base tipo plataforma y mesas de noche de dos cajones.", tag: "catalogo-alcobas.html", filtro: "clasicas", cat: "Alcoba", img: "assets/catalogo/alcobas/camaespaldarsemicurvo_doble/cama1-sm.webp" },
+      { name: "Alcoba Brisa", desc: "Cabecero en madera con dos franjas blancas y mesas de noche con cajón y entrepaño abierto.", tag: "catalogo-alcobas.html", filtro: "clasicas", cat: "Alcoba", img: "assets/catalogo/alcobas/duotonodoslineas/cama1-sm.webp" },
+      { name: "Cama Nido Plaza", desc: "Cabecero tapizado capitoneado y cama auxiliar deslizante bajo la base, ideal para recibir visitas.", tag: "catalogo-alcobas.html", filtro: "nido", cat: "Cama nido", img: "assets/catalogo/alcobas/camanido_espaldarcapitoneado/cama1-sm.webp" },
+      { name: "Cama Nido Niebla", desc: "Cabecero tapizado en gris con base en madera y cama auxiliar que se desliza por debajo.", tag: "catalogo-alcobas.html", filtro: "nido", cat: "Cama nido", img: "assets/catalogo/alcobas/camanido_espaldargris_doble/cama1-sm.webp" },
+      { name: "Cama Nido Arena", desc: "Cabecero tapizado con costuras horizontales y cama auxiliar deslizante en la base.", tag: "catalogo-alcobas.html", filtro: "nido", cat: "Cama nido", img: "assets/catalogo/alcobas/camanido_espaldartapizado/cama1-sm.webp" },
+      { name: "Cama Sencilla Arca", desc: "Cama sencilla con cabecero en madera y cajones de almacenamiento en la base.", tag: "catalogo-alcobas.html", filtro: "nido", cat: "Cama sencilla", img: "assets/catalogo/alcobas/camasencilla_cajones/cama1-sm.webp" }
     ];
 
+    // ---------- Buscador ----------
+    // La idea es NO mostrar una cuadrícula para que el usuario escoja, sino llevarlo
+    // directo a donde está lo que busca. Se prueba en este orden:
+    //   1. Código de artículo (SAL-05, COM-12, ALC-03)      -> abre esa pieza.
+    //   2. Nombre de una pieza ("aurora", "comedor nube")    -> abre esa pieza.
+    //   3. Tipo de mueble o sección del sitio (ROUTES)       -> esa página, con el filtro puesto
+    //      ("sofá cama", "comedor redondo", "cama nido", "horario", "garantía"…).
+    //      Si sobran palabras ("cama gris", "sofá de cuero") se buscan dentro de esa
+    //      categoría: si solo una pieza coincide, se abre esa pieza.
+    //   4. Texto libre sobre nombre + descripción: 1 resultado abre la pieza; si hay
+    //      varios, se listan aquí solo los más relevantes.
+    // Todo tolera tildes, plurales, mayúsculas y un error de tipeo ("comedro", "sofas").
+
+    // Destinos por palabra clave. Cada entrada de "keys" es una frase: coincide si TODAS
+    // sus palabras aparecen en la búsqueda. "filters" son los data-filter del catálogo.
+    // Ante empate gana la que esté más arriba, por eso los catálogos van primero.
+    var ROUTES = [
+      { href: 'catalogo-salas.html', keys: ['sala', 'sofa', 'sillon', 'mueble de sala', 'living', 'poltrona'],
+        filters: {
+          'sofa': ['dos puestos', 'tres puestos', 'recto', 'loveseat'],
+          'en-l': ['l', 'ele', 'esquinero', 'esquinera', 'esquina', 'rinconero', 'rinconera', 'modular', 'seccional', 'chaise longue'],
+          'cama': ['sofa cama', 'sofacama']
+        } },
+      { href: 'catalogo-comedores.html', keys: ['comedor', 'mesa', 'silla', 'banca', 'juego de comedor'],
+        filters: {
+          'clasicos': ['clasico', 'clasica', 'tradicional'],
+          'vidrio': ['vidrio', 'semividrio', 'templado'],
+          'redondos': ['redondo', 'redonda', 'circular', 'ovalado', 'ovalada', 'ovalo'],
+          'expandibles': ['expandible', 'extensible', 'extendible', 'ampliable']
+        } },
+      { href: 'catalogo-alcobas.html', keys: ['alcoba', 'cama', 'habitacion', 'dormitorio', 'cuarto', 'recamara', 'cabecero', 'cabecera', 'nochero', 'mesa de noche', 'mesita de noche', 'cama doble', 'semidoble', 'king', 'queen'],
+        filters: {
+          'tableros': ['cabecero extendido', 'tablero', 'tablero extendido'],
+          'clasicas': ['clasica', 'clasico', 'tradicional'],
+          'nido': ['nido', 'cajon', 'auxiliar', 'sencilla', 'almacenamiento']
+        } },
+      { href: 'catalogo.html', keys: ['catalogo', 'producto', 'mueble', 'todo', 'otro'] },
+      { href: 'index.html#contacto', keys: ['contacto', 'contactar', 'contactenos', 'contactarnos', 'telefono', 'celular', 'whatsapp', 'whatsap', 'wasap', 'guasap', 'numero', 'llamar', 'direccion', 'ubicacion', 'ubicado', 'donde', 'local', 'tienda', 'almacen', 'showroom', 'visitar', 'visita', 'horario', 'hora', 'abierto', 'abren', 'atencion', 'correo', 'email', 'mail', 'cotizacion', 'cotizar', 'precio', 'valor', 'costo', 'cuesta', 'cuanto', 'envio', 'domicilio', 'entrega', 'pedido', 'comprar', 'compra', 'medida', 'personalizado'] },
+      { href: 'index.html#nosotros', keys: ['nosotros', 'quienes somos', 'empresa', 'historia', 'fabrica', 'fabricante', 'taller', 'ansulais', 'madera', 'flor morado', 'espuma', 'espumados', 'material', 'calidad', 'certificado', 'certificacion', 'certipur', 'iso'] },
+      { href: 'reembolsos.html', keys: ['garantia', 'devolucion', 'devolver', 'cambio', 'reembolso', 'retracto', 'reclamo', 'reclamacion', 'dano', 'danado', 'defecto'] },
+      { href: 'privacidad.html', keys: ['privacidad', 'datos personales', 'habeas data', 'tratamiento de datos'] },
+      { href: 'cookies.html', keys: ['cookie'] },
+      { href: 'terminos.html', keys: ['termino', 'condicion'] },
+      { href: 'index.html', keys: ['inicio', 'home'] }
+    ];
+
+    var STOPWORDS = {};
+    ('de del la las el los lo un una unos unas y o a al en con sin para por que mi me su sus ' +
+     'quiero quisiera busco buscar buscando necesito ver tipo tienen tiene hay como es son mas muy ' +
+     'algo hola buenas buenos dias favor gracias ahora hoy').split(' ').forEach(function (w) { STOPWORDS[w] = true; });
+
+    var NUMBERS = { uno: '1', dos: '2', tres: '3', cuatro: '4', cinco: '5', seis: '6', siete: '7', ocho: '8', diez: '10' };
+
     function normalize(str) {
-      return str.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+      return String(str).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
     }
 
+    // Raíz simple para que singular y plural coincidan (sofás/sofá, comedores/comedor,
+    // expandibles/expandible). Se aplica igual a la búsqueda y a los datos.
+    function stem(word) {
+      if (NUMBERS[word]) return NUMBERS[word];
+      if (word.length < 4) return word;
+      return word.replace(/s$/, '').replace(/e$/, '');
+    }
+
+    function tokenize(str) {
+      return normalize(str).replace(/[^a-z0-9]+/g, ' ').split(' ')
+        .filter(function (w) { return w && !STOPWORDS[w]; })
+        .map(stem);
+    }
+
+    function slug(str) {
+      return normalize(str).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    }
+
+    function editDistance(a, b) {
+      if (Math.abs(a.length - b.length) > 2) return 3;
+      var d = [];
+      for (var i = 0; i <= a.length; i++) d[i] = [i];
+      for (var j = 1; j <= b.length; j++) d[0][j] = j;
+      for (i = 1; i <= a.length; i++) {
+        for (j = 1; j <= b.length; j++) {
+          d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+          if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + 1);
+        }
+      }
+      return d[a.length][b.length];
+    }
+
+    // Qué tan bien coincide una palabra escrita con una conocida: 1 exacta, 0.8 si es
+    // un error de tipeo (1 letra en palabras de 4+, 2 en palabras de 8+) o si la
+    // persona apenas la empezó a escribir ("comed" -> comedor), 0 si no coincide.
+    function wordMatch(typed, known) {
+      if (typed === known) return 1;
+      if (typed.length < 4 || known.length < 4) return 0;
+      if (typed.length >= 5 && known.indexOf(typed) === 0) return 0.8;
+      var allowed = Math.min(typed.length, known.length) >= 8 ? 2 : 1;
+      return editDistance(typed, known) <= allowed ? 0.8 : 0;
+    }
+
+    // Preparar datos: palabras de cada pieza, palabra distintiva del nombre y frases de ROUTES
+    var routeWords = {};
+    ROUTES.forEach(function (route) {
+      route.phrases = route.keys.map(tokenize);
+      route.filterPhrases = {};
+      Object.keys(route.filters || {}).forEach(function (f) {
+        route.filterPhrases[f] = route.filters[f].map(tokenize);
+      });
+      [route.phrases].concat(Object.keys(route.filterPhrases).map(function (f) { return route.filterPhrases[f]; }))
+        .forEach(function (list) { list.forEach(function (p) { p.forEach(function (w) { routeWords[w] = true; }); }); });
+    });
+
+    catalog.forEach(function (item) {
+      var nameWords = tokenize(item.name);
+      item.key = nameWords[nameWords.length - 1]; // "Sala en L Aurora" -> "aurora"
+      item.words = tokenize(item.name + ' ' + item.cat + ' ' + item.desc);
+      item.href = item.tag + '?pieza=' + slug(item.name);
+    });
+
+    // Suma lo que aportan las frases que coinciden y marca qué palabras de la búsqueda usaron
+    function scorePhrases(phrases, tokens, used) {
+      var total = 0;
+      phrases.forEach(function (phrase) {
+        var hits = [];
+        var score = 0;
+        var ok = phrase.every(function (word) {
+          var best = 0, bestIndex = -1;
+          tokens.forEach(function (t, i) {
+            var s = wordMatch(t, word);
+            if (s > best) { best = s; bestIndex = i; }
+          });
+          if (!best) return false;
+          score += best;
+          hits.push(bestIndex);
+          return true;
+        });
+        if (ok && phrase.length) {
+          total += score;
+          hits.forEach(function (i) { used[i] = true; });
+        }
+      });
+      return total;
+    }
+
+    function bestRoute(tokens) {
+      var best = null;
+      ROUTES.forEach(function (route) {
+        var usedPage = {};
+        var pageScore = scorePhrases(route.phrases, tokens, usedPage);
+        var candidates = [{ filter: null, score: pageScore, used: usedPage }];
+        Object.keys(route.filterPhrases).forEach(function (f) {
+          var used = {};
+          Object.keys(usedPage).forEach(function (i) { used[i] = true; });
+          var s = scorePhrases(route.filterPhrases[f], tokens, used);
+          if (s) candidates.push({ filter: f, score: pageScore + s, used: used });
+        });
+        candidates.forEach(function (c) {
+          if (c.score > 0 && (!best || c.score > best.score)) {
+            best = { route: route, filter: c.filter, score: c.score, used: c.used };
+          }
+        });
+      });
+      if (!best) return null;
+      return {
+        href: best.route.href + (best.filter ? '?filtro=' + best.filter : ''),
+        page: best.route.href,
+        filter: best.filter,
+        leftover: tokens.filter(function (t, i) { return !best.used[i]; })
+      };
+    }
+
+    // Búsqueda por texto: deja solo las piezas que coinciden con más palabras
+    function textSearch(tokens, items) {
+      var bestScore = 0;
+      var scored = items.map(function (item) {
+        var score = 0;
+        tokens.forEach(function (t) {
+          var hit = item.words.some(function (w) {
+            // también por raíz común: "made" -> madera, "capitoneado" -> capitoné
+            return wordMatch(t, w) > 0 || (t.length >= 4 && w.indexOf(t) === 0) || (w.length >= 6 && t.indexOf(w) === 0);
+          });
+          if (hit) score++;
+        });
+        if (score > bestScore) bestScore = score;
+        return { item: item, score: score };
+      });
+      if (!bestScore) return [];
+      return scored.filter(function (s) { return s.score === bestScore; }).map(function (s) { return s.item; });
+    }
+
+    // Devuelve { go: url } para llevar directo, o { results: [...] } para listar aquí
+    function resolveSearch(query) {
+      var tokens = tokenize(query);
+      if (!tokens.length) return { results: [] };
+
+      // 1. Código de artículo
+      var code = normalize(query).match(/\b(sal|com|alc)\s*-?\s*(\d{1,3})\b/);
+      if (code) {
+        var pages = { sal: 'catalogo-salas.html', com: 'catalogo-comedores.html', alc: 'catalogo-alcobas.html' };
+        var num = String(parseInt(code[2], 10));
+        if (num.length < 2) num = '0' + num;
+        return { go: pages[code[1]] + '?pieza=' + code[1].toUpperCase() + '-' + num };
+      }
+
+      // 2. Nombre de una pieza (primero exacto; si no, tolerando errores de tipeo)
+      var exact = catalog.filter(function (item) { return tokens.indexOf(item.key) !== -1; });
+      var byName = exact.length ? exact : catalog.filter(function (item) {
+        return tokens.some(function (t) { return t.length >= 5 && !routeWords[t] && wordMatch(t, item.key) > 0; });
+      });
+      if (byName.length === 1) return { go: byName[0].href };
+      if (byName.length > 1) return { results: byName };
+
+      // 3. Tipo de mueble o sección del sitio
+      var route = bestRoute(tokens);
+      if (route) {
+        var inPage = catalog.filter(function (item) {
+          return item.tag === route.page && (!route.filter || item.filtro === route.filter);
+        });
+        if (route.leftover.length && inPage.length) {
+          var within = textSearch(route.leftover, inPage);
+          if (within.length === 1) return { go: within[0].href };
+          if (within.length > 1) return { results: within };
+        }
+        return { go: route.href };
+      }
+
+      // 4. Texto libre
+      var found = textSearch(tokens, catalog);
+      if (found.length === 1) return { go: found[0].href };
+      return { results: found };
+    }
+
+    // ---------- Resultados en pantalla ----------
     var grid = document.getElementById('searchGrid');
     var empty = document.getElementById('searchEmpty');
     var title = document.getElementById('searchTitle');
@@ -722,20 +964,19 @@
     var filters = document.getElementById('searchFilters');
     var searchInput = document.getElementById('searchInput');
     var activeFilter = 'all';
+    var currentQuery = '';
+    var currentResults = catalog;
 
-    function render(query) {
-      var q = normalize(query || '');
-      var results = catalog.filter(function (item) {
-        var matchesQuery = !q || normalize(item.name).indexOf(q) !== -1 || normalize(item.cat).indexOf(q) !== -1;
-        var matchesFilter = activeFilter === 'all' || item.tag === activeFilter;
-        return matchesQuery && matchesFilter;
+    function render() {
+      var results = currentResults.filter(function (item) {
+        return activeFilter === 'all' || item.tag === activeFilter;
       });
 
       grid.innerHTML = '';
       results.forEach(function (item, index) {
         var a = document.createElement('a');
         a.className = 'search-card reveal reveal-delay-' + (index % 3);
-        a.href = item.tag;
+        a.href = item.href;
         a.innerHTML =
           '<span class="search-card-media"><img src="' + item.img + '" alt="' + item.name + '" loading="lazy"></span>' +
           '<span class="search-card-info"><h3>' + item.name + '</h3><span>' + item.cat + '</span></span>';
@@ -744,12 +985,12 @@
 
       empty.classList.toggle('is-visible', results.length === 0);
 
-      if (query) {
-        title.textContent = 'Resultados para "' + query + '"';
+      if (currentQuery) {
+        title.textContent = 'Resultados para "' + currentQuery + '"';
         subtitle.textContent = results.length + (results.length === 1 ? ' pieza encontrada.' : ' piezas encontradas.');
       } else {
         title.textContent = 'Todo el catálogo';
-        subtitle.textContent = results.length + ' piezas disponibles. Escribe arriba para filtrar.';
+        subtitle.textContent = results.length + ' piezas disponibles. Escribe arriba para buscar.';
       }
 
       document.querySelectorAll('.reveal').forEach(function (el) {
@@ -757,27 +998,49 @@
       });
     }
 
+    // navigate: 'replace' (al llegar con ?q=, para que "atrás" no vuelva a redirigir),
+    // 'push' (búsqueda hecha desde esta misma página) o false (solo listar)
+    function runSearch(query, navigate) {
+      var result = query ? resolveSearch(query) : { results: catalog };
+      if (result.go && navigate) {
+        if (navigate === 'replace') window.location.replace(result.go);
+        else window.location.href = result.go;
+        return;
+      }
+      currentQuery = query;
+      currentResults = result.go ? textSearch(tokenize(query), catalog) : result.results;
+      render();
+    }
+
     filters.querySelectorAll('.filter-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
         filters.querySelectorAll('.filter-btn').forEach(function (b) { b.classList.remove('is-active'); });
         btn.classList.add('is-active');
         activeFilter = btn.dataset.filter;
-        render(searchInput.value.trim());
+        render();
       });
     });
 
     document.getElementById('searchForm').addEventListener('submit', function (e) {
       e.preventDefault();
       var q = searchInput.value.trim();
+      var result = q ? resolveSearch(q) : null;
+      if (result && result.go) {
+        window.location.href = result.go;
+        return;
+      }
       var url = new URL(window.location.href);
       if (q) url.searchParams.set('q', q); else url.searchParams.delete('q');
       window.history.replaceState(null, '', url);
-      render(q);
+      runSearch(q, false);
     });
 
+    // Si la persona vuelve con "atrás" a esta página, se le muestra la lista en vez de redirigir otra vez
+    var navEntry = window.performance && performance.getEntriesByType ? performance.getEntriesByType('navigation')[0] : null;
+    var cameBack = navEntry && navEntry.type === 'back_forward';
     var initialQuery = new URLSearchParams(window.location.search).get('q') || '';
     searchInput.value = initialQuery;
-    render(initialQuery);
+    runSearch(initialQuery, cameBack ? false : 'replace');
   </script>
 
 </body>

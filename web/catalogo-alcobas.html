@@ -1218,6 +1218,31 @@
       if (e.key === "ArrowLeft") showPrevImage();
     });
 
+    // ---------- Enlaces directos (los usa el buscador) ----------
+    // ?filtro=<data-filter> deja ese filtro activo; ?pieza=<código o nombre> abre esa pieza.
+    // Ej: ?filtro=cama  ·  ?pieza=SAL-05  ·  ?pieza=sofa-cedro
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var filtro = params.get("filtro");
+      filterButtons.forEach(function (btn) {
+        if (filtro && btn.dataset.filter === filtro) btn.click();
+      });
+
+      var pieza = params.get("pieza");
+      if (!pieza) return;
+      var slug = function (str) {
+        return String(str).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+      };
+      var wanted = slug(pieza);
+      for (var i = 0; i < products.length; i++) {
+        if (slug(products[i].name) === wanted || slug(articleCode(i)) === wanted) {
+          grid.children[i].scrollIntoView({ block: "center" });
+          openLightbox(i);
+          return;
+        }
+      }
+    })();
+
     // ---------- Page loader ----------
     function hidePageLoader() {
       var loader = document.getElementById('pageLoader');

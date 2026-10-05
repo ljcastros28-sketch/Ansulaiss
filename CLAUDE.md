@@ -25,7 +25,7 @@ Workflow típico de cada cambio:
 | `catalogo-salas.html` | Catálogo de salas/sofás — 35 piezas, con filtros y lightbox |
 | `catalogo-comedores.html` | Catálogo de comedores — 24 piezas, con filtros y lightbox |
 | `catalogo-alcobas.html` | Catálogo de alcobas/camas — 13 piezas (códigos `ALC-xx`), filtros: Cabecero extendido / Clásicas / Nido y cajones, con lightbox. Faltan fotos de más piezas: se irán agregando |
-| `search.html` | Buscador funcional sobre las 72 piezas combinadas (salas + comedores + alcobas), con filtros por categoría |
+| `search.html` | Buscador "directo": en vez de listar opciones, lleva a la pieza (por nombre o código `SAL-05`), al catálogo con el filtro puesto ("sofá cama", "comedor redondo", "cama nido") o a la sección ("horario" → contacto, "garantía" → reembolsos). Solo lista resultados cuando de verdad hay varias piezas posibles ("botones", "comedor 6 puestos"). Palabras clave en el array `ROUTES` |
 | `privacidad.html` | Política de tratamiento de datos (Ley 1581 de 2012, Colombia) |
 | `cookies.html` | Política de cookies (el sitio NO usa analítica/tracking, solo Google Fonts + una preferencia local de "ya viste el aviso") |
 | `terminos.html` | Términos y condiciones (venta sobre pedido, Ley 1480 de 2011) |
@@ -65,7 +65,7 @@ Los productos (nombre inventado + descripción + tag + carpeta de fotos) están 
 - `catalogo-comedores.html` (24 piezas, con `desc` completo para el lightbox)
 - `catalogo-alcobas.html` (13 piezas, con `desc` completo para el lightbox)
 - `index.html` → array `offerPool` (las mismas 72 piezas combinadas, solo nombre/href/img, para el carrusel "¿Qué ofrecemos?")
-- `search.html` → array `catalog` (las mismas 72, con `cat` para los filtros)
+- `search.html` → array `catalog` (las mismas 72, con `cat`, `filtro` = `tag` del catálogo y `desc` copiada del catálogo, porque el buscador también busca en la descripción)
 
 **Si se agrega o quita una pieza del catálogo, hay que actualizar los 3 lugares donde está duplicada la lista** (no hay una sola fuente de verdad, es intencional por ser sitio estático sin build).
 
@@ -78,6 +78,7 @@ Fotos de catálogo en: `web/assets/catalogo/{salas,comedores,alcobas}/<carpeta>/
 - Nav-search: en móvil el input estaba `display:none` — se arregló para que se expanda al tocar el ícono (clase `.is-open` en `#navSearchForm`).
 - Skip-link de accesibilidad ("Saltar al contenido") en las 10 páginas.
 - Footer con links legales (Términos, Privacidad, Cookies, Cambios y devoluciones) en las 10 páginas.
+- Enlaces directos en los 3 catálogos: `?filtro=<data-filter>` activa el filtro y `?pieza=<código o nombre-en-slug>` abre la pieza en el lightbox (ej. `catalogo-salas.html?pieza=SAL-05` o `?pieza=sofa-cedro`). Los usa el buscador y sirven para compartir una pieza por WhatsApp.
 
 ## Lecciones aprendidas (para no repetir bugs ya resueltos)
 
@@ -96,3 +97,4 @@ Fotos de catálogo en: `web/assets/catalogo/{salas,comedores,alcobas}/<carpeta>/
 - **2026-10-05** — Correo de contacto cambiado a `ansulais31@gmail.com` en las 9 páginas (reemplaza `ansulais@ansulais.com`); se agregó el link de correo que le faltaba al footer de `catalogo-salas.html`; se agregó sección 6 en `reembolsos.html` sobre elementos decorativos/deslizantes de cortesía (sin garantía, no se reponen, no admiten reclamo, por ser obsequio).
 - **2026-10-05** — Nueva sección de alcobas: `catalogo-alcobas.html` con 13 piezas (fotos de `alcobas_fondoblanco/` copiadas a `web/assets/catalogo/alcobas/`); tarjeta de alcobas en `catalogo.html` ya enlaza (sin "próximamente"); piezas agregadas a `offerPool` (index) y a `catalog` + filtro "Alcobas" (search).
 - **2026-10-05** — Optimización de carga: todas las fotos del sitio pasan a WebP (catálogo: de ~110 MB a ~9.5 MB, con miniaturas `-sm.webp` para tarjetas y `srcset`); el hero usa `fetchpriority="high"`; el video de Nosotros pasa a `preload="none"` y se reproduce/pausa con `IntersectionObserver`; el lightbox precarga la foto anterior y la siguiente. Nuevo `tools/optimizar_fotos.py`, `README.md` para ingenieros y comentarios que documentan el array `products` en cada catálogo.
+- **2026-10-05** — Buscador reescrito para ir directo al destino: código de artículo / nombre de pieza → abre la pieza; tipo de mueble → catálogo con filtro; palabras como horario, garantía, madera → la sección correspondiente. Tolera tildes, plurales y errores de tipeo. Los 3 catálogos aceptan `?filtro=` y `?pieza=`. `search.html` (`catalog`) ahora incluye `desc` y `filtro`.

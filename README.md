@@ -14,7 +14,7 @@ web/                      ← todo lo que se publica
   catalogo-salas.html     Catálogo de salas y sofás   (códigos SAL-xx)
   catalogo-comedores.html Catálogo de comedores       (códigos COM-xx)
   catalogo-alcobas.html   Catálogo de alcobas         (códigos ALC-xx)
-  search.html             Buscador sobre todas las piezas
+  search.html             Buscador: lleva directo a la pieza, al filtro o a la sección (ver ROUTES)
   privacidad.html, cookies.html, terminos.html, reembolsos.html   Páginas legales
   assets/
     catalogo/<categoria>/<pieza>/<foto>.webp      foto completa (lightbox)
@@ -42,13 +42,13 @@ Convenciones que se repiten en todas las páginas:
    ```
    Cada subcarpeta del origen se trata como una pieza. Por cada foto se generan `<nombre>.webp` y `<nombre>-sm.webp`.
 2. Agrega la pieza **al final** del array `products` del `catalogo-<categoria>.html` correspondiente. El código de artículo (ALC-01, ALC-02…) sale de la posición en la lista; si insertas en medio, cambias los códigos que los clientes ya conocen. El comentario encima del array explica cada campo.
-3. Agrega la misma pieza en `index.html` (array `offerPool`) y en `search.html` (array `catalog`), usando la miniatura `-sm.webp`.
+3. Agrega la misma pieza en `index.html` (array `offerPool`) y en `search.html` (array `catalog`, con la misma `desc` y su `filtro` = el `tag` del catálogo), usando la miniatura `-sm.webp`.
 
 Las piezas están en tres lugares porque el sitio no tiene una base de datos ni un build. Si quitas una pieza, quítala también de los tres.
 
 ## Agregar una categoría nueva
 
-Copia uno de los `catalogo-*.html` y cambia el `<title>`, los botones de filtro, `products`, `tagLabels`, `basePath` y el prefijo de `articleCode`. Después enlázala desde `catalogo.html` y agrega su filtro en `search.html`.
+Copia uno de los `catalogo-*.html` y cambia el `<title>`, los botones de filtro, `products`, `tagLabels`, `basePath` y el prefijo de `articleCode`. Después enlázala desde `catalogo.html` y, en `search.html`, agrega su botón de filtro y una entrada en `ROUTES` con sus palabras clave y filtros.
 
 ## Rendimiento
 
