@@ -357,10 +357,11 @@
     display: block;
   }
 
-  /* ---------- QUE BUSCAS (picker) ---------- */
+  /* ---------- QUE OFRECEMOS (scroll) ---------- */
   .quequieres {
     background: var(--maroon-deep);
     padding: 70px 0;
+    overflow: hidden;
   }
 
   .quequieres-title {
@@ -370,35 +371,44 @@
     letter-spacing: -0.01em;
     line-height: 1.12;
     max-width: 950px;
-    margin-bottom: 56px;
+    margin-bottom: 40px;
+    padding: 0 48px;
   }
 
-  .quequieres-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: clamp(18px, 2.2vw, 36px);
+  .quequieres-scroll {
+    display: flex;
+    gap: 18px;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 4px 48px 12px;
   }
 
-  .quequieres-card {
+  .quequieres-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .quequieres-item {
     position: relative;
+    flex: 0 0 auto;
+    width: 240px;
     aspect-ratio: 3 / 4;
-    border-radius: 20px;
+    border-radius: 18px;
     overflow: hidden;
     display: block;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    scroll-snap-align: start;
+    transition: transform 0.3s ease;
     box-shadow:
       inset 0 0 30px 4px rgba(0, 0, 0, 0.22),
       inset 0 0 0 1px rgba(0, 0, 0, 0.15);
   }
 
-  .quequieres-card:hover {
+  .quequieres-item:hover {
     transform: translateY(-4px);
-    box-shadow:
-      inset 0 0 34px 5px rgba(0, 0, 0, 0.26),
-      inset 0 0 0 1px rgba(0, 0, 0, 0.18);
   }
 
-  .quequieres-card img {
+  .quequieres-item img {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -407,42 +417,22 @@
     transition: transform 0.5s ease;
   }
 
-  .quequieres-card:hover img {
+  .quequieres-item:hover img {
     transform: scale(1.06);
   }
 
-  .quequieres-card::after {
-    content: "";
+  .quequieres-item-label {
     position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0.02) 55%, rgba(0, 0, 0, 0.12) 100%);
-  }
-
-  .quequieres-card-label {
-    position: absolute;
-    inset: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 0 22px;
+    padding: 28px 16px 14px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0));
     color: var(--beige-light);
-    font-size: clamp(1.3rem, 2.1vw, 1.9rem);
-    font-weight: 400;
-    line-height: 1.25;
-    text-transform: lowercase;
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.45);
-  }
-
-  .quequieres-card-soon {
-    margin-top: 8px;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    opacity: 0.65;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
   }
 
   /* ---------- NOSOTROS ---------- */
@@ -1047,24 +1037,22 @@
 
     .quequieres-title {
       font-size: 2.1rem;
-      margin-bottom: 26px;
+      margin-bottom: 22px;
+      padding: 0 24px;
     }
 
-    .quequieres-grid {
-      grid-template-columns: 1fr;
-      gap: 14px;
+    .quequieres-scroll {
+      gap: 12px;
+      padding: 4px 24px 12px;
     }
 
-    .quequieres-card {
-      aspect-ratio: 16 / 10;
+    .quequieres-item {
+      width: 170px;
     }
 
-    .quequieres-card-label {
-      font-size: 1.15rem;
-    }
-
-    .quequieres-card-break {
-      display: none;
+    .quequieres-item-label {
+      font-size: 12px;
+      padding: 22px 12px 10px;
     }
 
     .nosotros-intro {
@@ -1278,27 +1266,8 @@
   </section>
 
   <section class="quequieres">
-    <div class="wrap">
-      <h2 class="quequieres-title reveal">Mira lo que ofrecemos</h2>
-      <div class="quequieres-grid">
-        <a class="quequieres-card reveal" href="catalogo-comedores.html" data-category="comedores">
-          <img src="assets/qh_comedores.jpg" alt="Comedores" loading="lazy">
-          <span class="quequieres-card-label">comedores</span>
-        </a>
-        <a class="quequieres-card reveal reveal-delay-1" href="catalogo-salas.html" data-category="salas">
-          <img src="assets/qh_salas.jpg" alt="Salas y sofás" loading="lazy">
-          <span class="quequieres-card-label">salas &amp;<br class="quequieres-card-break">sofás</span>
-        </a>
-        <div class="quequieres-card reveal reveal-delay-2" data-category="alcobas">
-          <img src="assets/qh_alcobas.jpg" alt="Alcobas" loading="lazy">
-          <span class="quequieres-card-label">alcobas<span class="quequieres-card-soon">próximamente</span></span>
-        </div>
-        <div class="quequieres-card reveal reveal-delay-3" data-category="otros">
-          <img src="assets/qh_otros.jpg" alt="Otros" loading="lazy">
-          <span class="quequieres-card-label">otros<span class="quequieres-card-soon">próximamente</span></span>
-        </div>
-      </div>
-    </div>
+    <h2 class="quequieres-title reveal">¿Qué ofrecemos?</h2>
+    <div class="quequieres-scroll" id="quequieresScroll"></div>
   </section>
 
   <section class="nosotros" id="nosotros">
@@ -1489,6 +1458,89 @@
   </footer>
 
   <script>
+    var offerPool = [
+      { name: "Sala en L Aurora", href: "catalogo-salas.html", img: "assets/catalogo/salas/salaL_basica2/sala_frente.jpg" },
+      { name: "Sala en L Bruma", href: "catalogo-salas.html", img: "assets/catalogo/salas/salaL_lineascojines/sala_frente.jpg" },
+      { name: "Sala en L Vela", href: "catalogo-salas.html", img: "assets/catalogo/salas/salaL_un_brazo/sofa_de_frente.jpg" },
+      { name: "Sala en L Cofre", href: "catalogo-salas.html", img: "assets/catalogo/salas/sala_L_baul/sofa_de_frente.jpg" },
+      { name: "Sofá Cedro", href: "catalogo-salas.html", img: "assets/catalogo/salas/sala_basemadera_hastabrazos/sofa_defrente.jpg" },
+      { name: "Sala Modular Toscana", href: "catalogo-salas.html", img: "assets/catalogo/salas/salamodular_cuero/salaL_frente.jpg" },
+      { name: "Sofá en L Nova", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofaL_patasdelgadas/sofa_de_frente.jpg" },
+      { name: "Sofá en L Rincón", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofaL_unbrazoy_pared/sala_frente.jpg" },
+      { name: "Sofá Dueto", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_2_puestos_botones/sofa_de_frente.jpg" },
+      { name: "Sofá Esencial", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_basico/sofa_de_frente.jpg" },
+      { name: "Sofá Cala", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_curvas/sofa_frente.jpg" },
+      { name: "Sofá Bruno", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_dospuestos_capitoneado4puntos/sofa_frente.jpg" },
+      { name: "Sofá Urbano", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_pata_metal2/sofa_frente.jpg" },
+      { name: "Sofá Roble", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_patas_madera/sofa_de_frente.jpg" },
+      { name: "Sofá Andino", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_patas_metal/sofa_frente.jpg" },
+      { name: "Sofá Vega", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_patas_redondas/sofa_frente.jpg" },
+      { name: "Sofá Prado", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_simple_sinlineas/sofa_frente.jpg" },
+      { name: "Sofá Sena", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_tres_puestos_lineas_cojines/sofa_frente.jpg" },
+      { name: "Sofá Trío", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_trespuestos_botones/sofa_de_frente.jpg" },
+      { name: "Sofá Cama Sauco", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofacama_L_pequena/salaLpequenadefrente.jpg" },
+      { name: "Sofá Cama Aldo", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofacama_botones/sofa_frente.jpg" },
+      { name: "Sofá Cama Fresno", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofacama_costurasvstas/sofa_frente.jpg" },
+      { name: "Sofá Cama Haya", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofacama_lineas/sofa_frente.jpg" },
+      { name: "Sofá Cama Olmo", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofacama_lineas_cojines/sofa_de_frente.jpg" },
+      { name: "Sofá Encina", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofatrespuestos_patamadera/sofa_frente.jpg" },
+      { name: "Sala en L Costa", href: "catalogo-salas.html", img: "assets/catalogo/salas/SalaL_bajamoderna/sala_frente.jpg" },
+      { name: "Sala en L Delta", href: "catalogo-salas.html", img: "assets/catalogo/salas/salaL_redonda/sala_frente.jpg" },
+      { name: "Sofá Valle", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_con_mesasoporte/sofa_frente.jpg" },
+      { name: "Sofá Liria", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_lineaenespaldar/sofa_frente.jpg" },
+      { name: "Sofá Guayacán", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_madera_al_frente/sofa_frente.jpg" },
+      { name: "Sofá Sierra", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_patasU_cuadrada/sofa_frente.jpg" },
+      { name: "Sofá Tíbar", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_rustico/sofa_frente.jpg" },
+      { name: "Sofá Cama Pampa", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofacama_kremaconrayas/sofa_frente.jpg" },
+      { name: "Sofá Cama Milo", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofacama_patasmetalicas/sofa_frente.jpg" },
+      { name: "Sofá Iris", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofarayasasientoyespaldar/sofafrente.jpg" },
+      { name: "Comedor Carrara", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/Comedor4puestos_tapamarmolizada/comedor1.jpg" },
+      { name: "Comedor Arco", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor4puestos_maderamesaconcava/comedor1.jpg" },
+      { name: "Comedor Cristal", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor4puestos_semividrio/comedor1.jpg" },
+      { name: "Comedor Duna", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor4puestos_vidrio/comedor1.jpg" },
+      { name: "Comedor Vera", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor4puestosbanca_semividrio/comedor1.jpg" },
+      { name: "Comedor Kioto", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor4puestosvidrio_mesabarril/comedor1.jpg" },
+      { name: "Comedor Praga", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor4puestosvidriomesabarril_tonooscuro/comedor1.jpg" },
+      { name: "Comedor Amalfi", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor6puestos_banca_semividrio/comedor1.jpg" },
+      { name: "Comedor Capri", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor6puestos_basemetalica/comedor1.jpg" },
+      { name: "Comedor Positano", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor6puestos_madera/comedor1.jpg" },
+      { name: "Comedor Sabana", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor6puestos_tapablanca/comedor1.jpg" },
+      { name: "Comedor Meseta", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor6puestos_tapamadera/comedor1.jpg" },
+      { name: "Comedor Altiplano", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor6puestos_vidriomacizo/comedor1.jpg" },
+      { name: "Comedor Cordillera", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor6puestosbanca_expandible/comedor1.jpg" },
+      { name: "Comedor Boreal", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor6puestosmadera_basecruzada/comedor1.jpg" },
+      { name: "Comedor Austral", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor6puestosmadera_vidrioenelcentro/comedor1.jpg" },
+      { name: "Comedor Solsticio", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor6puestossemividrio_sillacoca/comedor1.jpg" },
+      { name: "Comedor Equinoccio", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedorexpandible_baseV/comedor1.jpg" },
+      { name: "Comedor Ártico", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedorexpandible_tapacircular/comedor1.jpg" },
+      { name: "Comedor Nórdico", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedorovalado_basedobleapalillada/comedor1.jpg" },
+      { name: "Comedor Escandia", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedorredondo_basecono/comedor1.jpg" },
+      { name: "Comedor Nube", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedortaparedonda_baseapalillada/comedor1.jpg" },
+      { name: "Comedor Roca", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedorunicolortaparedonda/comedor.jpg" },
+      { name: "Comedor Basalto", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedorvidrio4puestos/comedor1.jpg" }
+    ];
+
+    (function renderOfferScroll() {
+      var track = document.getElementById('quequieresScroll');
+      if (!track) return;
+      var shuffled = offerPool.slice();
+      for (var i = shuffled.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = shuffled[i];
+        shuffled[i] = shuffled[j];
+        shuffled[j] = tmp;
+      }
+      shuffled.slice(0, 16).forEach(function (item, index) {
+        var a = document.createElement('a');
+        a.className = 'quequieres-item reveal reveal-delay-' + (index % 3);
+        a.href = item.href;
+        a.innerHTML =
+          '<img src="' + item.img + '" alt="' + item.name + '" loading="lazy">' +
+          '<span class="quequieres-item-label">' + item.name + '</span>';
+        track.appendChild(a);
+      });
+    })();
+
     var deliveryVideo = document.getElementById('deliveryVideo');
     if (deliveryVideo) {
       var applyPlaybackRate = function () {
