@@ -44,7 +44,7 @@ Archivos de soporte en `web/`: `robots.txt`, `sitemap.xml` (agregar ahí cualqui
 - Dirección: Crr 51 # 76-32, Bogotá D.C.
 - Correo: ansulais31@gmail.com
 - Teléfono / WhatsApp: +57 300 492 8400
-- NIT: 900963049-7 (aparece en el footer de las 10 páginas, en `privacidad.html`, `terminos.html` y en el JSON-LD de `index.html`)
+- Razón social: **ANSULAIS S.A.S.** — NIT: 900963049-7 (aparece en el footer de las 10 páginas, en `privacidad.html`, `terminos.html` y en el JSON-LD de `index.html`)
 - Dominio: ansulais.com (alojado en GitHub Pages, dominio registrado en Squarespace Domains; así está declarado en `privacidad.html` sección 5 y `cookies.html` sección 3)
 - WhatsApp float / CTA: `https://wa.me/message/ISVNRLUQCE27G1`
 - Número usado en el link del lightbox de catálogo: `WHATSAPP_NUMBER = "573004928400"` → `https://wa.me/573004928400?text=...`
@@ -109,3 +109,4 @@ Fotos de catálogo en: `web/assets/catalogo/{salas,comedores,alcobas}/<carpeta>/
 - **2026-10-05** — Buscador reescrito para ir directo al destino: código de artículo / nombre de pieza → abre la pieza; tipo de mueble → catálogo con filtro; palabras como horario, garantía, madera → la sección correspondiente. Tolera tildes, plurales y errores de tipeo. Los 3 catálogos aceptan `?filtro=` y `?pieza=`. `search.html` (`catalog`) ahora incluye `desc` y `filtro`.
 - **2026-10-05** — Preparación para el dominio `ansulais.com`: etiquetas SEO y de vista previa al compartir (descripción, canonical, Open Graph) en las 10 páginas, JSON-LD del negocio en index, `robots.txt`, `sitemap.xml`, `404.html`, ícono para celulares y favicon con modo oscuro. Políticas: dominio ansulais.com, proveedores (GitHub Pages, Squarespace Domains, Google Fonts) y transferencia internacional; se corrigieron los plazos de la Ley 1581 (consultas 10 días hábiles, reclamos 15) que estaban invertidos. Se sacaron de git 189 `.jpg` sin uso (86 MB) vía `.gitignore`; siguen en el disco.
 - **2026-10-05** — NIT 900963049-7 agregado al footer de las 10 páginas, a Privacidad (responsable del tratamiento), a Términos (identificación del vendedor) y al JSON-LD.
+- **2026-10-05** — Razón social ANSULAIS S.A.S. junto al NIT en footer, Privacidad, Términos y JSON-LD (`legalName`). La marca visible sigue siendo "Ansulais".
