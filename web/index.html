@@ -359,10 +359,14 @@
 
   /* ---------- TRUST MARQUEE ---------- */
   .trust-marquee {
-    position: relative;
-    background: var(--beige-light);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 60%;
+    z-index: 2;
+    background: transparent;
     overflow: hidden;
-    padding: 26px 0;
+    padding: 0;
   }
 
   .trust-marquee-track {
@@ -1159,11 +1163,6 @@
 
     .hero-desc {
       display: none;
-    }
-
-    .trust-marquee {
-      margin-top: 28px;
-      padding: 18px 0;
     }
 
     .trust-marquee-track {
