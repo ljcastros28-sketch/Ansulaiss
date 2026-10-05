@@ -438,8 +438,10 @@
 
   /* ---------- QUE OFRECEMOS (scroll) ---------- */
   .quequieres {
+    position: relative;
+    z-index: 3;
     background: var(--maroon-deep);
-    padding: 28px 0 70px;
+    padding: 70px 0;
     overflow: hidden;
   }
 
@@ -566,6 +568,12 @@
     font-size: 14px;
     font-weight: 700;
     letter-spacing: -0.01em;
+  }
+
+  @media (min-width: 901px) {
+    .quequieres {
+      margin-top: -160px;
+    }
   }
 
   /* ---------- NOSOTROS ---------- */
@@ -1187,7 +1195,8 @@
     }
 
     .quequieres {
-      padding: 24px 0 52px;
+      margin-top: -70px;
+      padding: 44px 0 52px;
     }
 
     .quequieres-title {
