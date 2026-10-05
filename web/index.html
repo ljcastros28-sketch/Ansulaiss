@@ -212,13 +212,35 @@
   .hero {
     position: relative;
     overflow: hidden;
-    padding: 56px 0 80px;
     background: var(--beige-light);
+  }
+
+  @media (min-width: 901px) {
+    .hero {
+      aspect-ratio: 16 / 9;
+      max-height: 820px;
+    }
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero-bg img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: left center;
   }
 
   .hero-inner {
     position: relative;
     z-index: 1;
+    width: 100%;
+    padding: 56px 0 70px;
   }
 
   .hero-head {
@@ -290,28 +312,14 @@
     height: 14px;
   }
 
-  .hero-visual {
-    display: flex;
-    justify-content: flex-start;
-    margin-top: -10px;
-    padding-left: max(24px, calc((100vw - 1360px) / 2 + 24px));
-  }
-
-  .hero-visual img {
-    width: min(1040px, 72vw);
-    height: auto;
-    display: block;
-    filter: drop-shadow(0 35px 35px rgba(36, 26, 18, 0.22));
-  }
-
   .hero-desc {
-    max-width: 560px;
-    margin: 8px auto 0;
+    max-width: 480px;
+    margin-top: 18px;
     font-size: 16px;
     line-height: 1.5;
     color: var(--ink);
-    opacity: 0.7;
-    text-align: center;
+    opacity: 0.75;
+    text-align: right;
   }
 
   .social-links {
@@ -949,8 +957,12 @@
 
     .nav-home-only { display: none; }
 
-    .hero {
+    .hero-inner {
       padding: 36px 0 56px;
+    }
+
+    .hero-bg img {
+      object-position: 30% center;
     }
 
     .hero-tagline {
@@ -967,15 +979,6 @@
     .hero-cta-arrow {
       width: 28px;
       height: 28px;
-    }
-
-    .hero-visual {
-      margin-top: 10px;
-      padding-left: 16px;
-    }
-
-    .hero-visual img {
-      width: min(640px, 112%);
     }
 
     .hero-desc {
@@ -1160,6 +1163,10 @@
   </a>
 
   <section class="hero" id="inicio">
+    <div class="hero-bg">
+      <img src="assets/sofa123.jpg" alt="" loading="eager">
+    </div>
+
     <div class="wrap hero-inner">
 
       <div class="hero-head">
@@ -1185,23 +1192,14 @@
             </svg>
           </span>
         </a>
+
+        <p class="hero-desc">
+          Muebles tapizados y de madera hechos para acompañar tu día a día.
+          Diseñamos cada pieza con materiales seleccionados y acabados
+          pensados para durar, desde el concepto hasta el último detalle.
+        </p>
       </div>
 
-    </div>
-
-    <div class="hero-visual">
-      <img src="assets/sofahero_cutout.png" alt="Sofá tapizado Ansulais" width="1400" height="481" loading="eager">
-    </div>
-
-    <div class="wrap">
-      <p class="hero-desc">
-        Muebles tapizados y de madera hechos para acompañar tu día a día.
-        Diseñamos cada pieza con materiales seleccionados y acabados
-        pensados para durar, desde el concepto hasta el último detalle.
-        Combinamos maderas nobles y tapizados suaves en piezas que se
-        adaptan a cualquier espacio, para que encuentres el mueble
-        ideal para tu hogar.
-      </p>
     </div>
 
   </section>
