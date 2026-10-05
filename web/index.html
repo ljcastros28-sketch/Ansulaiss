@@ -371,7 +371,13 @@
     letter-spacing: -0.01em;
     line-height: 1.12;
     max-width: 950px;
-    margin-bottom: 40px;
+    margin: 0 auto 40px;
+    padding: 0 48px;
+  }
+
+  .quequieres-scroll-outer {
+    max-width: 1360px;
+    margin: 0 auto;
     padding: 0 48px;
   }
 
@@ -379,10 +385,18 @@
     display: flex;
     gap: 18px;
     overflow-x: auto;
-    scroll-snap-type: x proximity;
+    scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    padding: 4px 48px 12px;
+    cursor: grab;
+    padding: 4px 0 12px;
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
+  }
+
+  .quequieres-scroll.is-dragging {
+    cursor: grabbing;
+    scroll-snap-type: none;
   }
 
   .quequieres-scroll::-webkit-scrollbar {
@@ -392,12 +406,12 @@
   .quequieres-item {
     position: relative;
     flex: 0 0 auto;
-    width: 240px;
+    width: min(290px, 70vw);
     aspect-ratio: 3 / 4;
     border-radius: 18px;
     overflow: hidden;
     display: block;
-    scroll-snap-align: start;
+    scroll-snap-align: center;
     transition: transform 0.3s ease;
     box-shadow:
       inset 0 0 30px 4px rgba(0, 0, 0, 0.22),
@@ -406,6 +420,13 @@
 
   .quequieres-item:hover {
     transform: translateY(-4px);
+  }
+
+  .quequieres-item img,
+  .quequieres-item-label {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
   }
 
   .quequieres-item img {
@@ -1041,13 +1062,19 @@
       padding: 0 24px;
     }
 
+    .quequieres-scroll-outer {
+      padding: 0 24px;
+    }
+
     .quequieres-scroll {
       gap: 12px;
-      padding: 4px 24px 12px;
+      padding: 4px 0 12px;
+      -webkit-mask-image: linear-gradient(to right, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
     }
 
     .quequieres-item {
-      width: 170px;
+      width: min(170px, 62vw);
     }
 
     .quequieres-item-label {
@@ -1267,7 +1294,9 @@
 
   <section class="quequieres">
     <h2 class="quequieres-title reveal">¿Qué ofrecemos?</h2>
-    <div class="quequieres-scroll" id="quequieresScroll"></div>
+    <div class="quequieres-scroll-outer">
+      <div class="quequieres-scroll" id="quequieresScroll"></div>
+    </div>
   </section>
 
   <section class="nosotros" id="nosotros">
@@ -1539,6 +1568,45 @@
           '<span class="quequieres-item-label">' + item.name + '</span>';
         track.appendChild(a);
       });
+
+      var isDown = false;
+      var didDrag = false;
+      var startX = 0;
+      var startScroll = 0;
+
+      track.addEventListener('wheel', function (e) {
+        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+          track.scrollLeft += e.deltaY;
+          e.preventDefault();
+        }
+      }, { passive: false });
+
+      track.addEventListener('mousedown', function (e) {
+        isDown = true;
+        didDrag = false;
+        startX = e.pageX;
+        startScroll = track.scrollLeft;
+        track.classList.add('is-dragging');
+      });
+
+      window.addEventListener('mouseup', function () {
+        isDown = false;
+        track.classList.remove('is-dragging');
+      });
+
+      window.addEventListener('mousemove', function (e) {
+        if (!isDown) return;
+        var delta = e.pageX - startX;
+        if (Math.abs(delta) > 4) didDrag = true;
+        track.scrollLeft = startScroll - delta;
+      });
+
+      track.addEventListener('click', function (e) {
+        if (didDrag) {
+          e.preventDefault();
+          didDrag = false;
+        }
+      }, true);
     })();
 
     var deliveryVideo = document.getElementById('deliveryVideo');
