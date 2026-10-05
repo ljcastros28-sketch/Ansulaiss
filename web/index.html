@@ -219,16 +219,6 @@
     .hero {
       aspect-ratio: 16 / 9;
     }
-
-    .trust-marquee {
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 79%;
-      z-index: 2;
-      background: transparent;
-      padding: 0;
-    }
   }
 
   .hero-bg {
@@ -429,6 +419,18 @@
     font-weight: 700;
     color: var(--ink);
     letter-spacing: -0.01em;
+  }
+
+  @media (min-width: 901px) {
+    .trust-marquee {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 79%;
+      z-index: 2;
+      background: transparent;
+      padding: 0;
+    }
   }
 
   /* ---------- QUE OFRECEMOS (scroll) ---------- */
