@@ -3,8 +3,8 @@
 Sitio web estático de **Ansulais** (fabricante de muebles de madera y tapizados, Bogotá, Colombia). HTML/CSS/JS plano, **sin build ni frameworks**. Se despliega automático a GitHub Pages vía GitHub Actions al hacer push a `main`.
 
 - Repo: https://github.com/ljcastros28-sketch/Ansulaiss.git
-- Sitio en vivo: https://ljcastros28-sketch.github.io/Ansulaiss/ → pasa a **https://ansulais.com** cuando se conecte el dominio
-- Dominio `ansulais.com`: comprado en Google Domains, hoy administrado en **Squarespace Domains** (solo registro + DNS). El sitio NO se aloja en Squarespace: sigue en GitHub Pages. El dominio se configura en GitHub → Settings → Pages → Custom domain (con deploy por Actions, un archivo `CNAME` se ignora, no hace falta). DNS en Squarespace: 4 registros A `@` → 185.199.108.153 / 109.153 / 110.153 / 111.153 y CNAME `www` → `ljcastros28-sketch.github.io`.
+- Sitio en vivo: **https://ansulais.com** (conectado el 2026-10-05; el link viejo https://ljcastros28-sketch.github.io/Ansulaiss/ redirige solo)
+- Dominio `ansulais.com`: comprado en Google Domains, hoy administrado en **Squarespace Domains** (solo registro + DNS). El sitio NO se aloja en Squarespace: sigue en GitHub Pages. El dominio se configura en GitHub → Settings → Pages → Custom domain (con deploy por Actions, un archivo `CNAME` se ignora, no hace falta). DNS en Squarespace: 4 registros A `@` → 185.199.108.153 / 109.153 / 110.153 / 111.153 y CNAME `www` → `ljcastros28-sketch.github.io`. **En ese DNS también hay registros de correo que no se deben tocar**: Google Workspace (MX `smtp.google.com`, TXT `v=spf1…`, TXT `google._domainkey`) y Brevo (CNAME `brevo1/2._domainkey`, `mail`, `img.mail`, `r.mail`; TXT `brevo-code`, `_dmarc`).
 - Carpeta publicada: **`web/`** — todo lo que se ve en el sitio vive ahí.
 
 ## Regla de oro: qué se sube a git
@@ -110,3 +110,4 @@ Fotos de catálogo en: `web/assets/catalogo/{salas,comedores,alcobas}/<carpeta>/
 - **2026-10-05** — Preparación para el dominio `ansulais.com`: etiquetas SEO y de vista previa al compartir (descripción, canonical, Open Graph) en las 10 páginas, JSON-LD del negocio en index, `robots.txt`, `sitemap.xml`, `404.html`, ícono para celulares y favicon con modo oscuro. Políticas: dominio ansulais.com, proveedores (GitHub Pages, Squarespace Domains, Google Fonts) y transferencia internacional; se corrigieron los plazos de la Ley 1581 (consultas 10 días hábiles, reclamos 15) que estaban invertidos. Se sacaron de git 189 `.jpg` sin uso (86 MB) vía `.gitignore`; siguen en el disco.
 - **2026-10-05** — NIT 900963049-7 agregado al footer de las 10 páginas, a Privacidad (responsable del tratamiento), a Términos (identificación del vendedor) y al JSON-LD.
 - **2026-10-05** — Razón social ANSULAIS S.A.S. junto al NIT en footer, Privacidad, Términos y JSON-LD (`legalName`). La marca visible sigue siendo "Ansulais".
+- **2026-10-05** — Dominio conectado: `ansulais.com` en vivo con HTTPS (DNS en Squarespace → GitHub Pages), `www` y el link viejo de github.io redirigen al dominio.

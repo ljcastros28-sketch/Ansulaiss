@@ -2,7 +2,7 @@
 
 Sitio estático de Ansulais (muebles de madera y tapizados, Bogotá). HTML, CSS y JavaScript plano: **no hay build, frameworks ni dependencias**. Para verlo en local basta con abrir cualquier `.html` de `web/` en el navegador.
 
-- En vivo: https://ansulais.com (dominio en Squarespace Domains apuntando a GitHub Pages; antes https://ljcastros28-sketch.github.io/Ansulaiss/)
+- En vivo: https://ansulais.com (dominio en Squarespace Domains apuntando a GitHub Pages; el link viejo de github.io redirige solo)
 - Despliegue: automático a GitHub Pages en cada push a `main` (`.github/workflows/deploy-pages.yml`). Solo se publica la carpeta `web/`.
 
 ## Estructura
