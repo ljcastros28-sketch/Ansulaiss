@@ -292,12 +292,13 @@
 
   .hero-visual {
     display: flex;
-    justify-content: center;
-    margin-top: 10px;
+    justify-content: flex-start;
+    margin-top: -10px;
+    padding-left: max(24px, calc((100vw - 1360px) / 2 + 24px));
   }
 
   .hero-visual img {
-    width: min(760px, 94%);
+    width: min(1040px, 72vw);
     height: auto;
     display: block;
     filter: drop-shadow(0 35px 35px rgba(36, 26, 18, 0.22));
@@ -969,11 +970,12 @@
     }
 
     .hero-visual {
-      margin-top: 20px;
+      margin-top: 10px;
+      padding-left: 16px;
     }
 
     .hero-visual img {
-      width: min(520px, 100%);
+      width: min(640px, 112%);
     }
 
     .hero-desc {
@@ -1185,10 +1187,13 @@
         </a>
       </div>
 
-      <div class="hero-visual">
-        <img src="assets/sofahero_cutout.png" alt="Sofá tapizado Ansulais" width="1846" height="635" loading="eager">
-      </div>
+    </div>
 
+    <div class="hero-visual">
+      <img src="assets/sofahero_cutout.png" alt="Sofá tapizado Ansulais" width="1400" height="481" loading="eager">
+    </div>
+
+    <div class="wrap">
       <p class="hero-desc">
         Muebles tapizados y de madera hechos para acompañar tu día a día.
         Diseñamos cada pieza con materiales seleccionados y acabados
@@ -1197,7 +1202,6 @@
         adaptan a cualquier espacio, para que encuentres el mueble
         ideal para tu hogar.
       </p>
-
     </div>
 
   </section>
