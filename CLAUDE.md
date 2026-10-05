@@ -35,7 +35,7 @@ Cada página es **standalone**: CSS y JS están inline en su propio `<style>`/`<
 ## Datos de la empresa (usar siempre estos, no inventar)
 
 - Dirección: Crr 51 # 76-32, Bogotá D.C.
-- Correo: ansulais@ansulais.com
+- Correo: ansulais31@gmail.com
 - WhatsApp float / CTA: `https://wa.me/message/ISVNRLUQCE27G1`
 - Número usado en el link del lightbox de catálogo: `WHATSAPP_NUMBER = "573004928400"` → `https://wa.me/573004928400?text=...`
 - Horario: Lunes a sábado 11:00 a.m.–6:00 p.m., domingos 11:00 a.m.–3:00 p.m.
@@ -91,3 +91,4 @@ Fotos de catálogo en: `web/assets/catalogo/salas/<carpeta>/<foto>.jpg` y `web/a
 
 - **2026-10-05** — Creación de este archivo de contexto.
 - **2026-10-05** — Buscador funcional (`search.html`) + páginas legales (`privacidad.html`, `cookies.html`, `terminos.html`, `reembolsos.html`) + page loader + cookie banner + skip-links en las 9 páginas + limpieza de 15 assets sin usar + fix de redes sociales/correo en footer de `catalogo.html`.
+- **2026-10-05** — Correo de contacto cambiado a `ansulais31@gmail.com` en las 9 páginas (reemplaza `ansulais@ansulais.com`); se agregó el link de correo que le faltaba al footer de `catalogo-salas.html`; se agregó sección 6 en `reembolsos.html` sobre elementos decorativos/deslizantes de cortesía (sin garantía, no se reponen, no admiten reclamo, por ser obsequio).
