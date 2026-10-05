@@ -749,6 +749,7 @@
 
   .nosotros-card-media img {
     width: 100%;
+    height: auto;
     aspect-ratio: 4 / 3;
     object-fit: cover;
     display: block;
@@ -844,6 +845,7 @@
 
   .material-feature-media img {
     width: 100%;
+    height: auto;
     aspect-ratio: 4 / 3;
     object-fit: cover;
     display: block;
@@ -1543,8 +1545,8 @@
   <section class="hero" id="inicio" tabindex="-1">
     <div class="hero-bg">
       <picture>
-        <source media="(max-width: 900px)" srcset="assets/sofa123_9-16.jpg">
-        <img src="assets/sofa123.jpg" alt="" loading="eager">
+        <source media="(max-width: 900px)" srcset="assets/sofa123_9-16.webp">
+        <img src="assets/sofa123.webp" alt="" width="1376" height="768" loading="eager" fetchpriority="high">
       </picture>
     </div>
 
@@ -1678,7 +1680,7 @@
       <div class="nosotros-card reveal">
         <div class="nosotros-card-inner">
           <div class="nosotros-card-media">
-            <img src="assets/nosotros_lijado.jpg" alt="Proceso de lijado de una mesa" loading="lazy">
+            <img src="assets/nosotros_lijado.webp" alt="Proceso de lijado de una mesa" width="1016" height="1040" loading="lazy" decoding="async">
           </div>
           <div class="nosotros-card-text">
             <p>Somos una <strong>empresa familiar</strong>, fabricantes ante todo, y eso significa que cada mueble que sale de nuestras manos lleva más de tres décadas de experiencia y cuidado en cada detalle.</p>
@@ -1709,7 +1711,7 @@
         </div>
         <div class="material-feature">
           <div class="material-feature-media">
-            <img src="assets/quercus-petraeaarbol.jpg" alt="Árbol de flor morado" loading="lazy">
+            <img src="assets/quercus-petraeaarbol.webp" alt="Árbol de flor morado" width="1000" height="664" loading="lazy" decoding="async">
           </div>
           <ul class="material-feature-list">
             <li><strong>Resistente y duradera</strong> Aguanta bien el uso diario de una casa sin perder firmeza con el tiempo.</li>
@@ -1734,7 +1736,7 @@
     </div>
 
     <div class="nosotros-video-feature reveal">
-      <video id="deliveryVideo" class="nosotros-video-feature-media" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/nosotros_entrega_poster.jpg">
+      <video id="deliveryVideo" class="nosotros-video-feature-media" muted loop playsinline webkit-playsinline preload="none" poster="assets/nosotros_entrega_poster.webp">
         <source src="assets/nosotros_entrega.mp4" type="video/mp4">
       </video>
       <div class="nosotros-video-feature-overlay"></div>
@@ -1921,65 +1923,78 @@
     })();
 
     var offerPool = [
-      { name: "Sala en L Aurora", href: "catalogo-salas.html", img: "assets/catalogo/salas/salaL_basica2/sala_frente.jpg" },
-      { name: "Sala en L Bruma", href: "catalogo-salas.html", img: "assets/catalogo/salas/salaL_lineascojines/sala_frente.jpg" },
-      { name: "Sala en L Vela", href: "catalogo-salas.html", img: "assets/catalogo/salas/salaL_un_brazo/sofa_de_frente.jpg" },
-      { name: "Sala en L Cofre", href: "catalogo-salas.html", img: "assets/catalogo/salas/sala_L_baul/sofa_de_frente.jpg" },
-      { name: "Sofá Cedro", href: "catalogo-salas.html", img: "assets/catalogo/salas/sala_basemadera_hastabrazos/sofa_defrente.jpg" },
-      { name: "Sala Modular Toscana", href: "catalogo-salas.html", img: "assets/catalogo/salas/salamodular_cuero/salaL_frente.jpg" },
-      { name: "Sofá en L Nova", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofaL_patasdelgadas/sofa_de_frente.jpg" },
-      { name: "Sofá en L Rincón", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofaL_unbrazoy_pared/sala_frente.jpg" },
-      { name: "Sofá Dueto", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_2_puestos_botones/sofa_de_frente.jpg" },
-      { name: "Sofá Esencial", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_basico/sofa_de_frente.jpg" },
-      { name: "Sofá Cala", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_curvas/sofa_frente.jpg" },
-      { name: "Sofá Bruno", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_dospuestos_capitoneado4puntos/sofa_frente.jpg" },
-      { name: "Sofá Urbano", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_pata_metal2/sofa_frente.jpg" },
-      { name: "Sofá Roble", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_patas_madera/sofa_de_frente.jpg" },
-      { name: "Sofá Andino", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_patas_metal/sofa_frente.jpg" },
-      { name: "Sofá Vega", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_patas_redondas/sofa_frente.jpg" },
-      { name: "Sofá Prado", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_simple_sinlineas/sofa_frente.jpg" },
-      { name: "Sofá Sena", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_tres_puestos_lineas_cojines/sofa_frente.jpg" },
-      { name: "Sofá Trío", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_trespuestos_botones/sofa_de_frente.jpg" },
-      { name: "Sofá Cama Sauco", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofacama_L_pequena/salaLpequenadefrente.jpg" },
-      { name: "Sofá Cama Aldo", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofacama_botones/sofa_frente.jpg" },
-      { name: "Sofá Cama Fresno", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofacama_costurasvstas/sofa_frente.jpg" },
-      { name: "Sofá Cama Haya", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofacama_lineas/sofa_frente.jpg" },
-      { name: "Sofá Cama Olmo", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofacama_lineas_cojines/sofa_de_frente.jpg" },
-      { name: "Sofá Encina", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofatrespuestos_patamadera/sofa_frente.jpg" },
-      { name: "Sala en L Costa", href: "catalogo-salas.html", img: "assets/catalogo/salas/SalaL_bajamoderna/sala_frente.jpg" },
-      { name: "Sala en L Delta", href: "catalogo-salas.html", img: "assets/catalogo/salas/salaL_redonda/sala_frente.jpg" },
-      { name: "Sofá Valle", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_con_mesasoporte/sofa_frente.jpg" },
-      { name: "Sofá Liria", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_lineaenespaldar/sofa_frente.jpg" },
-      { name: "Sofá Guayacán", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_madera_al_frente/sofa_frente.jpg" },
-      { name: "Sofá Sierra", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_patasU_cuadrada/sofa_frente.jpg" },
-      { name: "Sofá Tíbar", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_rustico/sofa_frente.jpg" },
-      { name: "Sofá Cama Pampa", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofacama_kremaconrayas/sofa_frente.jpg" },
-      { name: "Sofá Cama Milo", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofacama_patasmetalicas/sofa_frente.jpg" },
-      { name: "Sofá Iris", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofarayasasientoyespaldar/sofafrente.jpg" },
-      { name: "Comedor Carrara", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/Comedor4puestos_tapamarmolizada/comedor1.jpg" },
-      { name: "Comedor Arco", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor4puestos_maderamesaconcava/comedor1.jpg" },
-      { name: "Comedor Cristal", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor4puestos_semividrio/comedor1.jpg" },
-      { name: "Comedor Duna", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor4puestos_vidrio/comedor1.jpg" },
-      { name: "Comedor Vera", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor4puestosbanca_semividrio/comedor1.jpg" },
-      { name: "Comedor Kioto", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor4puestosvidrio_mesabarril/comedor1.jpg" },
-      { name: "Comedor Praga", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor4puestosvidriomesabarril_tonooscuro/comedor1.jpg" },
-      { name: "Comedor Amalfi", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor6puestos_banca_semividrio/comedor1.jpg" },
-      { name: "Comedor Capri", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor6puestos_basemetalica/comedor1.jpg" },
-      { name: "Comedor Positano", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor6puestos_madera/comedor1.jpg" },
-      { name: "Comedor Sabana", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor6puestos_tapablanca/comedor1.jpg" },
-      { name: "Comedor Meseta", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor6puestos_tapamadera/comedor1.jpg" },
-      { name: "Comedor Altiplano", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor6puestos_vidriomacizo/comedor1.jpg" },
-      { name: "Comedor Cordillera", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor6puestosbanca_expandible/comedor1.jpg" },
-      { name: "Comedor Boreal", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor6puestosmadera_basecruzada/comedor1.jpg" },
-      { name: "Comedor Austral", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor6puestosmadera_vidrioenelcentro/comedor1.jpg" },
-      { name: "Comedor Solsticio", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor6puestossemividrio_sillacoca/comedor1.jpg" },
-      { name: "Comedor Equinoccio", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedorexpandible_baseV/comedor1.jpg" },
-      { name: "Comedor Ártico", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedorexpandible_tapacircular/comedor1.jpg" },
-      { name: "Comedor Nórdico", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedorovalado_basedobleapalillada/comedor1.jpg" },
-      { name: "Comedor Escandia", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedorredondo_basecono/comedor1.jpg" },
-      { name: "Comedor Nube", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedortaparedonda_baseapalillada/comedor1.jpg" },
-      { name: "Comedor Roca", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedorunicolortaparedonda/comedor.jpg" },
-      { name: "Comedor Basalto", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedorvidrio4puestos/comedor1.jpg" }
+      { name: "Sala en L Aurora", href: "catalogo-salas.html", img: "assets/catalogo/salas/salaL_basica2/sala_frente-sm.webp" },
+      { name: "Sala en L Bruma", href: "catalogo-salas.html", img: "assets/catalogo/salas/salaL_lineascojines/sala_frente-sm.webp" },
+      { name: "Sala en L Vela", href: "catalogo-salas.html", img: "assets/catalogo/salas/salaL_un_brazo/sofa_de_frente-sm.webp" },
+      { name: "Sala en L Cofre", href: "catalogo-salas.html", img: "assets/catalogo/salas/sala_L_baul/sofa_de_frente-sm.webp" },
+      { name: "Sofá Cedro", href: "catalogo-salas.html", img: "assets/catalogo/salas/sala_basemadera_hastabrazos/sofa_defrente-sm.webp" },
+      { name: "Sala Modular Toscana", href: "catalogo-salas.html", img: "assets/catalogo/salas/salamodular_cuero/salaL_frente-sm.webp" },
+      { name: "Sofá en L Nova", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofaL_patasdelgadas/sofa_de_frente-sm.webp" },
+      { name: "Sofá en L Rincón", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofaL_unbrazoy_pared/sala_frente-sm.webp" },
+      { name: "Sofá Dueto", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_2_puestos_botones/sofa_de_frente-sm.webp" },
+      { name: "Sofá Esencial", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_basico/sofa_de_frente-sm.webp" },
+      { name: "Sofá Cala", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_curvas/sofa_frente-sm.webp" },
+      { name: "Sofá Bruno", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_dospuestos_capitoneado4puntos/sofa_frente-sm.webp" },
+      { name: "Sofá Urbano", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_pata_metal2/sofa_frente-sm.webp" },
+      { name: "Sofá Roble", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_patas_madera/sofa_de_frente-sm.webp" },
+      { name: "Sofá Andino", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_patas_metal/sofa_frente-sm.webp" },
+      { name: "Sofá Vega", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_patas_redondas/sofa_frente-sm.webp" },
+      { name: "Sofá Prado", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_simple_sinlineas/sofa_frente-sm.webp" },
+      { name: "Sofá Sena", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_tres_puestos_lineas_cojines/sofa_frente-sm.webp" },
+      { name: "Sofá Trío", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_trespuestos_botones/sofa_de_frente-sm.webp" },
+      { name: "Sofá Cama Sauco", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofacama_L_pequena/salaLpequenadefrente-sm.webp" },
+      { name: "Sofá Cama Aldo", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofacama_botones/sofa_frente-sm.webp" },
+      { name: "Sofá Cama Fresno", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofacama_costurasvstas/sofa_frente-sm.webp" },
+      { name: "Sofá Cama Haya", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofacama_lineas/sofa_frente-sm.webp" },
+      { name: "Sofá Cama Olmo", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofacama_lineas_cojines/sofa_de_frente-sm.webp" },
+      { name: "Sofá Encina", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofatrespuestos_patamadera/sofa_frente-sm.webp" },
+      { name: "Sala en L Costa", href: "catalogo-salas.html", img: "assets/catalogo/salas/SalaL_bajamoderna/sala_frente-sm.webp" },
+      { name: "Sala en L Delta", href: "catalogo-salas.html", img: "assets/catalogo/salas/salaL_redonda/sala_frente-sm.webp" },
+      { name: "Sofá Valle", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_con_mesasoporte/sofa_frente-sm.webp" },
+      { name: "Sofá Liria", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_lineaenespaldar/sofa_frente-sm.webp" },
+      { name: "Sofá Guayacán", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_madera_al_frente/sofa_frente-sm.webp" },
+      { name: "Sofá Sierra", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_patasU_cuadrada/sofa_frente-sm.webp" },
+      { name: "Sofá Tíbar", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofa_rustico/sofa_frente-sm.webp" },
+      { name: "Sofá Cama Pampa", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofacama_kremaconrayas/sofa_frente-sm.webp" },
+      { name: "Sofá Cama Milo", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofacama_patasmetalicas/sofa_frente-sm.webp" },
+      { name: "Sofá Iris", href: "catalogo-salas.html", img: "assets/catalogo/salas/sofarayasasientoyespaldar/sofafrente-sm.webp" },
+      { name: "Comedor Carrara", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/Comedor4puestos_tapamarmolizada/comedor1-sm.webp" },
+      { name: "Comedor Arco", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor4puestos_maderamesaconcava/comedor1-sm.webp" },
+      { name: "Comedor Cristal", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor4puestos_semividrio/comedor1-sm.webp" },
+      { name: "Comedor Duna", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor4puestos_vidrio/comedor1-sm.webp" },
+      { name: "Comedor Vera", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor4puestosbanca_semividrio/comedor1-sm.webp" },
+      { name: "Comedor Kioto", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor4puestosvidrio_mesabarril/comedor1-sm.webp" },
+      { name: "Comedor Praga", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor4puestosvidriomesabarril_tonooscuro/comedor1-sm.webp" },
+      { name: "Comedor Amalfi", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor6puestos_banca_semividrio/comedor1-sm.webp" },
+      { name: "Comedor Capri", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor6puestos_basemetalica/comedor1-sm.webp" },
+      { name: "Comedor Positano", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor6puestos_madera/comedor1-sm.webp" },
+      { name: "Comedor Sabana", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor6puestos_tapablanca/comedor1-sm.webp" },
+      { name: "Comedor Meseta", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor6puestos_tapamadera/comedor1-sm.webp" },
+      { name: "Comedor Altiplano", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor6puestos_vidriomacizo/comedor1-sm.webp" },
+      { name: "Comedor Cordillera", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor6puestosbanca_expandible/comedor1-sm.webp" },
+      { name: "Comedor Boreal", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor6puestosmadera_basecruzada/comedor1-sm.webp" },
+      { name: "Comedor Austral", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor6puestosmadera_vidrioenelcentro/comedor1-sm.webp" },
+      { name: "Comedor Solsticio", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedor6puestossemividrio_sillacoca/comedor1-sm.webp" },
+      { name: "Comedor Equinoccio", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedorexpandible_baseV/comedor1-sm.webp" },
+      { name: "Comedor Ártico", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedorexpandible_tapacircular/comedor1-sm.webp" },
+      { name: "Comedor Nórdico", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedorovalado_basedobleapalillada/comedor1-sm.webp" },
+      { name: "Comedor Escandia", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedorredondo_basecono/comedor1-sm.webp" },
+      { name: "Comedor Nube", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedortaparedonda_baseapalillada/comedor1-sm.webp" },
+      { name: "Comedor Roca", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedorunicolortaparedonda/comedor-sm.webp" },
+      { name: "Comedor Basalto", href: "catalogo-comedores.html", img: "assets/catalogo/comedores/comedorvidrio4puestos/comedor1-sm.webp" },
+      { name: "Alcoba Listón", href: "catalogo-alcobas.html", img: "assets/catalogo/alcobas/camatableroexpandido/cama1-sm.webp" },
+      { name: "Alcoba Ámbar", href: "catalogo-alcobas.html", img: "assets/catalogo/alcobas/camatableroexpandido_mesasuncajon/cama1-sm.webp" },
+      { name: "Alcoba Ocaso", href: "catalogo-alcobas.html", img: "assets/catalogo/alcobas/camatableroextendido_mesasflotantesuncajon/cama1-sm.webp" },
+      { name: "Alcoba Cacao", href: "catalogo-alcobas.html", img: "assets/catalogo/alcobas/tableroextendidoduotono/cama1-sm.webp" },
+      { name: "Alcoba Faro", href: "catalogo-alcobas.html", img: "assets/catalogo/alcobas/tableroextendidoduotonoluces/cama1-sm.webp" },
+      { name: "Alcoba Lino", href: "catalogo-alcobas.html", img: "assets/catalogo/alcobas/camadoble_bicolor/cama1-sm.webp" },
+      { name: "Alcoba Alba", href: "catalogo-alcobas.html", img: "assets/catalogo/alcobas/camaduotono/cama1-sm.webp" },
+      { name: "Alcoba Luna", href: "catalogo-alcobas.html", img: "assets/catalogo/alcobas/camaespaldarsemicurvo_doble/cama1-sm.webp" },
+      { name: "Alcoba Brisa", href: "catalogo-alcobas.html", img: "assets/catalogo/alcobas/duotonodoslineas/cama1-sm.webp" },
+      { name: "Cama Nido Plaza", href: "catalogo-alcobas.html", img: "assets/catalogo/alcobas/camanido_espaldarcapitoneado/cama1-sm.webp" },
+      { name: "Cama Nido Niebla", href: "catalogo-alcobas.html", img: "assets/catalogo/alcobas/camanido_espaldargris_doble/cama1-sm.webp" },
+      { name: "Cama Nido Arena", href: "catalogo-alcobas.html", img: "assets/catalogo/alcobas/camanido_espaldartapizado/cama1-sm.webp" },
+      { name: "Cama Sencilla Arca", href: "catalogo-alcobas.html", img: "assets/catalogo/alcobas/camasencilla_cajones/cama1-sm.webp" }
     ];
 
     (function renderOfferScroll() {
@@ -1997,7 +2012,7 @@
         a.className = 'quequieres-item reveal reveal-delay-' + (index % 3);
         a.href = item.href;
         a.innerHTML =
-          '<img src="' + item.img + '" alt="' + item.name + '" loading="lazy">' +
+          '<img src="' + item.img + '" alt="' + item.name + '" width="600" height="600" loading="lazy" decoding="async">' +
           '<span class="quequieres-item-label">' + item.name + '</span>';
         track.appendChild(a);
       });
@@ -2038,11 +2053,25 @@
           playPromise.catch(function () {});
         }
       };
-      tryPlayVideo();
-      deliveryVideo.addEventListener('canplay', tryPlayVideo);
 
+      // El video (~3 MB) solo se descarga y reproduce cuando su sección está cerca de la
+      // pantalla, y se pausa al salir de ella. Así no compite con el resto de la carga inicial.
+      var videoInView = false;
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            videoInView = entry.isIntersecting;
+            if (videoInView) tryPlayVideo(); else deliveryVideo.pause();
+          });
+        }, { rootMargin: '200px 0px' }).observe(deliveryVideo);
+      } else {
+        videoInView = true;
+        tryPlayVideo();
+      }
+
+      // Algunos móviles (modo ahorro de batería) bloquean el autoplay hasta el primer toque
       var resumeVideoOnInteraction = function () {
-        if (deliveryVideo.paused) tryPlayVideo();
+        if (videoInView && deliveryVideo.paused) tryPlayVideo();
       };
       document.addEventListener('touchstart', resumeVideoOnInteraction, { once: true, passive: true });
       document.addEventListener('click', resumeVideoOnInteraction, { once: true });

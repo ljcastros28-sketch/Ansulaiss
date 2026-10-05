@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alcobas — Ansulais</title>
+<link rel="icon" type="image/svg+xml" href="assets/logosimplificado.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --beige: #f8f2de;
+    --beige-tint: #fdfbf3;
+    --beige-light: #fdf8ec;
+    --maroon: #1a1a1a;
+    --maroon-deep: #0f0f0f;
+    --maroon-hover: #2b2b2b;
+    --navy: #0c1a29;
+    --wood: #8a5a35;
+    --ink: #241a12;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    overflow-x: hidden;
+  }
+
+  body {
+    padding-top: 82px;
+    background: var(--beige-light);
+    color: var(--ink);
+    font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { text-decoration: none; color: inherit; }
+  button { font-family: inherit; border: none; background: none; cursor: pointer; }
+
+  .wrap {
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+
+  /* ---------- NAV ---------- */
+  header.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--maroon-deep);
+    padding: 18px 0;
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--beige-light);
+  }
+
+  .logo-icon {
+    display: block;
+    height: 34px;
+    width: auto;
+    flex-shrink: 0;
+  }
+
+  .logo-icon svg {
+    display: block;
+    height: 100%;
+    width: auto;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .nav-links a {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--beige-light);
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+  }
+
+  .nav-links a:hover {
+    opacity: 1;
+  }
+
+  .nav-links a.is-featured {
+    opacity: 1;
+    font-weight: 700;
+    color: var(--beige-light);
+    position: relative;
+    padding-bottom: 2px;
+  }
+
+  .nav-links a.is-featured::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    height: 2px;
+    background: var(--beige-light);
+    border-radius: 2px;
+  }
+
+  .nav-search {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+    background: rgba(253, 248, 236, 0.08);
+    border: 1px solid rgba(253, 248, 236, 0.18);
+    border-radius: 100px;
+    padding: 6px 6px 6px 16px;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .nav-search:focus-within {
+    border-color: rgba(253, 248, 236, 0.4);
+    background: rgba(253, 248, 236, 0.12);
+  }
+
+  .nav-search input {
+    width: 140px;
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--beige-light);
+    font-family: inherit;
+    font-size: 14px;
+  }
+
+  .nav-search input::placeholder {
+    color: var(--beige-light);
+    opacity: 0.5;
+  }
+
+  .nav-search button {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--beige-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s ease;
+  }
+
+  .nav-search button:hover {
+    background: var(--beige);
+  }
+
+  .nav-search button svg {
+    width: 15px;
+    height: 15px;
+    color: var(--maroon-deep);
+  }
+
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 1000;
+    background: var(--beige-light);
+    color: var(--maroon-deep);
+    padding: 12px 20px;
+    border-radius: 0 0 10px 0;
+    font-weight: 700;
+  }
+
+  .skip-link:focus { left: 0; }
+
+  .page-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    background: var(--maroon-deep);
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+  }
+
+  .page-loader.is-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
+  .page-loader-logo {
+    width: 52px;
+    height: auto;
+    color: var(--beige-light);
+    animation: page-loader-pulse 1.4s ease-in-out infinite;
+  }
+
+  @keyframes page-loader-pulse {
+    0%, 100% { opacity: 0.55; transform: scale(0.94); }
+    50% { opacity: 1; transform: scale(1); }
+  }
+
+  .page-loader-dots { display: flex; gap: 8px; }
+
+  .page-loader-dots span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--beige-light);
+    opacity: 0.4;
+    animation: page-loader-dot 1.1s ease-in-out infinite;
+  }
+
+  .page-loader-dots span:nth-child(2) { animation-delay: 0.15s; }
+  .page-loader-dots span:nth-child(3) { animation-delay: 0.3s; }
+
+  @keyframes page-loader-dot {
+    0%, 80%, 100% { opacity: 0.3; transform: translateY(0); }
+    40% { opacity: 1; transform: translateY(-4px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .page-loader-logo, .page-loader-dots span { animation: none; }
+  }
+
+  .cookie-banner {
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    bottom: -200px;
+    z-index: 250;
+    max-width: 640px;
+    margin: 0 auto;
+    background: var(--maroon-deep);
+    color: var(--beige-light);
+    border-radius: 18px;
+    padding: 20px 22px;
+    box-shadow: 0 20px 50px -16px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+    transition: bottom 0.4s ease;
+  }
+
+  .cookie-banner.is-visible { bottom: 16px; }
+  .cookie-banner p { flex: 1 1 260px; font-size: 13px; line-height: 1.5; opacity: 0.85; }
+  .cookie-banner p a { text-decoration: underline; opacity: 1; }
+  .cookie-banner-actions { display: flex; gap: 10px; flex-shrink: 0; }
+
+  .cookie-banner button {
+    padding: 10px 18px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .cookie-accept { background: var(--beige-light); color: var(--maroon-deep); }
+  .cookie-accept:hover { background: var(--beige); }
+  .cookie-decline { background: transparent; color: var(--beige-light); opacity: 0.7; border: 1px solid rgba(253, 248, 236, 0.3); }
+  .cookie-decline:hover { opacity: 1; }
+
+  .whatsapp-float {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 50;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: var(--beige-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.45);
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .whatsapp-float:hover {
+    background: var(--beige);
+    transform: translateY(-3px);
+  }
+
+  .whatsapp-float svg {
+    width: 28px;
+    height: 28px;
+    fill: var(--maroon-deep);
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+
+  /* ---------- FILTERS ---------- */
+  .catalog-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 28px 0 8px;
+  }
+
+  .filter-btn {
+    padding: 10px 20px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    background: var(--beige-tint);
+    border: 1px solid rgba(26, 26, 26, 0.1);
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .filter-btn:hover {
+    border-color: rgba(26, 26, 26, 0.25);
+  }
+
+  .filter-btn.is-active {
+    background: var(--maroon);
+    color: var(--beige-light);
+    border-color: var(--maroon);
+  }
+
+  /* ---------- GRID ---------- */
+  .catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+    padding: 36px 0 60px;
+  }
+
+  /* ---------- CATALOG CTA ---------- */
+  .catalog-cta {
+    padding: 20px 0 90px;
+    text-align: center;
+  }
+
+  .catalog-cta-text {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--ink);
+    opacity: 0.75;
+    margin-bottom: 22px;
+  }
+
+  .catalog-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 28px;
+    border-radius: 100px;
+    background: var(--maroon);
+    color: var(--beige-light);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    box-shadow: 0 14px 30px -14px rgba(26, 26, 26, 0.35);
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  .catalog-cta-btn:hover {
+    background: var(--maroon-hover);
+    transform: translateY(-2px);
+  }
+
+  .catalog-cta-btn svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  .product-card {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 14px 30px -20px rgba(26, 26, 26, 0.3);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 22px 40px -18px rgba(26, 26, 26, 0.35);
+  }
+
+  .product-card.is-hidden {
+    display: none;
+  }
+
+  .product-card-media {
+    display: block;
+    position: relative;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: var(--beige-tint);
+  }
+
+  .product-card-media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+
+  .product-card:hover .product-card-media img {
+    transform: scale(1.06);
+  }
+
+  .product-card-count {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    background: rgba(15, 15, 15, 0.6);
+    color: var(--beige-light);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 100px;
+    backdrop-filter: blur(2px);
+  }
+
+  .product-card-info {
+    display: block;
+    padding: 16px 18px 20px;
+  }
+
+  .product-card-info h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--maroon);
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+
+  .title-break {
+    display: none;
+  }
+
+  .product-card-tag {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    opacity: 0.55;
+    text-transform: capitalize;
+  }
+
+  .catalog-note {
+    font-size: 14px;
+    color: var(--ink);
+    opacity: 0.65;
+    padding-top: 4px;
+  }
+
+  /* ---------- LIGHTBOX ---------- */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    align-items: safe center;
+    justify-content: center;
+    overflow-y: auto;
+    padding: 70px 24px 30px;
+    background: rgba(10, 10, 10, 0.92);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+
+  .lightbox.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .lightbox-inner {
+    position: relative;
+    width: 100%;
+    max-width: 880px;
+    margin: auto;
+  }
+
+  .lightbox-close {
+    position: fixed;
+    top: 18px;
+    right: 24px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(253, 248, 236, 0.12);
+    color: var(--beige-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+  }
+
+  .lightbox-close:hover { background: rgba(253, 248, 236, 0.22); }
+  .lightbox-close svg { width: 18px; height: 18px; }
+
+  .lightbox-media {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    border-radius: 18px;
+    overflow: hidden;
+    background: var(--beige-tint);
+  }
+
+  .lightbox-media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .lightbox-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: rgba(253, 248, 236, 0.9);
+    color: var(--maroon-deep);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .lightbox-arrow:hover { background: #fff; }
+  .lightbox-arrow svg { width: 20px; height: 20px; }
+  .lightbox-prev { left: 14px; }
+  .lightbox-next { right: 14px; }
+
+  .lightbox-caption {
+    margin-top: 18px;
+    color: var(--beige-light);
+  }
+
+  .lightbox-caption-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .lightbox-caption h3 {
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .lightbox-caption-top span {
+    font-size: 13px;
+    opacity: 0.6;
+    flex-shrink: 0;
+  }
+
+  .lightbox-desc {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+    opacity: 0.8;
+  }
+
+  .lightbox-code {
+    display: block;
+    margin-top: 4px;
+    font-size: 13px;
+    opacity: 0.55;
+    letter-spacing: 0.02em;
+  }
+
+  .lightbox-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 16px;
+    padding: 13px 22px;
+    border-radius: 100px;
+    background: var(--beige-light);
+    color: var(--maroon-deep);
+    font-size: 14px;
+    font-weight: 700;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .lightbox-whatsapp:hover {
+    background: var(--beige);
+    transform: translateY(-2px);
+  }
+
+  .lightbox-whatsapp svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  /* ---------- FOOTER ---------- */
+  .site-footer {
+    position: relative;
+    z-index: 3;
+    background: var(--maroon-deep);
+    color: var(--beige-light);
+    padding-top: 80px;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 60px;
+    padding-bottom: 60px;
+  }
+
+  .footer-logo-icon {
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 20px;
+  }
+
+  .footer-logo-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .footer-tagline {
+    font-size: 15px;
+    line-height: 1.5;
+    opacity: 0.75;
+    max-width: 320px;
+    margin-bottom: 24px;
+  }
+
+  .social-links {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    color: var(--beige-light);
+  }
+
+  .social-links a {
+    display: flex;
+    width: 34px;
+    height: 34px;
+    opacity: 0.85;
+    transition: opacity 0.2s ease;
+  }
+
+  .social-links a:hover { opacity: 1; }
+
+  .social-links svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .footer-col h4 {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    opacity: 0.55;
+    margin-bottom: 18px;
+  }
+
+  .footer-col a,
+  .footer-col p {
+    display: block;
+    color: var(--beige-light);
+    opacity: 0.8;
+    font-size: 15px;
+    line-height: 1.9;
+    transition: opacity 0.2s ease;
+  }
+
+  .footer-col a:hover { opacity: 1; }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(253, 248, 236, 0.12);
+    padding: 24px 0 32px;
+    text-align: center;
+    font-size: 13px;
+    opacity: 0.5;
+  }
+
+  .footer-bottom a { opacity: 0.85; }
+  .footer-bottom a:hover { opacity: 1; }
+
+  .footer-legal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px 14px;
+    margin-top: 10px;
+  }
+
+  /* ---------- SCROLL REVEAL ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 0.8s cubic-bezier(.22,.61,.36,1), transform 0.8s cubic-bezier(.22,.61,.36,1);
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-delay-1 { transition-delay: 0.08s; }
+  .reveal-delay-2 { transition-delay: 0.16s; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 900px) {
+    .wrap { padding: 0 24px; }
+
+    .nav-inner {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+    }
+
+    .logo { justify-self: center; }
+
+    .menu-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      justify-self: start;
+      width: 34px;
+      height: 34px;
+      flex-shrink: 0;
+    }
+
+    .menu-toggle svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--beige-light);
+    }
+
+    .nav-search {
+      justify-self: end;
+      padding: 6px;
+      border: none;
+      background: none;
+      position: relative;
+    }
+
+    .nav-search input {
+      position: absolute;
+      right: 42px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      opacity: 0;
+      padding: 0;
+      pointer-events: none;
+      background: var(--maroon-deep);
+      border: 1px solid rgba(253, 248, 236, 0.25);
+      border-radius: 100px;
+      transition: width 0.25s ease, opacity 0.2s ease, padding 0.25s ease;
+    }
+
+    .nav-search.is-open input {
+      width: 170px;
+      opacity: 1;
+      padding: 10px 14px;
+      pointer-events: auto;
+    }
+
+    .whatsapp-float {
+      right: 16px;
+      bottom: 16px;
+      width: 52px;
+      height: 52px;
+    }
+
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 22px;
+      background: var(--maroon-deep);
+      padding: 26px 24px 30px;
+      border-top: 1px solid rgba(253, 248, 236, 0.12);
+    }
+
+    .nav-links.open { display: flex; }
+
+    .nav-links a { font-size: 17px; }
+
+    .catalog-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      padding: 24px 0 40px;
+    }
+
+    .catalog-cta { padding: 10px 0 60px; }
+    .catalog-cta-text { font-size: 16px; }
+    .catalog-cta-btn { width: 100%; justify-content: center; }
+
+    .product-card-info { padding: 12px 14px 16px; }
+    .product-card-info h3 { font-size: 14px; }
+    .title-break { display: block; }
+
+    .lightbox-arrow { width: 38px; height: 38px; }
+    .lightbox-arrow svg { width: 16px; height: 16px; }
+    .lightbox-prev { left: 4px; }
+    .lightbox-next { right: 4px; }
+    .lightbox-close { top: 12px; right: 12px; }
+
+    .lightbox { padding: 60px 16px 24px; }
+
+    .site-footer { padding-top: 56px; }
+
+    .footer-top {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      padding-bottom: 40px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .catalog-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <div class="page-loader" id="pageLoader" role="status" aria-live="polite" aria-label="Cargando">
+    <svg class="page-loader-logo" viewBox="0 0 340.36 440.13" aria-hidden="true">
+      <path fill="currentColor" d="M340.36,440.13h0s-93.46,0-93.46,0h0c-.83-50.35-41.89-90.73-92.24-90.73h-56.31l-1.49,90.73H0V0h0c55.52,0,100.52,45.01,100.51,100.52v75.5s29.48,10.76,29.48,10.76c58.68,21.41,111.61,57.1,150.95,105.62,22.8,28.12,39.91,57.88,49.43,90.9,5.9,20.47,9.99,40.51,9.99,56.83ZM100.52,184.7v88.69h63.7c8.02,0,11.27-10.33,4.69-14.92l-68.39-73.77Z"/>
+    </svg>
+    <span class="page-loader-dots"><span></span><span></span><span></span></span>
+  </div>
+
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <button class="menu-toggle" id="menuToggle" aria-label="Menú" aria-expanded="false" aria-controls="navLinks">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M3 6h18"></path>
+          <path d="M3 12h18"></path>
+          <path d="M3 18h18"></path>
+        </svg>
+      </button>
+
+      <a class="logo" href="index.html" aria-label="Ir al inicio">
+        <span class="logo-icon">
+          <svg id="logoIconSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340.36 440.13">
+            <path fill="currentColor" d="M340.36,440.13h0s-93.46,0-93.46,0h0c-.83-50.35-41.89-90.73-92.24-90.73h-56.31l-1.49,90.73H0V0h0c55.52,0,100.52,45.01,100.51,100.52v75.5s29.48,10.76,29.48,10.76c58.68,21.41,111.61,57.1,150.95,105.62,22.8,28.12,39.91,57.88,49.43,90.9,5.9,20.47,9.99,40.51,9.99,56.83ZM100.52,184.7v88.69h63.7c8.02,0,11.27-10.33,4.69-14.92l-68.39-73.77Z"/>
+          </svg>
+        </span>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html#inicio">Inicio</a>
+        <a href="index.html#nosotros">Nosotros</a>
+        <a href="catalogo.html" class="is-featured">Catálogo</a>
+        <a href="index.html#contacto">Contacto</a>
+      </nav>
+
+      <form class="nav-search" id="navSearchForm" role="search" action="search.html">
+        <input type="text" name="q" id="navSearchInput" placeholder="Buscar..." aria-label="Buscar productos">
+        <button type="button" id="navSearchToggle" aria-label="Buscar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </header>
+
+  <a class="whatsapp-float" href="https://wa.me/message/ISVNRLUQCE27G1" target="_blank" rel="noopener noreferrer" aria-label="Escríbenos por WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 2C6.477 2 2 6.477 2 12c0 1.75.457 3.437 1.323 4.927L2 22l5.223-1.302A9.94 9.94 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.09c-1.56 0-3.06-.42-4.36-1.2l-.313-.185-3.09.77.79-3.06-.196-.313A7.94 7.94 0 0 1 4.09 12c0-4.36 3.55-7.91 7.91-7.91 4.36 0 7.91 3.55 7.91 7.91 0 4.36-3.55 7.91-7.91 7.91z"></path>
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"></path>
+    </svg>
+  </a>
+
+  <div class="wrap" id="main">
+    <div class="catalog-filters" id="catalogFilters">
+      <button class="filter-btn is-active" data-filter="all">Todos</button>
+      <button class="filter-btn" data-filter="tableros">Cabecero extendido</button>
+      <button class="filter-btn" data-filter="clasicas">Clásicas</button>
+      <button class="filter-btn" data-filter="nido">Nido y cajones</button>
+    </div>
+
+    <p class="catalog-note">Fabricamos sobre pedido: el tamaño de la cama, si es maciza, entamborada o combinada, los tonos, el tapizado del cabecero y las mesas de noche se ajustan a lo que necesites.</p>
+
+    <div class="catalog-grid" id="catalogGrid"></div>
+  </div>
+
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-inner">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18"/><path d="M6 6l12 12"/></svg>
+      </button>
+      <div class="lightbox-media">
+        <img id="lightboxImage" src="" alt="">
+        <button class="lightbox-arrow lightbox-prev" id="lightboxPrev" aria-label="Foto anterior">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button class="lightbox-arrow lightbox-next" id="lightboxNext" aria-label="Foto siguiente">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
+      <div class="lightbox-caption">
+        <div class="lightbox-caption-top">
+          <h3 id="lightboxTitle"></h3>
+          <span id="lightboxCounter"></span>
+        </div>
+        <span class="lightbox-desc" id="lightboxDesc"></span>
+        <span class="lightbox-code" id="lightboxCode"></span>
+        <a class="lightbox-whatsapp" id="lightboxWhatsapp" href="#" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2C6.477 2 2 6.477 2 12c0 1.75.457 3.437 1.323 4.927L2 22l5.223-1.302A9.94 9.94 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.09c-1.56 0-3.06-.42-4.36-1.2l-.313-.185-3.09.77.79-3.06-.196-.313A7.94 7.94 0 0 1 4.09 12c0-4.36 3.55-7.91 7.91-7.91 4.36 0 7.91 3.55 7.91 7.91 0 4.36-3.55 7.91-7.91 7.91z"></path>
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"></path>
+          </svg>
+          Preguntar por este artículo
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <section class="catalog-cta">
+    <div class="wrap">
+      <p class="catalog-cta-text">¿No encuentras lo que buscas? Escríbenos y cuéntanos qué necesitas.</p>
+      <a class="catalog-cta-btn" href="https://wa.me/message/ISVNRLUQCE27G1" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+          <path d="M12 2C6.477 2 2 6.477 2 12c0 1.75.457 3.437 1.323 4.927L2 22l5.223-1.302A9.94 9.94 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.09c-1.56 0-3.06-.42-4.36-1.2l-.313-.185-3.09.77.79-3.06-.196-.313A7.94 7.94 0 0 1 4.09 12c0-4.36 3.55-7.91 7.91-7.91 4.36 0 7.91 3.55 7.91 7.91 0 4.36-3.55 7.91-7.91 7.91z"></path>
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"></path>
+        </svg>
+        Escríbenos por WhatsApp
+      </a>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wrap footer-top">
+      <div class="footer-brand">
+        <span class="footer-logo-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340.36 440.13" aria-hidden="true">
+            <path fill="currentColor" d="M340.36,440.13h0s-93.46,0-93.46,0h0c-.83-50.35-41.89-90.73-92.24-90.73h-56.31l-1.49,90.73H0V0h0c55.52,0,100.52,45.01,100.51,100.52v75.5s29.48,10.76,29.48,10.76c58.68,21.41,111.61,57.1,150.95,105.62,22.8,28.12,39.91,57.88,49.43,90.9,5.9,20.47,9.99,40.51,9.99,56.83ZM100.52,184.7v88.69h63.7c8.02,0,11.27-10.33,4.69-14.92l-68.39-73.77Z"/>
+          </svg>
+        </span>
+        <p class="footer-tagline">Muebles tapizados y de madera hechos para acompañar tu día a día.</p>
+        <div class="social-links">
+          <a href="https://www.facebook.com/share/19EzTXUeZg/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M2 6C2 3.79086 3.79086 2 6 2H18C20.2091 2 22 3.79086 22 6V18C22 20.2091 20.2091 22 18 22H6C3.79086 22 2 20.2091 2 18V6ZM6 4C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20H12V13H11C10.4477 13 10 12.5523 10 12C10 11.4477 10.4477 11 11 11H12V9.5C12 7.567 13.567 6 15.5 6H16.1C16.6523 6 17.1 6.44772 17.1 7C17.1 7.55228 16.6523 8 16.1 8H15.5C14.6716 8 14 8.67157 14 9.5V11H16.1C16.6523 11 17.1 11.4477 17.1 12C17.1 12.5523 16.6523 13 16.1 13H14V20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4H6Z" fill="currentColor"/>
+            </svg>
+          </a>
+          <a href="https://www.instagram.com/ansulais?igsi=dTBqdHJocHM2dnRr&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor" d="M22.3,8.4c-0.8,0-1.4,0.6-1.4,1.4c0,0.8,0.6,1.4,1.4,1.4c0.8,0,1.4-0.6,1.4-1.4C23.7,9,23.1,8.4,22.3,8.4z"/>
+              <path fill="currentColor" d="M16,10.2c-3.3,0-5.9,2.7-5.9,5.9s2.7,5.9,5.9,5.9s5.9-2.7,5.9-5.9S19.3,10.2,16,10.2z M16,19.9c-2.1,0-3.8-1.7-3.8-3.8   c0-2.1,1.7-3.8,3.8-3.8c2.1,0,3.8,1.7,3.8,3.8C19.8,18.2,18.1,19.9,16,19.9z"/>
+              <path fill="currentColor" d="M20.8,4h-9.5C7.2,4,4,7.2,4,11.2v9.5c0,4,3.2,7.2,7.2,7.2h9.5c4,0,7.2-3.2,7.2-7.2v-9.5C28,7.2,24.8,4,20.8,4z M25.7,20.8   c0,2.7-2.2,5-5,5h-9.5c-2.7,0-5-2.2-5-5v-9.5c0-2.7,2.2-5,5-5h9.5c2.7,0,5,2.2,5,5V20.8z"/>
+            </svg>
+          </a>
+          <a href="https://www.tiktok.com/@ansulais?_r=1&_t=ZS-996OWQ08Us6" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21 8V16C21 18.7614 18.7614 21 16 21H8C5.23858 21 3 18.7614 3 16V8C3 5.23858 5.23858 3 8 3H16C18.7614 3 21 5.23858 21 8Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M10 12C8.34315 12 7 13.3431 7 15C7 16.6569 8.34315 18 10 18C11.6569 18 13 16.6569 13 15V6C13.3333 7 14.6 9 17 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Enlaces</h4>
+        <a href="index.html#inicio">Inicio</a>
+        <a href="index.html#nosotros">Nosotros</a>
+        <a href="catalogo.html">Catálogo</a>
+        <a href="index.html#contacto">Contacto</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Visítanos</h4>
+        <p>Crr 51 # 76-32<br>Bogotá D.C.</p>
+        <a href="mailto:ansulais31@gmail.com">ansulais31@gmail.com</a>
+        <a href="https://wa.me/message/ISVNRLUQCE27G1" target="_blank" rel="noopener noreferrer">Escríbenos por WhatsApp</a>
+      </div>
+    </div>
+
+    <div class="wrap footer-bottom">
+      <p>&copy; 2026 Ansulais. Todos los derechos reservados.</p>
+      <div class="footer-legal">
+        <a href="terminos.html">Términos y condiciones</a>
+        <span aria-hidden="true">·</span>
+        <a href="privacidad.html">Política de privacidad</a>
+        <span aria-hidden="true">·</span>
+        <a href="cookies.html">Política de cookies</a>
+        <span aria-hidden="true">·</span>
+        <a href="reembolsos.html">Cambios y devoluciones</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite" aria-label="Aviso de cookies">
+    <p>Usamos cookies técnicas propias para que el sitio funcione bien. No usamos cookies de seguimiento ni de publicidad. <a href="cookies.html">Más información</a>.</p>
+    <div class="cookie-banner-actions">
+      <button type="button" class="cookie-decline" id="cookieDecline">Rechazar</button>
+      <button type="button" class="cookie-accept" id="cookieAccept">Aceptar</button>
+    </div>
+  </div>
+
+  <script>
+    var revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    // ---------- Catálogo ----------
+    // Cada pieza tiene:
+    //   name   -> nombre comercial (inventado, no es una referencia de fábrica)
+    //   desc   -> texto que aparece en el lightbox
+    //   tag    -> filtro al que pertenece; debe coincidir con un data-filter de los
+    //             botones de arriba y con una clave de tagLabels
+    //   folder -> carpeta dentro de assets/catalogo/alcobas/
+    //   images -> nombres de las fotos sin extensión; la primera es la portada.
+    //             Cada foto existe en dos tamaños: <nombre>.webp (lightbox) y
+    //             <nombre>-sm.webp (tarjeta). Se generan con tools/optimizar_fotos.py
+    // El código de artículo (ALC-01, ALC-02…) sale de la posición en esta lista:
+    // agrega piezas nuevas AL FINAL para no cambiar los códigos que ya tienen los clientes.
+    // Estas mismas piezas también están en index.html (offerPool) y search.html
+    // (catalog): si agregas o quitas una, actualiza los tres lugares.
+    var products = [
+      { name: "Alcoba Listón", desc: "Cabecero extendido con paneles laterales de listones verticales, mesas de noche flotantes y base tipo plataforma.", tag: "tableros", folder: "camatableroexpandido", images: ["cama1", "cama3", "cama4"] },
+      { name: "Alcoba Ámbar", desc: "Cabecero extendido con luz indirecta y lámparas de lectura, mesas de noche de un cajón con entrepaño abierto.", tag: "tableros", folder: "camatableroexpandido_mesasuncajon", images: ["cama1", "cama2", "mesa"] },
+      { name: "Alcoba Ocaso", desc: "Cabecero extendido en madera que integra mesas de noche flotantes de un cajón y apliques de luz.", tag: "tableros", folder: "camatableroextendido_mesasflotantesuncajon", images: ["cama1", "cama2", "cama3"] },
+      { name: "Alcoba Cacao", desc: "Cabecero extendido en madera de tono oscuro con repisa, mesas de noche flotantes con frente blanco.", tag: "tableros", folder: "tableroextendidoduotono", images: ["cama1", "cama2", "mesa"] },
+      { name: "Alcoba Faro", desc: "Cabecero extendido en blanco y madera con nichos iluminados a los lados y mesas de noche a juego.", tag: "tableros", folder: "tableroextendidoduotonoluces", images: ["cama1", "cama2", "cama3"] },
+      { name: "Alcoba Lino", desc: "Cabecero en madera con franja blanca y mesas de noche de dos cajones en la misma combinación.", tag: "clasicas", folder: "camadoble_bicolor", images: ["cama1", "cama2", "mesa"] },
+      { name: "Alcoba Alba", desc: "Cama de base flotante con cabecero alto en madera y mesas de noche en dos tonos.", tag: "clasicas", folder: "camaduotono", images: ["cama1", "cama2", "mesa"] },
+      { name: "Alcoba Luna", desc: "Cabecero con borde superior suavemente curvo, base tipo plataforma y mesas de noche de dos cajones.", tag: "clasicas", folder: "camaespaldarsemicurvo_doble", images: ["cama1", "cama2", "mesa"] },
+      { name: "Alcoba Brisa", desc: "Cabecero en madera con dos franjas blancas y mesas de noche con cajón y entrepaño abierto.", tag: "clasicas", folder: "duotonodoslineas", images: ["cama1", "cama2", "mesa"] },
+      { name: "Cama Nido Plaza", desc: "Cabecero tapizado capitoneado y cama auxiliar deslizante bajo la base, ideal para recibir visitas.", tag: "nido", folder: "camanido_espaldarcapitoneado", images: ["cama1", "cama2", "cama_abierta"] },
+      { name: "Cama Nido Niebla", desc: "Cabecero tapizado en gris con base en madera y cama auxiliar que se desliza por debajo.", tag: "nido", folder: "camanido_espaldargris_doble", images: ["cama1", "cama2", "cama3", "camaabierta"] },
+      { name: "Cama Nido Arena", desc: "Cabecero tapizado con costuras horizontales y cama auxiliar deslizante en la base.", tag: "nido", folder: "camanido_espaldartapizado", images: ["cama1", "cama2", "abierta"] },
+      { name: "Cama Sencilla Arca", desc: "Cama sencilla con cabecero en madera y cajones de almacenamiento en la base.", tag: "nido", folder: "camasencilla_cajones", images: ["cama1", "cama2", "camacajones"] }
+    ];
+
+    var tagLabels = { tableros: "Cabecero extendido", clasicas: "Clásica", nido: "Nido / cajones" };
+    var basePath = "assets/catalogo/alcobas/";
+
+    // size "sm" = miniatura para las tarjetas; sin size = foto completa para el lightbox
+    function imgPath(product, imageName, size) {
+      return basePath + product.folder + "/" + imageName + (size === "sm" ? "-sm" : "") + ".webp";
+    }
+
+    function twoLineTitle(name) {
+      var words = name.split(" ");
+      if (words.length < 2) return name;
+      var bestSplit = 1;
+      var bestDiff = Infinity;
+      for (var i = 1; i < words.length; i++) {
+        var line1 = words.slice(0, i).join(" ");
+        var line2 = words.slice(i).join(" ");
+        var diff = Math.abs(line1.length - line2.length);
+        if (diff < bestDiff) {
+          bestDiff = diff;
+          bestSplit = i;
+        }
+      }
+      return words.slice(0, bestSplit).join(" ") + ' <br class="title-break">' + words.slice(bestSplit).join(" ");
+    }
+
+    var grid = document.getElementById("catalogGrid");
+
+    products.forEach(function (product, index) {
+      var cover = product.images[0];
+      var card = document.createElement("button");
+      card.className = "product-card reveal reveal-delay-" + ((index % 3 === 0) ? 0 : (index % 2 === 0 ? 2 : 1));
+      card.type = "button";
+      card.dataset.tag = product.tag;
+      card.setAttribute("aria-label", "Ver fotos de " + product.name);
+      card.innerHTML =
+        '<span class="product-card-media">' +
+          '<img src="' + imgPath(product, cover, "sm") + '"' +
+            ' srcset="' + imgPath(product, cover, "sm") + ' 600w, ' + imgPath(product, cover) + ' 1024w"' +
+            ' sizes="(max-width: 900px) 50vw, 420px" width="600" height="600"' +
+            ' alt="' + product.name + '" loading="lazy" decoding="async">' +
+          '<span class="product-card-count">' + product.images.length + ' fotos</span>' +
+        '</span>' +
+        '<span class="product-card-info">' +
+          '<h3>' + twoLineTitle(product.name) + '</h3>' +
+          '<span class="product-card-tag">' + tagLabels[product.tag] + '</span>' +
+        '</span>';
+      card.addEventListener("click", function () { openLightbox(index); });
+      grid.appendChild(card);
+    });
+
+    document.querySelectorAll(".reveal").forEach(function (el) {
+      revealObserver.observe(el);
+    });
+
+    // ---------- Filters ----------
+    var filterButtons = document.querySelectorAll(".filter-btn");
+    filterButtons.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        filterButtons.forEach(function (b) { b.classList.remove("is-active"); });
+        btn.classList.add("is-active");
+        var filter = btn.dataset.filter;
+        document.querySelectorAll(".product-card").forEach(function (card) {
+          card.classList.toggle("is-hidden", filter !== "all" && card.dataset.tag !== filter);
+        });
+      });
+    });
+
+    // ---------- Lightbox ----------
+    var WHATSAPP_NUMBER = "573004928400";
+    var lightbox = document.getElementById("lightbox");
+    var lightboxImage = document.getElementById("lightboxImage");
+    var lightboxTitle = document.getElementById("lightboxTitle");
+    var lightboxCounter = document.getElementById("lightboxCounter");
+    var lightboxDesc = document.getElementById("lightboxDesc");
+    var lightboxCode = document.getElementById("lightboxCode");
+    var lightboxWhatsapp = document.getElementById("lightboxWhatsapp");
+    var currentProductIndex = 0;
+    var currentImageIndex = 0;
+
+    function articleCode(index) {
+      var n = String(index + 1);
+      while (n.length < 2) n = "0" + n;
+      return "ALC-" + n;
+    }
+
+    function renderLightbox() {
+      var product = products[currentProductIndex];
+      var code = articleCode(currentProductIndex);
+      lightboxImage.src = imgPath(product, product.images[currentImageIndex]);
+      lightboxImage.alt = product.name;
+      lightboxTitle.textContent = product.name;
+      lightboxCounter.textContent = (currentImageIndex + 1) + " / " + product.images.length;
+      lightboxDesc.textContent = product.desc;
+      lightboxCode.textContent = "Artículo " + code;
+
+      var message = "Hola, quiero más información sobre el artículo " + code + " (" + product.name + ").";
+      lightboxWhatsapp.href = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
+
+      // Precarga la foto anterior y la siguiente para que las flechas respondan al instante
+      [1, -1].forEach(function (step) {
+        var i = (currentImageIndex + step + product.images.length) % product.images.length;
+        new Image().src = imgPath(product, product.images[i]);
+      });
+    }
+
+    function openLightbox(productIndex) {
+      currentProductIndex = productIndex;
+      currentImageIndex = 0;
+      renderLightbox();
+      lightbox.classList.add("is-open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove("is-open");
+      document.body.style.overflow = "";
+    }
+
+    function showNextImage() {
+      var product = products[currentProductIndex];
+      currentImageIndex = (currentImageIndex + 1) % product.images.length;
+      renderLightbox();
+    }
+
+    function showPrevImage() {
+      var product = products[currentProductIndex];
+      currentImageIndex = (currentImageIndex - 1 + product.images.length) % product.images.length;
+      renderLightbox();
+    }
+
+    document.getElementById("lightboxClose").addEventListener("click", closeLightbox);
+    document.getElementById("lightboxNext").addEventListener("click", showNextImage);
+    document.getElementById("lightboxPrev").addEventListener("click", showPrevImage);
+    lightbox.addEventListener("click", function (e) {
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (!lightbox.classList.contains("is-open")) return;
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowRight") showNextImage();
+      if (e.key === "ArrowLeft") showPrevImage();
+    });
+
+    // ---------- Page loader ----------
+    function hidePageLoader() {
+      var loader = document.getElementById('pageLoader');
+      if (loader) loader.classList.add('is-hidden');
+    }
+    window.addEventListener('load', hidePageLoader);
+    setTimeout(hidePageLoader, 4000);
+
+    // ---------- Nav search (tap to expand on mobile) ----------
+    var navSearchForm = document.getElementById('navSearchForm');
+    var navSearchInput = document.getElementById('navSearchInput');
+    var navSearchToggle = document.getElementById('navSearchToggle');
+    var isMobileSearch = function () { return window.matchMedia('(max-width: 900px)').matches; };
+
+    navSearchToggle.addEventListener('click', function () {
+      if (isMobileSearch() && !navSearchForm.classList.contains('is-open')) {
+        navSearchForm.classList.add('is-open');
+        navSearchInput.focus();
+        return;
+      }
+      navSearchForm.submit();
+    });
+
+    document.addEventListener('click', function (e) {
+      if (isMobileSearch() && navSearchForm.classList.contains('is-open') && !navSearchForm.contains(e.target)) {
+        navSearchForm.classList.remove('is-open');
+      }
+    });
+
+    navSearchForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var q = navSearchInput.value.trim();
+      window.location.href = 'search.html' + (q ? '?q=' + encodeURIComponent(q) : '');
+    });
+
+    // ---------- Cookie banner ----------
+    (function () {
+      var KEY = 'ansulais_cookie_choice';
+      var banner = document.getElementById('cookieBanner');
+      if (!banner) return;
+      var already;
+      try { already = localStorage.getItem(KEY); } catch (e) { already = null; }
+      if (!already) banner.classList.add('is-visible');
+      function choose(value) {
+        banner.classList.remove('is-visible');
+        try { localStorage.setItem(KEY, value); } catch (e) {}
+      }
+      document.getElementById('cookieAccept').addEventListener('click', function () { choose('accepted'); });
+      document.getElementById('cookieDecline').addEventListener('click', function () { choose('declined'); });
+    })();
+
+    var menuToggle = document.getElementById('menuToggle');
+    var navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', function () {
+      var isOpen = navLinks.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', isOpen);
+    });
+    navLinks.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        navLinks.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  </script>
+
+</body>
+</html>

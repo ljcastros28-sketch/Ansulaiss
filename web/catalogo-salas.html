@@ -1045,6 +1045,20 @@
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
+    // ---------- Catálogo ----------
+    // Cada pieza tiene:
+    //   name   -> nombre comercial (inventado, no es una referencia de fábrica)
+    //   desc   -> texto que aparece en el lightbox
+    //   tag    -> filtro al que pertenece; debe coincidir con un data-filter de los
+    //             botones de arriba y con una clave de tagLabels
+    //   folder -> carpeta dentro de assets/catalogo/salas/
+    //   images -> nombres de las fotos sin extensión; la primera es la portada.
+    //             Cada foto existe en dos tamaños: <nombre>.webp (lightbox) y
+    //             <nombre>-sm.webp (tarjeta). Se generan con tools/optimizar_fotos.py
+    // El código de artículo (SAL-01, SAL-02…) sale de la posición en esta lista:
+    // agrega piezas nuevas AL FINAL para no cambiar los códigos que ya tienen los clientes.
+    // Estas mismas piezas también están en index.html (offerPool) y search.html
+    // (catalog): si agregas o quitas una, actualiza los tres lugares.
     var products = [
       { name: "Sala en L Aurora", desc: "Silueta clásica en L, cómoda y versátil para el centro de cualquier sala.", tag: "en-l", folder: "salaL_basica2", images: ["sala_frente", "sofa_tres_cuartos", "sofa_detras"] },
       { name: "Sala en L Bruma", desc: "Cojines con costuras de líneas que le dan textura al espaldar.", tag: "en-l", folder: "salaL_lineascojines", images: ["sala_frente", "sala_tres_cuartos", "sala_picado_delado"] },
@@ -1086,8 +1100,9 @@
     var tagLabels = { sofa: "Sofá", "en-l": "Sala en L", cama: "Sofá cama" };
     var basePath = "assets/catalogo/salas/";
 
-    function imgPath(product, imageName) {
-      return basePath + product.folder + "/" + imageName + ".jpg";
+    // size "sm" = miniatura para las tarjetas; sin size = foto completa para el lightbox
+    function imgPath(product, imageName, size) {
+      return basePath + product.folder + "/" + imageName + (size === "sm" ? "-sm" : "") + ".webp";
     }
 
     function twoLineTitle(name) {
@@ -1110,6 +1125,7 @@
     var grid = document.getElementById("catalogGrid");
 
     products.forEach(function (product, index) {
+      var cover = product.images[0];
       var card = document.createElement("button");
       card.className = "product-card reveal reveal-delay-" + ((index % 3 === 0) ? 0 : (index % 2 === 0 ? 2 : 1));
       card.type = "button";
@@ -1117,7 +1133,10 @@
       card.setAttribute("aria-label", "Ver fotos de " + product.name);
       card.innerHTML =
         '<span class="product-card-media">' +
-          '<img src="' + imgPath(product, product.images[0]) + '" alt="' + product.name + '" loading="lazy">' +
+          '<img src="' + imgPath(product, cover, "sm") + '"' +
+            ' srcset="' + imgPath(product, cover, "sm") + ' 600w, ' + imgPath(product, cover) + ' 1024w"' +
+            ' sizes="(max-width: 900px) 50vw, 420px" width="600" height="600"' +
+            ' alt="' + product.name + '" loading="lazy" decoding="async">' +
           '<span class="product-card-count">' + product.images.length + ' fotos</span>' +
         '</span>' +
         '<span class="product-card-info">' +
@@ -1175,6 +1194,12 @@
 
       var message = "Hola, quiero más información sobre el artículo " + code + " (" + product.name + ").";
       lightboxWhatsapp.href = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
+
+      // Precarga la foto anterior y la siguiente para que las flechas respondan al instante
+      [1, -1].forEach(function (step) {
+        var i = (currentImageIndex + step + product.images.length) % product.images.length;
+        new Image().src = imgPath(product, product.images[i]);
+      });
     }
 
     function openLightbox(productIndex) {

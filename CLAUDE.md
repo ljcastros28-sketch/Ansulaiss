@@ -8,7 +8,7 @@ Sitio web estático de **Ansulais** (fabricante de muebles de madera y tapizados
 
 ## Regla de oro: qué se sube a git
 
-**Solo se commitea/pushea lo que está dentro de `web/`.** El resto de carpetas y archivos en la raíz del repo (`SALAS Y SOFÁS/`, `COMEDORES/`, `salas_fondoblanco/`, `comedores_fondoblanco/`, `alcobas_fondoblanco/`, `otros_fondoblanco/`, `quequiereshoy/`, `nosotros/`, fotos/videos sueltos en la raíz como `sofa123.jpe`, `imagen_hero*.png`, etc.) son **material de trabajo en progreso del usuario** — fotos originales sin procesar para catálogos futuros u otras secciones. **Nunca los toques, muevas, borres ni los incluyas en un commit** a menos que el usuario lo pida explícitamente. Cuando se necesita una foto de ahí para el sitio, se copia/procesa hacia `web/assets/` y solo esa copia entra a git.
+**Solo se commitea/pushea lo que está dentro de `web/`** (más la documentación y herramientas del repo: `CLAUDE.md`, `README.md`, `tools/`, `.github/`). El resto de carpetas y archivos en la raíz del repo (`SALAS Y SOFÁS/`, `COMEDORES/`, `salas_fondoblanco/`, `comedores_fondoblanco/`, `alcobas_fondoblanco/`, `otros_fondoblanco/`, `quequiereshoy/`, `nosotros/`, fotos/videos sueltos en la raíz como `sofa123.jpe`, `imagen_hero*.png`, etc.) son **material de trabajo en progreso del usuario** — fotos originales sin procesar para catálogos futuros u otras secciones. **Nunca los toques, muevas, borres ni los incluyas en un commit** a menos que el usuario lo pida explícitamente. Cuando se necesita una foto de ahí para el sitio, se procesa con `python tools/optimizar_fotos.py <origen> web/assets/...` (genera `.webp` + miniatura `-sm.webp`) y solo esa salida entra a git.
 
 Workflow típico de cada cambio:
 1. Editar archivo(s) dentro de `web/`.
@@ -21,10 +21,11 @@ Workflow típico de cada cambio:
 | Archivo | Qué es |
 |---|---|
 | `index.html` | Home: hero (foto `sofa123.jpg`/`sofa123_9-16.jpg` de fondo), franja de datos animada (marquee de vidrio sobre el hero), "¿Qué ofrecemos?" (carrusel horizontal con flechas en desktop / swipe en móvil), Nosotros, materiales (madera + espuma Espumados), Contacto |
-| `catalogo.html` | Selector de categorías ("¿Qué buscas el día de hoy?") → enlaza a los dos catálogos reales; alcobas/otros siguen "próximamente" |
+| `catalogo.html` | Selector de categorías ("¿Qué buscas el día de hoy?") → enlaza a los tres catálogos reales (comedores, salas, alcobas); "otros" sigue "próximamente" |
 | `catalogo-salas.html` | Catálogo de salas/sofás — 35 piezas, con filtros y lightbox |
 | `catalogo-comedores.html` | Catálogo de comedores — 24 piezas, con filtros y lightbox |
-| `search.html` | Buscador funcional sobre las 59 piezas combinadas (salas + comedores), con filtros por categoría |
+| `catalogo-alcobas.html` | Catálogo de alcobas/camas — 13 piezas (códigos `ALC-xx`), filtros: Cabecero extendido / Clásicas / Nido y cajones, con lightbox. Faltan fotos de más piezas: se irán agregando |
+| `search.html` | Buscador funcional sobre las 72 piezas combinadas (salas + comedores + alcobas), con filtros por categoría |
 | `privacidad.html` | Política de tratamiento de datos (Ley 1581 de 2012, Colombia) |
 | `cookies.html` | Política de cookies (el sitio NO usa analítica/tracking, solo Google Fonts + una preferencia local de "ya viste el aviso") |
 | `terminos.html` | Términos y condiciones (venta sobre pedido, Ley 1480 de 2011) |
@@ -62,20 +63,21 @@ Cada página es **standalone**: CSS y JS están inline en su propio `<style>`/`<
 Los productos (nombre inventado + descripción + tag + carpeta de fotos) están **hardcodeados como arrays JS**, duplicados en:
 - `catalogo-salas.html` (35 piezas, con `desc` completo para el lightbox)
 - `catalogo-comedores.html` (24 piezas, con `desc` completo para el lightbox)
-- `index.html` → array `offerPool` (las mismas 59 piezas combinadas, solo nombre/href/img, para el carrusel "¿Qué ofrecemos?")
-- `search.html` → array `catalog` (las mismas 59, con `cat` para los filtros)
+- `catalogo-alcobas.html` (13 piezas, con `desc` completo para el lightbox)
+- `index.html` → array `offerPool` (las mismas 72 piezas combinadas, solo nombre/href/img, para el carrusel "¿Qué ofrecemos?")
+- `search.html` → array `catalog` (las mismas 72, con `cat` para los filtros)
 
-**Si se agrega o quita una pieza del catálogo, hay que actualizar los 3-4 lugares donde está duplicada la lista** (no hay una sola fuente de verdad, es intencional por ser sitio estático sin build).
+**Si se agrega o quita una pieza del catálogo, hay que actualizar los 3 lugares donde está duplicada la lista** (no hay una sola fuente de verdad, es intencional por ser sitio estático sin build).
 
-Fotos de catálogo en: `web/assets/catalogo/salas/<carpeta>/<foto>.jpg` y `web/assets/catalogo/comedores/<carpeta>/<foto>.jpg`.
+Fotos de catálogo en: `web/assets/catalogo/{salas,comedores,alcobas}/<carpeta>/<foto>.webp` (1024 px, lightbox) y `<foto>-sm.webp` (600 px, tarjetas/carrusel/buscador). Se generan con `tools/optimizar_fotos.py`. **Nunca referenciar `.jpg` en el código**: los `.jpg` que puedan quedar en `web/assets/` son restos viejos sin uso. En `index.html` (`offerPool`) y `search.html` (`catalog`) se usa siempre la versión `-sm.webp`. Las piezas nuevas van **al final** del array `products`, porque el código de artículo sale de la posición.
 
 ## Cosas ya implementadas (no reinventar)
 
-- Page loader (logo + 3 puntos) en las 9 páginas — se oculta solo al cargar o a los 4s.
-- Banner de cookies (aceptar/rechazar) con `localStorage` key `ansulais_cookie_choice`, en las 9 páginas.
+- Page loader (logo + 3 puntos) en las 10 páginas — se oculta solo al cargar o a los 4s.
+- Banner de cookies (aceptar/rechazar) con `localStorage` key `ansulais_cookie_choice`, en las 10 páginas.
 - Nav-search: en móvil el input estaba `display:none` — se arregló para que se expanda al tocar el ícono (clase `.is-open` en `#navSearchForm`).
-- Skip-link de accesibilidad ("Saltar al contenido") en las 9 páginas.
-- Footer con links legales (Términos, Privacidad, Cookies, Cambios y devoluciones) en las 9 páginas.
+- Skip-link de accesibilidad ("Saltar al contenido") en las 10 páginas.
+- Footer con links legales (Términos, Privacidad, Cookies, Cambios y devoluciones) en las 10 páginas.
 
 ## Lecciones aprendidas (para no repetir bugs ya resueltos)
 
@@ -92,3 +94,5 @@ Fotos de catálogo en: `web/assets/catalogo/salas/<carpeta>/<foto>.jpg` y `web/a
 - **2026-10-05** — Creación de este archivo de contexto.
 - **2026-10-05** — Buscador funcional (`search.html`) + páginas legales (`privacidad.html`, `cookies.html`, `terminos.html`, `reembolsos.html`) + page loader + cookie banner + skip-links en las 9 páginas + limpieza de 15 assets sin usar + fix de redes sociales/correo en footer de `catalogo.html`.
 - **2026-10-05** — Correo de contacto cambiado a `ansulais31@gmail.com` en las 9 páginas (reemplaza `ansulais@ansulais.com`); se agregó el link de correo que le faltaba al footer de `catalogo-salas.html`; se agregó sección 6 en `reembolsos.html` sobre elementos decorativos/deslizantes de cortesía (sin garantía, no se reponen, no admiten reclamo, por ser obsequio).
+- **2026-10-05** — Nueva sección de alcobas: `catalogo-alcobas.html` con 13 piezas (fotos de `alcobas_fondoblanco/` copiadas a `web/assets/catalogo/alcobas/`); tarjeta de alcobas en `catalogo.html` ya enlaza (sin "próximamente"); piezas agregadas a `offerPool` (index) y a `catalog` + filtro "Alcobas" (search).
+- **2026-10-05** — Optimización de carga: todas las fotos del sitio pasan a WebP (catálogo: de ~110 MB a ~9.5 MB, con miniaturas `-sm.webp` para tarjetas y `srcset`); el hero usa `fetchpriority="high"`; el video de Nosotros pasa a `preload="none"` y se reproduce/pausa con `IntersectionObserver`; el lightbox precarga la foto anterior y la siguiente. Nuevo `tools/optimizar_fotos.py`, `README.md` para ingenieros y comentarios que documentan el array `products` en cada catálogo.
