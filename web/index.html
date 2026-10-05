@@ -357,6 +357,94 @@
     display: block;
   }
 
+  /* ---------- QUE BUSCAS (picker) ---------- */
+  .quequieres {
+    background: var(--maroon-deep);
+    padding: 70px 0;
+  }
+
+  .quequieres-title {
+    color: var(--beige-light);
+    font-size: clamp(2.6rem, 6.5vw, 5.6rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.12;
+    max-width: 950px;
+    margin-bottom: 56px;
+  }
+
+  .quequieres-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(18px, 2.2vw, 36px);
+  }
+
+  .quequieres-card {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    border-radius: 20px;
+    overflow: hidden;
+    display: block;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow:
+      inset 0 0 30px 4px rgba(0, 0, 0, 0.22),
+      inset 0 0 0 1px rgba(0, 0, 0, 0.15);
+  }
+
+  .quequieres-card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      inset 0 0 34px 5px rgba(0, 0, 0, 0.26),
+      inset 0 0 0 1px rgba(0, 0, 0, 0.18);
+  }
+
+  .quequieres-card img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .quequieres-card:hover img {
+    transform: scale(1.06);
+  }
+
+  .quequieres-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0.02) 55%, rgba(0, 0, 0, 0.12) 100%);
+  }
+
+  .quequieres-card-label {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 22px;
+    color: var(--beige-light);
+    font-size: clamp(1.3rem, 2.1vw, 1.9rem);
+    font-weight: 400;
+    line-height: 1.25;
+    text-transform: lowercase;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.45);
+  }
+
+  .quequieres-card-soon {
+    margin-top: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    opacity: 0.65;
+  }
+
   /* ---------- NOSOTROS ---------- */
   .nosotros {
     position: relative;
@@ -953,6 +1041,32 @@
       display: none;
     }
 
+    .quequieres {
+      padding: 44px 0 52px;
+    }
+
+    .quequieres-title {
+      font-size: 2.1rem;
+      margin-bottom: 26px;
+    }
+
+    .quequieres-grid {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .quequieres-card {
+      aspect-ratio: 16 / 10;
+    }
+
+    .quequieres-card-label {
+      font-size: 1.15rem;
+    }
+
+    .quequieres-card-break {
+      display: none;
+    }
+
     .nosotros-intro {
       padding-top: 40px;
     }
@@ -1161,6 +1275,30 @@
 
     </div>
 
+  </section>
+
+  <section class="quequieres">
+    <div class="wrap">
+      <h2 class="quequieres-title reveal">Mira lo que ofrecemos</h2>
+      <div class="quequieres-grid">
+        <a class="quequieres-card reveal" href="catalogo-comedores.html" data-category="comedores">
+          <img src="assets/qh_comedores.jpg" alt="Comedores" loading="lazy">
+          <span class="quequieres-card-label">comedores</span>
+        </a>
+        <a class="quequieres-card reveal reveal-delay-1" href="catalogo-salas.html" data-category="salas">
+          <img src="assets/qh_salas.jpg" alt="Salas y sofás" loading="lazy">
+          <span class="quequieres-card-label">salas &amp;<br class="quequieres-card-break">sofás</span>
+        </a>
+        <div class="quequieres-card reveal reveal-delay-2" data-category="alcobas">
+          <img src="assets/qh_alcobas.jpg" alt="Alcobas" loading="lazy">
+          <span class="quequieres-card-label">alcobas<span class="quequieres-card-soon">próximamente</span></span>
+        </div>
+        <div class="quequieres-card reveal reveal-delay-3" data-category="otros">
+          <img src="assets/qh_otros.jpg" alt="Otros" loading="lazy">
+          <span class="quequieres-card-label">otros<span class="quequieres-card-soon">próximamente</span></span>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section class="nosotros" id="nosotros">
