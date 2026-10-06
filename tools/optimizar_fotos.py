@@ -1,6 +1,5 @@
 """
-Optimiza fotos para el sitio web de Ansulais (convierte a WebP, genera miniaturas y
-graba la "A" del logo de Ansulais, sutil, en el centro de cada foto).
+Optimiza fotos para el sitio web de Ansulais (convierte a WebP y genera miniaturas).
 
 Requisito: Python 3 + Pillow  ->  pip install pillow
 
@@ -14,14 +13,12 @@ USO
        <nombre>.webp     -> tamaño completo (lado mayor máx. 1024 px), se usa en el lightbox
        <nombre>-sm.webp  -> miniatura (lado mayor máx. 600 px), se usa en tarjetas,
                             carrusel del home y buscador
-     Las dos versiones llevan la "A" del logo (tools/marca_agua.png) grabada suave en
-     el centro, para que aparezca en cualquier pantallazo o descarga de la foto.
 
   2) Una foto suelta (hero, portadas de categoría, etc.), sin miniatura:
 
-       python tools/optimizar_fotos.py imagen_hero.png web/assets --max 1600 --sin-miniatura --sin-marca
+       python tools/optimizar_fotos.py imagen_hero.png web/assets --max 1600 --sin-miniatura
 
-     -> web/assets/imagen_hero.webp   (--sin-marca: fotos decorativas que no son productos)
+     -> web/assets/imagen_hero.webp
 
 Los archivos originales NUNCA se modifican ni se borran. Si el origen y el destino
 son la misma carpeta, los .webp quedan junto a los originales y tú decides si borrarlos.
@@ -31,7 +28,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from PIL import Image, ImageFilter, ImageOps
+from PIL import Image, ImageOps
 
 EXTENSIONES = {".jpg", ".jpeg", ".jpe", ".png", ".webp"}
 
@@ -40,48 +37,23 @@ MAX_MINIATURA = 600   # px, lado mayor de la miniatura de tarjeta
 CALIDAD_COMPLETA = 80
 CALIDAD_MINIATURA = 75
 
-# Marca de agua: la "A" del logo, en tools/marca_agua.png (solo importa su transparencia).
-# Se dibuja en gris oscuro muy suave con un halo claro, para que se intuya tanto sobre
-# fondo blanco como sobre telas oscuras sin afear la foto. Si se ve muy fuerte o suave,
-# ajusta estos valores y vuelve a generar las fotos.
-MARCA = Path(__file__).with_name("marca_agua.png")
-MARCA_ANCHO = 0.16           # proporción del ancho de la foto que ocupa la marca
-MARCA_OPACIDAD = 0.13        # 0 = invisible, 1 = sólida
-MARCA_OPACIDAD_HALO = 0.10
 
-
-def poner_marca(img):
-    with Image.open(MARCA) as archivo:
-        forma = archivo.getchannel("A")
-    ancho = round(img.width * MARCA_ANCHO)
-    alto = round(forma.height * ancho / forma.width)
-    forma = forma.resize((ancho, alto), Image.LANCZOS)
-    grosor = max(3, ancho // 40) | 1  # MaxFilter necesita un tamaño impar
-    halo = forma.filter(ImageFilter.MaxFilter(grosor)).filter(ImageFilter.GaussianBlur(grosor / 2))
-    pos = ((img.width - ancho) // 2, (img.height - alto) // 2)
-    img.paste((255, 255, 255), pos + (pos[0] + ancho, pos[1] + alto), halo.point(lambda v: round(v * MARCA_OPACIDAD_HALO)))
-    img.paste((26, 26, 26), pos + (pos[0] + ancho, pos[1] + alto), forma.point(lambda v: round(v * MARCA_OPACIDAD)))
-    return img
-
-
-def guardar_webp(img, destino, lado_max, calidad, con_marca):
+def guardar_webp(img, destino, lado_max, calidad):
     copia = img.copy()
     copia.thumbnail((lado_max, lado_max), Image.LANCZOS)  # solo reduce, nunca agranda
-    if con_marca:
-        poner_marca(copia)  # después de reducir, para que la marca quede nítida en cada tamaño
     destino.parent.mkdir(parents=True, exist_ok=True)
     copia.save(destino, "WEBP", quality=calidad, method=6)
     return destino.stat().st_size
 
 
-def procesar(origen, destino, lado_max, con_miniatura, con_marca=True):
+def procesar(origen, destino, lado_max, con_miniatura):
     with Image.open(origen) as img:
         img = ImageOps.exif_transpose(img)  # respeta la rotación de fotos de celular
         img = img.convert("RGB")
-        peso = guardar_webp(img, destino.with_suffix(".webp"), lado_max, CALIDAD_COMPLETA, con_marca)
+        peso = guardar_webp(img, destino.with_suffix(".webp"), lado_max, CALIDAD_COMPLETA)
         if con_miniatura:
             mini = destino.with_name(destino.stem + "-sm.webp")
-            peso += guardar_webp(img, mini, MAX_MINIATURA, CALIDAD_MINIATURA, con_marca)
+            peso += guardar_webp(img, mini, MAX_MINIATURA, CALIDAD_MINIATURA)
     return peso
 
 
@@ -91,7 +63,6 @@ def main():
     parser.add_argument("destino", type=Path, help="carpeta de destino dentro de web/assets/")
     parser.add_argument("--max", type=int, default=MAX_COMPLETA, help="lado mayor de la foto completa en px")
     parser.add_argument("--sin-miniatura", action="store_true", help="no generar la versión -sm")
-    parser.add_argument("--sin-marca", action="store_true", help="no poner marca de agua (fotos decorativas)")
     args = parser.parse_args()
 
     if args.origen.is_file():
@@ -111,7 +82,7 @@ def main():
     for foto in fotos:
         destino = args.destino / foto.relative_to(base)
         antes += foto.stat().st_size
-        despues += procesar(foto, destino, args.max, not args.sin_miniatura, not args.sin_marca)
+        despues += procesar(foto, destino, args.max, not args.sin_miniatura)
         print("ok ", destino.with_suffix(".webp"))
 
     print("\n%d fotos | %.1f MB -> %.1f MB" % (len(fotos), antes / 1e6, despues / 1e6))
