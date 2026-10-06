@@ -40,7 +40,7 @@
   }
   a { text-decoration: underline; color: var(--maroon); }
   header.nav a { text-decoration: none; }
-  .site-footer a { text-decoration: none; }
+  .site-footer a { text-decoration: none; color: var(--beige-light); }
   button { font-family: inherit; border: none; background: none; cursor: pointer; }
   .wrap { max-width: 880px; margin: 0 auto; padding: 0 48px; }
 
@@ -127,7 +127,17 @@
     .wrap { padding-left: 24px; padding-right: 24px; } /* solo los lados: no borrar el padding vertical de .legal-hero, .footer-bottom, etc. */
     .nav-inner-wrap { padding: 0 24px; }
     .footer-inner { padding: 0 24px; }
-    .nav-links { display: none; }
+    /* Celular: menú corto visible (antes se ocultaba y quedaba solo el logo) y texto más cómodo de leer */
+    .nav-links { gap: 22px; }
+    .nav-links a { font-size: 14px; }
+    .legal-hero { padding-top: 36px; }
+    .legal-hero h1 { font-size: 1.9rem; line-height: 1.15; }
+    .legal-body { padding-bottom: 48px; font-size: 15px; line-height: 1.65; }
+    .legal-body h2 { font-size: 1.12rem; line-height: 1.35; margin-top: 30px; }
+    .legal-body ul { margin-left: 18px; }
+    .legal-body a { overflow-wrap: anywhere; }
+    .footer-legal { flex-direction: column; gap: 10px; }
+    .footer-legal span { display: none; }
   }
 </style>
 </head>
@@ -162,7 +172,7 @@
   <main id="main">
     <div class="wrap legal-hero">
       <h1>Cambios, Devoluciones y Garantía</h1>
-      <p class="updated">Última actualización: 5 de octubre de 2026</p>
+      <p class="updated">Última actualización: 6 de octubre de 2026</p>
     </div>
 
     <div class="wrap legal-body">
@@ -179,7 +189,7 @@
       <p>Si necesitas cancelar o modificar tu pedido <strong>antes de que iniciemos la fabricación</strong>, escríbenos lo antes posible. En ese caso evaluamos contigo la devolución del anticipo, descontando los costos ya incurridos (por ejemplo, materiales ya comprados específicamente para tu pedido), si los hubiera.</p>
 
       <h2>4. Garantía legal por defectos de fabricación</h2>
-      <p>Independientemente de que el mueble sea sobre pedido, respondemos por la <strong>garantía legal</strong> que la ley colombiana reconoce a todo consumidor frente a defectos de calidad, idoneidad o fabricación (Arts. 7 a 18, Ley 1480 de 2011). Si tu mueble presenta un defecto de fabricación —y no un desgaste normal por uso—, contáctanos para:</p>
+      <p>Todos nuestros muebles tienen <strong>garantía de 1 año</strong>, contado desde la fecha de entrega. Independientemente de que el mueble sea sobre pedido, respondemos por la <strong>garantía legal</strong> que la ley colombiana reconoce a todo consumidor frente a defectos de calidad, idoneidad o fabricación (Arts. 7 a 18, Ley 1480 de 2011). Si dentro de ese año tu mueble presenta un defecto de fabricación —y no un desgaste normal por uso—, contáctanos para:</p>
       <ul>
         <li>Repararlo sin costo, cuando sea posible.</li>
         <li>Cambiarlo por uno nuevo con las mismas especificaciones, si la reparación no es viable.</li>
@@ -204,7 +214,7 @@
       <p>Esta sección no afecta la garantía legal del mueble principal, que sigue descrita en los numerales anteriores.</p>
 
       <h2>7. Entregas con daños de transporte</h2>
-      <p>Si el mueble llega con un daño visible causado por el transporte, repórtalo el mismo día de la entrega (idealmente con fotos antes de mover el mueble) para que podamos atenderlo de inmediato como caso de transporte y no como garantía de fábrica.</p>
+      <p>Si el mueble llega con nuestros transportadores con un daño visible causado por el transporte, repórtalo el mismo día de la entrega (idealmente con fotos antes de mover el mueble) para que podamos atenderlo de inmediato como caso de transporte y no como garantía de fábrica. Los daños ocurridos cuando el cliente recoge el mueble o lo envía con un transportador propio no están cubiertos. Las condiciones de costo del transporte y de instalación están en la sección 5 de nuestros <a href="terminos.html">Términos y Condiciones</a>.</p>
 
       <h2>8. Cómo iniciar un reclamo</h2>
       <p>Escríbenos por WhatsApp o al correo <a href="mailto:ansulais31@gmail.com">ansulais31@gmail.com</a>, contándonos:</p>
@@ -219,7 +229,7 @@
 
   <footer class="site-footer">
     <div class="footer-inner footer-bottom">
-      <p>&copy; 2026 ANSULAIS S.A.S. · NIT 900963049-7 · Todos los derechos reservados.</p>
+      <p>&copy; 2026 ANSULAIS S.A.S. · NIT 900963049 · Todos los derechos reservados.</p>
       <div class="footer-legal">
         <a href="terminos.html">Términos y condiciones</a>
         <span aria-hidden="true">·</span>

@@ -40,7 +40,7 @@
   }
   a { text-decoration: underline; color: var(--maroon); }
   header.nav a { text-decoration: none; }
-  .site-footer a { text-decoration: none; }
+  .site-footer a { text-decoration: none; color: var(--beige-light); }
   button { font-family: inherit; border: none; background: none; cursor: pointer; }
   .wrap { max-width: 880px; margin: 0 auto; padding: 0 48px; }
 
@@ -148,8 +148,24 @@
     .wrap { padding-left: 24px; padding-right: 24px; } /* solo los lados: no borrar el padding vertical de .legal-hero, .footer-bottom, etc. */
     .nav-inner-wrap { padding: 0 24px; }
     .footer-inner { padding: 0 24px; }
-    .nav-links { display: none; }
-    .cookie-table { font-size: 13px; }
+    /* Celular: menú corto visible (antes se ocultaba y quedaba solo el logo) y texto más cómodo de leer */
+    .nav-links { gap: 22px; }
+    .nav-links a { font-size: 14px; }
+    .legal-hero { padding-top: 36px; }
+    .legal-hero h1 { font-size: 1.9rem; line-height: 1.15; }
+    .legal-body { padding-bottom: 48px; font-size: 15px; line-height: 1.65; }
+    .legal-body h2 { font-size: 1.12rem; line-height: 1.35; margin-top: 30px; }
+    .legal-body ul { margin-left: 18px; }
+    .legal-body a { overflow-wrap: anywhere; }
+    .footer-legal { flex-direction: column; gap: 10px; }
+    .footer-legal span { display: none; }
+    /* La tabla de 4 columnas no cabe en celular: cada fila pasa a ser una tarjeta */
+    .cookie-table thead { display: none; }
+    .cookie-table, .cookie-table tbody, .cookie-table tr, .cookie-table td { display: block; width: 100%; }
+    .cookie-table tr { background: #fff; border-radius: 12px; padding: 4px 16px; }
+    .cookie-table td { padding: 10px 0; border-bottom: 1px solid rgba(26, 26, 26, 0.08); }
+    .cookie-table td:last-child { border-bottom: none; }
+    .cookie-table td::before { content: attr(data-label); display: block; margin-bottom: 2px; font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--maroon); }
   }
 </style>
 </head>
@@ -202,10 +218,10 @@
         </thead>
         <tbody>
           <tr>
-            <td>ansulais_cookie_choice</td>
-            <td>Almacenamiento local (técnico), propio</td>
-            <td>Recordar si ya aceptaste o rechazaste este aviso de cookies, para no mostrártelo en cada visita.</td>
-            <td>Hasta que borres los datos de navegación de tu dispositivo</td>
+            <td data-label="Nombre">ansulais_cookie_choice</td>
+            <td data-label="Tipo">Almacenamiento local (técnico), propio</td>
+            <td data-label="Para qué sirve">Recordar si ya aceptaste o rechazaste este aviso de cookies, para no mostrártelo en cada visita.</td>
+            <td data-label="Duración">Hasta que borres los datos de navegación de tu dispositivo</td>
           </tr>
         </tbody>
       </table>
@@ -230,7 +246,7 @@
 
   <footer class="site-footer">
     <div class="footer-inner footer-bottom">
-      <p>&copy; 2026 ANSULAIS S.A.S. · NIT 900963049-7 · Todos los derechos reservados.</p>
+      <p>&copy; 2026 ANSULAIS S.A.S. · NIT 900963049 · Todos los derechos reservados.</p>
       <div class="footer-legal">
         <a href="terminos.html">Términos y condiciones</a>
         <span aria-hidden="true">·</span>

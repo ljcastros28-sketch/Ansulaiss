@@ -40,7 +40,7 @@
   }
   a { text-decoration: underline; color: var(--maroon); }
   header.nav a { text-decoration: none; }
-  .site-footer a { text-decoration: none; }
+  .site-footer a { text-decoration: none; color: var(--beige-light); }
   button { font-family: inherit; border: none; background: none; cursor: pointer; }
   .wrap { max-width: 880px; margin: 0 auto; padding: 0 48px; }
 
@@ -117,7 +117,17 @@
     .wrap { padding-left: 24px; padding-right: 24px; } /* solo los lados: no borrar el padding vertical de .legal-hero, .footer-bottom, etc. */
     .nav-inner-wrap { padding: 0 24px; }
     .footer-inner { padding: 0 24px; }
-    .nav-links { display: none; }
+    /* Celular: menú corto visible (antes se ocultaba y quedaba solo el logo) y texto más cómodo de leer */
+    .nav-links { gap: 22px; }
+    .nav-links a { font-size: 14px; }
+    .legal-hero { padding-top: 36px; }
+    .legal-hero h1 { font-size: 1.9rem; line-height: 1.15; }
+    .legal-body { padding-bottom: 48px; font-size: 15px; line-height: 1.65; }
+    .legal-body h2 { font-size: 1.12rem; line-height: 1.35; margin-top: 30px; }
+    .legal-body ul { margin-left: 18px; }
+    .legal-body a { overflow-wrap: anywhere; }
+    .footer-legal { flex-direction: column; gap: 10px; }
+    .footer-legal span { display: none; }
   }
 </style>
 </head>
@@ -152,11 +162,11 @@
   <main id="main">
     <div class="wrap legal-hero">
       <h1>Términos y Condiciones</h1>
-      <p class="updated">Última actualización: 5 de octubre de 2026</p>
+      <p class="updated">Última actualización: 6 de octubre de 2026</p>
     </div>
 
     <div class="wrap legal-body">
-      <p>Estos Términos y Condiciones regulan el uso del sitio web de <strong>Ansulais</strong> (ANSULAIS S.A.S., NIT 900963049-7; <strong>ansulais.com</strong>; Carrera 51 # 76-32, Bogotá D.C.; correo <a href="mailto:ansulais31@gmail.com">ansulais31@gmail.com</a>; teléfono y WhatsApp +57 300 492 8400) y las condiciones generales bajo las cuales fabricamos y entregamos los muebles que solicitas. Al usar este sitio o contactarnos para una cotización o pedido, aceptas estos términos. Como consumidor, estos términos se complementan con lo establecido en la <strong>Ley 1480 de 2011 (Estatuto del Consumidor)</strong> y demás normas colombianas aplicables, que prevalecen sobre cualquier disposición en contrario.</p>
+      <p>Estos Términos y Condiciones regulan el uso del sitio web de <strong>Ansulais</strong> (ANSULAIS S.A.S., NIT 900963049; <strong>ansulais.com</strong>; Carrera 51 # 76-32, Bogotá D.C.; correo <a href="mailto:ansulais31@gmail.com">ansulais31@gmail.com</a>; teléfono y WhatsApp +57 300 492 8400) y las condiciones generales bajo las cuales fabricamos y entregamos los muebles que solicitas. Al usar este sitio o contactarnos para una cotización o pedido, aceptas estos términos. Como consumidor, estos términos se complementan con lo establecido en la <strong>Ley 1480 de 2011 (Estatuto del Consumidor)</strong> y demás normas colombianas aplicables, que prevalecen sobre cualquier disposición en contrario.</p>
 
       <h2>1. Sobre este sitio</h2>
       <p>Este sitio web es un catálogo informativo. No es una tienda en línea con pago inmediato: aquí puedes ver nuestros diseños, conocer la empresa y contactarnos, pero toda cotización, pedido y pago se coordina directamente con nosotros por WhatsApp, correo electrónico o en nuestro punto de atención en Bogotá.</p>
@@ -175,11 +185,17 @@
       <h2>4. Precios y forma de pago</h2>
       <p>Los precios de fabricación sobre pedido se cotizan de forma individual y se comunican directamente, no se publican en este sitio por depender de cada especificación. Las formas de pago aceptadas se acuerdan en el momento de la cotización.</p>
 
-      <h2>5. Entrega e instalación</h2>
-      <p>Cuando el pedido incluye entrega e instalación, coordinamos contigo la fecha y dirección. Los tiempos de fabricación y entrega se informan al confirmar el pedido y pueden variar según la complejidad del mueble y el volumen de pedidos en producción.</p>
+      <h2>5. Transporte, entrega e instalación</h2>
+      <p>El costo del transporte depende del valor de la compra y del lugar de entrega:</p>
+      <ul>
+        <li><strong>Dentro de Bogotá, con compras desde $2.600.000 COP:</strong> el transporte va por nuestra cuenta.</li>
+        <li><strong>Fuera de Bogotá, o compras por un valor menor:</strong> el costo del transporte lo asume el cliente. De todas formas te facilitamos el contacto de nuestro transportador de confianza y, en algunos casos, podemos ofrecerte una cortesía o apoyo en ese costo según el pedido.</li>
+      </ul>
+      <p><strong>La instalación del mueble en tu hogar está incluida siempre que el transporte se haga con nuestros transportadores</strong>, sea que lo cubramos nosotros o que lo pagues tú. Si prefieres recoger el mueble o enviarlo con un transportador propio, la entrega se entiende hecha en nuestro punto de Bogotá y no incluye instalación.</p>
+      <p>La fecha y la dirección de entrega se coordinan contigo. Los tiempos de fabricación y entrega se informan al confirmar el pedido y pueden variar según la complejidad del mueble y el volumen de pedidos en producción. Te pedimos verificar antes de la entrega que el mueble cabe por puertas, escaleras, ascensores y pasillos de tu hogar según las medidas acordadas.</p>
 
-      <h2>6. Cambios, devoluciones y garantía</h2>
-      <p>Las condiciones de cambios, devoluciones y garantía de fábrica están detalladas en nuestra <a href="reembolsos.html">Política de Cambios y Devoluciones</a>, que hace parte integral de estos Términos y Condiciones.</p>
+      <h2>6. Garantía, cambios y devoluciones</h2>
+      <p>Todos nuestros muebles tienen <strong>garantía de 1 año</strong> contra defectos de fabricación, contado desde la fecha de entrega. La garantía no cubre el desgaste normal por uso ni los daños por mal uso del cliente. El detalle de la garantía, los cambios y las devoluciones está en nuestra <a href="reembolsos.html">Política de Cambios y Devoluciones</a>, que hace parte integral de estos Términos y Condiciones.</p>
 
       <h2>7. Propiedad intelectual</h2>
       <p>El contenido de este sitio (textos, fotografías, diseños, marca y logotipo de Ansulais) es propiedad de Ansulais o se usa con la debida autorización. No está permitido reproducirlo, distribuirlo o usarlo con fines comerciales sin nuestro consentimiento previo por escrito.</p>
@@ -203,7 +219,7 @@
 
   <footer class="site-footer">
     <div class="footer-inner footer-bottom">
-      <p>&copy; 2026 ANSULAIS S.A.S. · NIT 900963049-7 · Todos los derechos reservados.</p>
+      <p>&copy; 2026 ANSULAIS S.A.S. · NIT 900963049 · Todos los derechos reservados.</p>
       <div class="footer-legal">
         <a href="terminos.html">Términos y condiciones</a>
         <span aria-hidden="true">·</span>

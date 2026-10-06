@@ -44,7 +44,7 @@ Archivos de soporte en `web/`: `robots.txt`, `sitemap.xml` (agregar ahí cualqui
 - Dirección: Crr 51 # 76-32, Bogotá D.C.
 - Correo: ansulais31@gmail.com
 - Teléfono / WhatsApp: +57 300 492 8400
-- Razón social: **ANSULAIS S.A.S.** — NIT: 900963049-7 (aparece en el footer de las 10 páginas, en `privacidad.html`, `terminos.html` y en el JSON-LD de `index.html`)
+- Razón social: **ANSULAIS S.A.S.** — NIT: 900963049, **sin dígito de verificación** (así lo pidió el usuario) (aparece en el footer de las 10 páginas, en `privacidad.html`, `terminos.html` y en el JSON-LD de `index.html`)
 - Dominio: ansulais.com (alojado en GitHub Pages, dominio registrado en Squarespace Domains; así está declarado en `privacidad.html` sección 5 y `cookies.html` sección 3)
 - WhatsApp float / CTA: `https://wa.me/message/ISVNRLUQCE27G1`
 - Número usado en el link del lightbox de catálogo: `WHATSAPP_NUMBER = "573004928400"` → `https://wa.me/573004928400?text=...`
@@ -53,6 +53,8 @@ Archivos de soporte en `web/`: `robots.txt`, `sitemap.xml` (agregar ahí cualqui
 - Instagram: `https://www.instagram.com/ansulais?igsi=dTBqdHJocHM2dnRr&utm_source=qr`
 - TikTok: `https://www.tiktok.com/@ansulais?_r=1&_t=ZS-996OWQ08Us6`
 - Madera principal: **flor morado**. Espuma: certificada por **Espumados** (sello CertiPUR-US; filial Espumados del Litoral con ISO 9001/14001/45001).
+- Garantía: **1 año** contra defectos de fabricación, desde la entrega (no cubre desgaste normal ni mal uso). Está en `terminos.html` §6 y `reembolsos.html` §4.
+- Transporte: gratis **dentro de Bogotá con compras desde $2.600.000 COP**; fuera de Bogotá o compras menores lo paga el cliente (se le da el contacto de nuestro transportador; a veces se le da una cortesía). La **instalación va incluida siempre que se use nuestro transportador**, lo pague quien lo pague. Está en `terminos.html` §5.
 - **Todo se fabrica sobre pedido**: macizo, entamborado o combinado, tapizado, telas y medidas a elección del cliente. No prometer specs ni medidas fijas en ningún copy nuevo.
 
 ## Paleta / convenciones de diseño (repetidas en cada página)
@@ -126,3 +128,4 @@ Fotos de catálogo en: `web/assets/catalogo/{salas,comedores,alcobas}/<carpeta>/
 - **2026-10-05** — Revertida la marca grabada: las 440 imágenes del catálogo vuelven a ser idénticas (byte a byte) a las de antes, y `tools/optimizar_fotos.py` volvió a su versión sin marca. La "A" del logo ahora es una capa CSS encima de las fotos (fichas, lightbox, carrusel del home, buscador), 16 % del ancho, muy suave. Se mantiene el bloqueo de "guardar imagen"/arrastrar.
 - **2026-10-05** — Responsive para iPad: nuevo punto de quiebre de tablet vertical (601–900 px) en home, catálogo, los 3 catálogos y buscador, y de tablet horizontal (901–1279 px) en el hero del home. Corregido en las 10 páginas el `.wrap { padding: 0 24px }` de celular que borraba el espacio superior de los títulos legales y del pie de página.
 - **2026-10-05** — 8 alcobas nuevas (ALC-14 a ALC-21: Cama Nido Trigo, Alcoba Arcilla, Nácar, Prisma, Marco, Marfil, Canela, Junco) desde `alcobas_fondoblanco/`, agregadas a los 3 lugares (catálogo, `offerPool`, `catalog` de search). La carpeta `espaldargeométrico` se publicó sin tilde (`espaldargeometrico`). Las tarjetas dicen "1 foto" en singular y el lightbox oculta las flechas si la pieza tiene una sola foto.
+- **2026-10-06** — NIT sin dígito de verificación (900963049) en las 10 páginas y el JSON-LD. Garantía de 1 año en Términos y Cambios y devoluciones; nueva sección de transporte e instalación en Términos. Páginas legales en celular: el menú (Inicio/Catálogo/Contacto) ya no se oculta, texto y títulos más cómodos, tabla de Cookies como tarjeta y los links del pie de página, que salían negros sobre negro, ahora se ven (también en computador).
