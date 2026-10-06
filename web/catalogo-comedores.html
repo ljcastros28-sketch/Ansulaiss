@@ -1171,7 +1171,7 @@
             ' srcset="' + imgPath(product, cover, "sm") + ' 600w, ' + imgPath(product, cover) + ' 1024w"' +
             ' sizes="(max-width: 900px) 50vw, 420px" width="600" height="600"' +
             ' alt="' + product.name + '" loading="lazy" decoding="async">' +
-          '<span class="product-card-count">' + product.images.length + ' fotos</span>' +
+          '<span class="product-card-count">' + product.images.length + (product.images.length === 1 ? ' foto' : ' fotos') + '</span>' +
         '</span>' +
         '<span class="product-card-info">' +
           '<h3>' + twoLineTitle(product.name) + '</h3>' +
@@ -1223,6 +1223,10 @@
       lightboxImage.alt = product.name;
       lightboxTitle.textContent = product.name;
       lightboxCounter.textContent = (currentImageIndex + 1) + " / " + product.images.length;
+      // Con una sola foto no hay a dónde avanzar: se ocultan las flechas
+      var unaFoto = product.images.length < 2;
+      document.getElementById("lightboxPrev").style.display = unaFoto ? "none" : "";
+      document.getElementById("lightboxNext").style.display = unaFoto ? "none" : "";
       lightboxDesc.textContent = product.desc;
       lightboxCode.textContent = "Artículo " + code;
 

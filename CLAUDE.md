@@ -25,7 +25,7 @@ Workflow típico de cada cambio:
 | `catalogo.html` | Selector de categorías ("¿Qué buscas el día de hoy?") → enlaza a los tres catálogos reales (comedores, salas, alcobas); "otros" sigue "próximamente" |
 | `catalogo-salas.html` | Catálogo de salas/sofás — 35 piezas, con filtros y lightbox |
 | `catalogo-comedores.html` | Catálogo de comedores — 24 piezas, con filtros y lightbox |
-| `catalogo-alcobas.html` | Catálogo de alcobas/camas — 13 piezas (códigos `ALC-xx`), filtros: Cabecero extendido / Clásicas / Nido y cajones, con lightbox. Faltan fotos de más piezas: se irán agregando |
+| `catalogo-alcobas.html` | Catálogo de alcobas/camas — 21 piezas (códigos `ALC-xx`), filtros: Cabecero extendido / Clásicas / Nido y cajones, con lightbox. Faltan fotos de más piezas: se irán agregando |
 | `search.html` | Buscador "directo": en vez de listar opciones, lleva a la pieza (por nombre o código `SAL-05`), al catálogo con el filtro puesto ("sofá cama", "comedor redondo", "cama nido") o a la sección ("horario" → contacto, "garantía" → reembolsos). Solo lista resultados cuando de verdad hay varias piezas posibles ("botones", "comedor 6 puestos"). Palabras clave en el array `ROUTES` |
 | `privacidad.html` | Política de tratamiento de datos (Ley 1581 de 2012, Colombia) |
 | `cookies.html` | Política de cookies (el sitio NO usa analítica/tracking, solo Google Fonts + una preferencia local de "ya viste el aviso") |
@@ -80,9 +80,9 @@ Archivos de soporte en `web/`: `robots.txt`, `sitemap.xml` (agregar ahí cualqui
 Los productos (nombre inventado + descripción + tag + carpeta de fotos) están **hardcodeados como arrays JS**, duplicados en:
 - `catalogo-salas.html` (35 piezas, con `desc` completo para el lightbox)
 - `catalogo-comedores.html` (24 piezas, con `desc` completo para el lightbox)
-- `catalogo-alcobas.html` (13 piezas, con `desc` completo para el lightbox)
-- `index.html` → array `offerPool` (las mismas 72 piezas combinadas, solo nombre/href/img, para el carrusel "¿Qué ofrecemos?")
-- `search.html` → array `catalog` (las mismas 72, con `cat`, `filtro` = `tag` del catálogo y `desc` copiada del catálogo, porque el buscador también busca en la descripción)
+- `catalogo-alcobas.html` (21 piezas, con `desc` completo para el lightbox)
+- `index.html` → array `offerPool` (las mismas 80 piezas combinadas, solo nombre/href/img, para el carrusel "¿Qué ofrecemos?")
+- `search.html` → array `catalog` (las mismas 80, con `cat`, `filtro` = `tag` del catálogo y `desc` copiada del catálogo, porque el buscador también busca en la descripción)
 
 **Si se agrega o quita una pieza del catálogo, hay que actualizar los 3 lugares donde está duplicada la lista** (no hay una sola fuente de verdad, es intencional por ser sitio estático sin build).
 
@@ -125,3 +125,4 @@ Fotos de catálogo en: `web/assets/catalogo/{salas,comedores,alcobas}/<carpeta>/
 - **2026-10-05** — La marca de agua grande (A + ANSULAIS + ansulais.com) se veía fea: se cambió por solo la "A" del logo, pequeña (16 % del ancho) y suave (13 % de opacidad), en el centro. Las 220 fotos regeneradas. Al usuario NO le gustan marcas grandes/visibles; ajustar solo con su visto bueno.
 - **2026-10-05** — Revertida la marca grabada: las 440 imágenes del catálogo vuelven a ser idénticas (byte a byte) a las de antes, y `tools/optimizar_fotos.py` volvió a su versión sin marca. La "A" del logo ahora es una capa CSS encima de las fotos (fichas, lightbox, carrusel del home, buscador), 16 % del ancho, muy suave. Se mantiene el bloqueo de "guardar imagen"/arrastrar.
 - **2026-10-05** — Responsive para iPad: nuevo punto de quiebre de tablet vertical (601–900 px) en home, catálogo, los 3 catálogos y buscador, y de tablet horizontal (901–1279 px) en el hero del home. Corregido en las 10 páginas el `.wrap { padding: 0 24px }` de celular que borraba el espacio superior de los títulos legales y del pie de página.
+- **2026-10-05** — 8 alcobas nuevas (ALC-14 a ALC-21: Cama Nido Trigo, Alcoba Arcilla, Nácar, Prisma, Marco, Marfil, Canela, Junco) desde `alcobas_fondoblanco/`, agregadas a los 3 lugares (catálogo, `offerPool`, `catalog` de search). La carpeta `espaldargeométrico` se publicó sin tilde (`espaldargeometrico`). Las tarjetas dicen "1 foto" en singular y el lightbox oculta las flechas si la pieza tiene una sola foto.

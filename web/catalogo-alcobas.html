@@ -1116,7 +1116,15 @@
       { name: "Cama Nido Plaza", desc: "Cabecero tapizado capitoneado y cama auxiliar deslizante bajo la base, ideal para recibir visitas.", tag: "nido", folder: "camanido_espaldarcapitoneado", images: ["cama1", "cama2", "cama_abierta"] },
       { name: "Cama Nido Niebla", desc: "Cabecero tapizado en gris con base en madera y cama auxiliar que se desliza por debajo.", tag: "nido", folder: "camanido_espaldargris_doble", images: ["cama1", "cama2", "cama3", "camaabierta"] },
       { name: "Cama Nido Arena", desc: "Cabecero tapizado con costuras horizontales y cama auxiliar deslizante en la base.", tag: "nido", folder: "camanido_espaldartapizado", images: ["cama1", "cama2", "abierta"] },
-      { name: "Cama Sencilla Arca", desc: "Cama sencilla con cabecero en madera y cajones de almacenamiento en la base.", tag: "nido", folder: "camasencilla_cajones", images: ["cama1", "cama2", "camacajones"] }
+      { name: "Cama Sencilla Arca", desc: "Cama sencilla con cabecero en madera y cajones de almacenamiento en la base.", tag: "nido", folder: "camasencilla_cajones", images: ["cama1", "cama2", "camacajones"] },
+      { name: "Cama Nido Trigo", desc: "Cabecero en madera clara, base con frente blanco y cama auxiliar deslizante para visitas; se acompaña con mesa de noche a dos tonos.", tag: "nido", folder: "camacunaduotono", images: ["cama1", "cama2", "camaabierta"] },
+      { name: "Alcoba Arcilla", desc: "Cabecero liso en madera clara y base tipo plataforma con cajones de almacenamiento en los costados.", tag: "nido", folder: "camalineasespaldar_cajones", images: ["cama1", "cama2"] },
+      { name: "Alcoba Nácar", desc: "Cabecero extendido en madera natural con paneles laterales blancos, luz indirecta en la parte superior y mesas de noche de dos cajones.", tag: "tableros", folder: "espaldarextendidoblanco_natural", images: ["cama1", "cama2", "mesa"] },
+      { name: "Alcoba Prisma", desc: "Cabecero gris con líneas blancas en diseño geométrico y base blanca de aspecto flotante.", tag: "clasicas", folder: "espaldargeometrico", images: ["cama1"] },
+      { name: "Alcoba Marco", desc: "Cabecero tapizado capitoneado dentro de un marco de madera, base sobre patas y mesas de noche de dos cajones con patas abiertas.", tag: "clasicas", folder: "espaldarmarcotapizado", images: ["cama1", "cama2", "mesa"] },
+      { name: "Alcoba Marfil", desc: "Estructura en madera decapé con paneles tapizados en gris en el cabecero, patas robustas y mesas de noche en tono oscuro con cubierta clara.", tag: "clasicas", folder: "espaldartapizadodecape", images: ["cama1", "cama2", "mesa"] },
+      { name: "Alcoba Canela", desc: "Cabecero en madera de tono medio con panel tapizado claro de líneas verticales, base tipo plataforma y mesas de noche de dos cajones.", tag: "clasicas", folder: "espaldartapizadolineas", images: ["cama1", "cama2", "mesa"] },
+      { name: "Alcoba Junco", desc: "Cabecero extendido con listones verticales, repisas abiertas a los lados, panel central tapizado y mesas de noche flotantes de un cajón.", tag: "tableros", folder: "tableroextendidopalitos", images: ["cama1", "cama2", "cama3"] }
     ];
 
     var tagLabels = { tableros: "Cabecero extendido", clasicas: "Clásica", nido: "Nido / cajones" };
@@ -1159,7 +1167,7 @@
             ' srcset="' + imgPath(product, cover, "sm") + ' 600w, ' + imgPath(product, cover) + ' 1024w"' +
             ' sizes="(max-width: 900px) 50vw, 420px" width="600" height="600"' +
             ' alt="' + product.name + '" loading="lazy" decoding="async">' +
-          '<span class="product-card-count">' + product.images.length + ' fotos</span>' +
+          '<span class="product-card-count">' + product.images.length + (product.images.length === 1 ? ' foto' : ' fotos') + '</span>' +
         '</span>' +
         '<span class="product-card-info">' +
           '<h3>' + twoLineTitle(product.name) + '</h3>' +
@@ -1211,6 +1219,10 @@
       lightboxImage.alt = product.name;
       lightboxTitle.textContent = product.name;
       lightboxCounter.textContent = (currentImageIndex + 1) + " / " + product.images.length;
+      // Con una sola foto no hay a dónde avanzar: se ocultan las flechas
+      var unaFoto = product.images.length < 2;
+      document.getElementById("lightboxPrev").style.display = unaFoto ? "none" : "";
+      document.getElementById("lightboxNext").style.display = unaFoto ? "none" : "";
       lightboxDesc.textContent = product.desc;
       lightboxCode.textContent = "Artículo " + code;
 
