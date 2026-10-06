@@ -551,6 +551,35 @@
     display: block;
   }
 
+  /* Zoom de la foto: clic o toque para acercar, mover el mouse o arrastrar el dedo para
+     recorrerla, otro clic o toque para volver. El aumento se limita (1.4x a 1.8x, ver
+     zoomScale) para que la foto de 1024 px no se vea pixelada. */
+  .lightbox-media img { cursor: zoom-in; transition: transform 0.25s ease; }
+  .lightbox-media.is-zoomed img { cursor: zoom-out; }
+  .lightbox-media.is-zoomed { touch-action: none; }
+
+  .lightbox-zoom {
+    position: absolute;
+    right: 14px;
+    bottom: 14px;
+    z-index: 2;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(15, 15, 15, 0.55);
+    color: var(--beige-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+  }
+
+  .lightbox-zoom:hover { background: rgba(15, 15, 15, 0.75); }
+  .lightbox-zoom svg { width: 18px; height: 18px; }
+  .lightbox-zoom .zoom-out,
+  .lightbox-media.is-zoomed .lightbox-zoom .zoom-in { display: none; }
+  .lightbox-media.is-zoomed .lightbox-zoom .zoom-out { display: block; }
+
   .lightbox-arrow {
     position: absolute;
     top: 50%;
@@ -978,6 +1007,10 @@
         <button class="lightbox-arrow lightbox-next" id="lightboxNext" aria-label="Foto siguiente">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
         </button>
+        <button class="lightbox-zoom" id="lightboxZoom" type="button" aria-label="Acercar foto">
+          <svg class="zoom-in" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+          <svg class="zoom-out" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/><path d="M8 11h6"/></svg>
+        </button>
       </div>
       <div class="lightbox-caption">
         <div class="lightbox-caption-top">
@@ -1204,6 +1237,7 @@
 
     function renderLightbox() {
       var product = products[currentProductIndex];
+      resetZoom();
       var code = articleCode(currentProductIndex);
       lightboxImage.src = imgPath(product, product.images[currentImageIndex]);
       lightboxImage.alt = product.name;
@@ -1237,7 +1271,90 @@
     function closeLightbox() {
       lightbox.classList.remove("is-open");
       document.body.style.overflow = "";
+      resetZoom();
     }
+
+    // ---------- Zoom de la foto del lightbox ----------
+    var lightboxMedia = lightboxImage.parentNode;
+    var zoomBtn = document.getElementById("lightboxZoom");
+    var zoom = { on: false, scale: 1, x: 50, y: 50 };
+    var drag = null; // arrastre con el dedo mientras la foto está acercada
+
+    // Cuánto acercar: un poco más que el tamaño real de la foto en pantalla, entre 1.4x
+    // y 1.8x. Así en celular se ve bastante más grande y en computador no se pixela.
+    function zoomScale() {
+      var shown = lightboxMedia.clientWidth || 1;
+      var real = lightboxImage.naturalWidth || 1024;
+      return Math.min(1.8, Math.max(1.4, (real / shown) * 1.2));
+    }
+
+    function applyZoom() {
+      lightboxImage.style.transformOrigin = zoom.x + "% " + zoom.y + "%";
+      lightboxImage.style.transform = zoom.on ? "scale(" + zoom.scale + ")" : "";
+      lightboxMedia.classList.toggle("is-zoomed", zoom.on);
+      zoomBtn.setAttribute("aria-label", zoom.on ? "Alejar foto" : "Acercar foto");
+    }
+
+    function resetZoom() {
+      zoom.on = false;
+      zoom.x = 50;
+      zoom.y = 50;
+      drag = null;
+      applyZoom();
+    }
+
+    function toggleZoom(x, y) {
+      zoom.on = !zoom.on;
+      zoom.scale = zoomScale();
+      if (zoom.on) { zoom.x = x; zoom.y = y; }
+      applyZoom();
+    }
+
+    function clampPct(v) { return Math.min(100, Math.max(0, v)); }
+
+    // Posición del puntero dentro de la foto, en porcentaje
+    function pointerPct(e) {
+      var r = lightboxMedia.getBoundingClientRect();
+      return { x: clampPct((e.clientX - r.left) / r.width * 100), y: clampPct((e.clientY - r.top) / r.height * 100) };
+    }
+
+    lightboxImage.addEventListener("pointerdown", function (e) {
+      if (e.pointerType !== "mouse") drag = { x: e.clientX, y: e.clientY, moved: false };
+    });
+
+    lightboxImage.addEventListener("pointermove", function (e) {
+      if (!zoom.on) return;
+      if (e.pointerType === "mouse") {
+        // con el mouse, la foto sigue al cursor
+        var p = pointerPct(e);
+        zoom.x = p.x;
+        zoom.y = p.y;
+      } else {
+        // con el dedo, la foto se arrastra como en el celular
+        if (!drag) return;
+        var r = lightboxMedia.getBoundingClientRect();
+        var dx = e.clientX - drag.x;
+        var dy = e.clientY - drag.y;
+        if (Math.abs(dx) + Math.abs(dy) > 4) drag.moved = true;
+        zoom.x = clampPct(zoom.x - dx / r.width * 100 / (zoom.scale - 1));
+        zoom.y = clampPct(zoom.y - dy / r.height * 100 / (zoom.scale - 1));
+        drag.x = e.clientX;
+        drag.y = e.clientY;
+      }
+      applyZoom();
+    });
+
+    lightboxImage.addEventListener("click", function (e) {
+      var wasDrag = drag && drag.moved;
+      drag = null;
+      if (wasDrag) return; // fue un arrastre, no un toque
+      var p = pointerPct(e);
+      toggleZoom(p.x, p.y);
+    });
+
+    zoomBtn.addEventListener("click", function () {
+      toggleZoom(50, 50);
+    });
 
     function showNextImage() {
       var product = products[currentProductIndex];
