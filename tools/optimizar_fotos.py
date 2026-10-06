@@ -7,7 +7,7 @@ USO
 
   1) Una carpeta de catálogo completa (cada subcarpeta = una pieza):
 
-       python tools/optimizar_fotos.py alcobas_fondoblanco web/assets/catalogo/alcobas
+       python tools/optimizar_fotos.py material/fotos-catalogo/alcobas_fondoblanco web/assets/catalogo/alcobas
 
      Por cada foto (jpg, jpeg, jpe, png, webp) genera, respetando las subcarpetas:
        <nombre>.webp     -> tamaño completo (lado mayor máx. 1024 px), se usa en el lightbox
@@ -16,7 +16,7 @@ USO
 
   2) Una foto suelta (hero, portadas de categoría, etc.), sin miniatura:
 
-       python tools/optimizar_fotos.py imagen_hero.png web/assets --max 1600 --sin-miniatura
+       python tools/optimizar_fotos.py material/fotos-secciones/hero/imagen_hero.png web/assets --max 1600 --sin-miniatura
 
      -> web/assets/imagen_hero.webp
 

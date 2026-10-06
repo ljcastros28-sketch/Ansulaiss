@@ -4,10 +4,10 @@ node_modules/
 Thumbs.db
 
 # Excluded: too large for GitHub (100MB hard limit / keeps repo light)
-SALAS Y SOFÁS/ANSULAIS.pdf
-nosotros/IMG_5901.MOV
+material/fotos-catalogo/SALAS Y SOFÁS/ANSULAIS.pdf
+material/fotos-secciones/nosotros/IMG_5901.MOV
 
-# El sitio solo usa .webp (generados con tools/optimizar_fotos.py). Los .jpg que
-# queden dentro de web/assets/ son originales o restos viejos: no se publican.
+# El sitio solo usa .webp (generados con tools/optimizar_fotos.py). Los .jpg originales
+# viven en material/originales-web/. Si aparece un .jpg dentro de web/assets/, no se publica.
 web/assets/**/*.jpg
 !web/assets/og-ansulais.jpg

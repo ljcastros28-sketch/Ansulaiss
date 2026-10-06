@@ -24,9 +24,15 @@ web/                      ← todo lo que se publica
     catalogo/<categoria>/<pieza>/<foto>-sm.webp   miniatura (tarjetas, carrusel, buscador)
     og-ansulais.jpg       Vista previa al compartir el link (1200×630)
 tools/optimizar_fotos.py  Convierte fotos a WebP optimizado (ver abajo)
+material/                 Todo lo que la página NO usa (no se publica):
+  fotos-catalogo/         Fotos originales para el catálogo (salas_fondoblanco, comedores_fondoblanco, alcobas_fondoblanco, ...)
+  fotos-secciones/        Originales de otras secciones (nosotros, quequiereshoy, hero)
+  marca/                  Logos, manual de identidad, íconos de redes
+  videos/                 Videos originales
+  originales-web/         Los .jpg originales de las fotos que hay en web/assets (misma estructura de carpetas)
 ```
 
-Las demás carpetas de la raíz (`salas_fondoblanco/`, `alcobas_fondoblanco/`, `COMEDORES/`, etc.) son fotos originales de trabajo. **No forman parte del sitio y no se deben subir ni modificar.**
+**Regla:** `web/` contiene solo lo que usa la página. Lo que deje de usarse se mueve a `material/`. El contenido de `material/` son fotos originales de trabajo: **no forman parte del sitio y no se deben subir ni modificar.**
 
 ## Cómo está organizado el código
 

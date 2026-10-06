@@ -9,7 +9,15 @@ Sitio web estático de **Ansulais** (fabricante de muebles de madera y tapizados
 
 ## Regla de oro: qué se sube a git
 
-**Solo se commitea/pushea lo que está dentro de `web/`** (más la documentación y herramientas del repo: `CLAUDE.md`, `README.md`, `tools/`, `.github/`). El resto de carpetas y archivos en la raíz del repo (`SALAS Y SOFÁS/`, `COMEDORES/`, `salas_fondoblanco/`, `comedores_fondoblanco/`, `alcobas_fondoblanco/`, `otros_fondoblanco/`, `quequiereshoy/`, `nosotros/`, fotos/videos sueltos en la raíz como `sofa123.jpe`, `imagen_hero*.png`, etc.) son **material de trabajo en progreso del usuario** — fotos originales sin procesar para catálogos futuros u otras secciones. **Nunca los toques, muevas, borres ni los incluyas en un commit** a menos que el usuario lo pida explícitamente. Cuando se necesita una foto de ahí para el sitio, se procesa con `python tools/optimizar_fotos.py <origen> web/assets/...` (genera `.webp` + miniatura `-sm.webp`) y solo esa salida entra a git.
+**Solo se commitea/pushea lo que está dentro de `web/`** (más la documentación y herramientas del repo: `CLAUDE.md`, `README.md`, `tools/`, `.github/`). **`web/` contiene SOLO lo que usa la página**; todo lo demás vive en **`material/`** (organizado así el 2026-10-06, a pedido del usuario):
+
+- `material/fotos-catalogo/` — `salas_fondoblanco/`, `comedores_fondoblanco/`, `alcobas_fondoblanco/`, `otros_fondoblanco/`, `SALAS Y SOFÁS/`, `COMEDORES/` (originales para catálogos)
+- `material/fotos-secciones/` — `nosotros/`, `quequiereshoy/`, `hero/` (`imagen_hero*.png`, `sofa123*.jpe`)
+- `material/marca/` — logos, `manual_identidad.pdf`, `nosotrosbola.svg`, `iconos/` de redes
+- `material/videos/` — `video2.mp4`, `logo_video.mp4`
+- `material/originales-web/` — los `.jpg` originales de las fotos publicadas, con la misma ruta que tienen en `web/` (ej. `material/originales-web/assets/catalogo/salas/sofa_basico/sofa_de_frente.jpg`)
+
+Es **material de trabajo del usuario**: nunca lo toques, muevas, borres ni lo incluyas en un commit a menos que el usuario lo pida explícitamente. (Unos 109 archivos de ahí ya estaban en git desde antes y siguen versionados con su nueva ruta; no agregar más.) Cuando se necesita una foto de ahí para el sitio, se procesa con `python tools/optimizar_fotos.py material/... web/assets/...` (genera `.webp` + miniatura `-sm.webp`) y solo esa salida entra a git. Si algo de `web/` deja de usarse, se mueve a `material/`.
 
 Workflow típico de cada cambio:
 1. Editar archivo(s) dentro de `web/`.
@@ -21,7 +29,7 @@ Workflow típico de cada cambio:
 
 | Archivo | Qué es |
 |---|---|
-| `index.html` | Home: hero (foto `sofa123.jpg`/`sofa123_9-16.jpg` de fondo), franja de datos animada (marquee de vidrio sobre el hero), "Descubre nuestra colección" (antes "¿Qué ofrecemos?"; carrusel `.quequieres` horizontal con flechas en desktop / swipe en móvil), Nosotros, materiales (madera + espuma Espumados), Contacto |
+| `index.html` | Home: hero (foto `sofa123.webp`/`sofa123_9-16.webp` de fondo), franja de datos animada (marquee de vidrio sobre el hero), "Descubre nuestra colección" (antes "¿Qué ofrecemos?"; carrusel `.quequieres` horizontal con flechas en desktop / swipe en móvil), Nosotros, materiales (madera + espuma Espumados), Contacto |
 | `catalogo.html` | Selector de categorías ("¿Qué buscas el día de hoy?") → enlaza a los tres catálogos reales (comedores, salas, alcobas); "otros" sigue "próximamente" |
 | `catalogo-salas.html` | Catálogo de salas/sofás — 35 piezas, con filtros y lightbox |
 | `catalogo-comedores.html` | Catálogo de comedores — 24 piezas, con filtros y lightbox |
@@ -90,7 +98,7 @@ Los productos (nombre inventado + descripción + tag + carpeta de fotos) están 
 
 **Si se agrega o quita una pieza del catálogo, hay que actualizar los 3 lugares donde está duplicada la lista** (no hay una sola fuente de verdad, es intencional por ser sitio estático sin build).
 
-Fotos de catálogo en: `web/assets/catalogo/{salas,comedores,alcobas}/<carpeta>/<foto>.webp` (1024 px, lightbox) y `<foto>-sm.webp` (600 px, tarjetas/carrusel/buscador). Se generan con `tools/optimizar_fotos.py`. **Las fotos NO llevan marca de agua grabada** (el usuario notó pérdida de calidad y lo pidió así): la "A" del logo se pone ENCIMA con CSS (`::after` en `.product-card-media`, `.lightbox-media`, `.quequieres-item`, `.search-card-media`), sin tocar los archivos. Los `.jpg` locales junto a cada `.webp` (ignorados por git) son los originales: no borrarlos. **Nunca referenciar `.jpg` en el código**: los `.jpg` que puedan quedar en `web/assets/` son restos viejos sin uso. En `index.html` (`offerPool`) y `search.html` (`catalog`) se usa siempre la versión `-sm.webp`. Las piezas nuevas van **al final** del array `products`, porque el código de artículo sale de la posición.
+Fotos de catálogo en: `web/assets/catalogo/{salas,comedores,alcobas}/<carpeta>/<foto>.webp` (1024 px, lightbox) y `<foto>-sm.webp` (600 px, tarjetas/carrusel/buscador). Se generan con `tools/optimizar_fotos.py`. **Las fotos NO llevan marca de agua grabada** (el usuario notó pérdida de calidad y lo pidió así): la "A" del logo se pone ENCIMA con CSS (`::after` en `.product-card-media`, `.lightbox-media`, `.quequieres-item`, `.search-card-media`), sin tocar los archivos. Los `.jpg` originales de cada foto están en `material/originales-web/` (misma ruta que en `web/`): no borrarlos. **Nunca referenciar `.jpg` en el código** (salvo `og-ansulais.jpg`). En `index.html` (`offerPool`) y `search.html` (`catalog`) se usa siempre la versión `-sm.webp`. Las piezas nuevas van **al final** del array `products`, porque el código de artículo sale de la posición.
 
 ## Cosas ya implementadas (no reinventar)
 
@@ -135,3 +143,4 @@ Fotos de catálogo en: `web/assets/catalogo/{salas,comedores,alcobas}/<carpeta>/
 - **2026-10-06** — Home: el carrusel "¿Qué ofrecemos?" pasa a "Nuestros modelos / Descubre nuestra colección" con una frase debajo, y "Nosotros" pasa a etiqueta pequeña con el título "Tradición familiar, hecha a mano" (el ancla `#nosotros` y los links del menú siguen igual). Nueva clase `.section-eyebrow` para esas etiquetas.
 - **2026-10-06** — Arreglado el carrusel del home: con el mouse o el dedo encima de las fotos la página no bajaba (`overscroll-behavior-y: contain` + `touch-action: pan-x`). Ahora baja normal y el carrusel sigue moviéndose de lado con flechas, trackpad o deslizando.
 - **2026-10-06** — Home, sección Nosotros: la tarjeta blanca con la línea divisoria se reemplazó por una cuadrícula "bento" (`.nosotros-bento`, 4×3 en escritorio, 2 columnas en ≤900 px) con fotos (`nosotros_silla.webp` —referencia de internet de una silla que el usuario ya fabricó—, `nosotros_almacen.webp` desde `nosotros/almacen1.jpeg`, y `nosotros_lijado.webp`), texto de empresa familiar y las cifras +30 / +1000 / 100 %. Se quitaron las etiquetas "NOSOTROS" y "NUESTROS MODELOS". Textos del home reescritos en tono más natural; la franja y el video ya no prometen instalación siempre ("Instalación en tu casa" / "cuando el mueble va con nuestro transporte, la instalación está incluida"), acorde con Términos §5.
+- **2026-10-06** — Limpieza y orden: la raíz del repo queda solo con `web/` (lo que usa la página), `material/` (todo lo demás: 512 archivos, ~1 GB, incluidos los 229 `.jpg` originales que estaban dentro de `web/assets/`), `tools/` y la documentación. Código: quitada la variable `--navy` sin uso de las 10 páginas, estilos muertos (`.menu-toggle` en privacidad, `a.is-featured` en search, `.reveal-delay-3` en index) y la cursiva de Montserrat que se pedía a Google Fonts sin usarse. `quercus-petraeaarbol.webp` de 194 a 123 KB (880 px, que es el doble de lo que se muestra).
