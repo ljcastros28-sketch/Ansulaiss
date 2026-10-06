@@ -60,6 +60,7 @@ Copia uno de los `catalogo-*.html` y cambia el `<title>`, las etiquetas `descrip
 - Todas las imágenes, excepto la del hero, usan `loading="lazy"`. El hero usa `fetchpriority="high"` porque es lo primero que se ve.
 - El video de "Nosotros" (`preload="none"`) solo se descarga y reproduce cuando su sección se acerca a la pantalla.
 - Cualquier foto nueva debe pasar por `tools/optimizar_fotos.py`. No subas JPG/PNG originales: pesan entre 10 y 30 veces más.
+- El script graba la marca de agua de Ansulais en el centro de cada foto (para que salga en pantallazos y descargas). Usa `--sin-marca` solo en fotos decorativas que no son productos. Tamaño y opacidad: constantes `MARCA_*` del script; la forma está en `tools/marca_agua.png`.
 
 ## Datos de la empresa
 

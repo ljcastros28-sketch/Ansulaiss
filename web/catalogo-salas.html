@@ -866,6 +866,9 @@
   @media (max-width: 560px) {
     .catalog-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   }
+  /* Fotos de producto: llevan marca de agua grabada (tools/optimizar_fotos.py) y además
+     se desactiva arrastrarlas y el "mantener presionado → guardar" de iPhone. */
+  img { -webkit-user-drag: none; -webkit-touch-callout: none; user-select: none; }
 </style>
 </head>
 <body>
@@ -1345,5 +1348,13 @@
     });
   </script>
 
+  <script>
+    // Sin menú de "Guardar imagen como…" ni arrastrar fotos (las fotos llevan marca de agua de todas formas)
+    ['contextmenu', 'dragstart'].forEach(function (evento) {
+      document.addEventListener(evento, function (e) {
+        if (e.target.tagName === 'IMG') e.preventDefault();
+      });
+    });
+  </script>
 </body>
 </html>
