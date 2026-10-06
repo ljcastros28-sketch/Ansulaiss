@@ -510,6 +510,7 @@
         <button class="filter-btn" data-filter="catalogo-salas.html">Salas y sofás</button>
         <button class="filter-btn" data-filter="catalogo-comedores.html">Comedores</button>
         <button class="filter-btn" data-filter="catalogo-alcobas.html">Alcobas</button>
+        <button class="filter-btn" data-filter="otros">Otros</button>
       </div>
 
       <div class="search-grid" id="searchGrid"></div>
@@ -771,13 +772,48 @@
       { name: "Alcoba Abedul", desc: "Cabecero de listones horizontales en madera clara y base con cajones de almacenamiento en los costados.", tag: "catalogo-alcobas.html", filtro: "nido", cat: "Alcoba", img: "assets/catalogo/alcobas/camacajones_lineaspintadas/cama1-sm.webp" },
       { name: "Cama Cuna Nogal", desc: "Cama sencilla en madera oscura con baranda tipo cuna para los más pequeños y cama auxiliar deslizante en la base.", tag: "catalogo-alcobas.html", filtro: "nido", cat: "Cama cuna", img: "assets/catalogo/alcobas/camacuna/cama1-sm.webp" },
       { name: "Alcoba Coral", desc: "Cabecero y piecero en madera con esquinas redondeadas y cajones de almacenamiento en la base.", tag: "catalogo-alcobas.html", filtro: "nido", cat: "Alcoba", img: "assets/catalogo/alcobas/camacurvasesquinas_cajones/cama-sm.webp" },
-      { name: "Alcoba Serena", desc: "Cabecero liso en madera clara, base sobre patas y mesas de noche flotantes de un cajón.", tag: "catalogo-alcobas.html", filtro: "clasicas", cat: "Alcoba", img: "assets/catalogo/alcobas/clasicaclasica/cama1-sm.webp" }
+      { name: "Alcoba Serena", desc: "Cabecero liso en madera clara, base sobre patas y mesas de noche flotantes de un cajón.", tag: "catalogo-alcobas.html", filtro: "clasicas", cat: "Alcoba", img: "assets/catalogo/alcobas/clasicaclasica/cama1-sm.webp" },
+      { name: "Mueble de TV Magdalena", desc: "Mueble flotante blanco con tapa en madera y repisas de pared a juego para libros y decoración.", tag: "catalogo-muebles-tv.html", filtro: "flotantes", cat: "Mueble de TV", img: "assets/catalogo/otros/muebles-tv/flotantecompleto/mueble1-sm.webp" },
+      { name: "Mueble de TV Cauca", desc: "Mueble flotante en madera de dos niveles, con cajones al frente y repisa abierta a un lado.", tag: "catalogo-muebles-tv.html", filtro: "flotantes", cat: "Mueble de TV", img: "assets/catalogo/otros/muebles-tv/flotantedospisos/mesa1-sm.webp" },
+      { name: "Mueble de TV Sinú", desc: "Mueble flotante en blanco y madera, con puertas lisas y un nicho abierto en el extremo.", tag: "catalogo-muebles-tv.html", filtro: "flotantes", cat: "Mueble de TV", img: "assets/catalogo/otros/muebles-tv/flotanteduotono/mesa1-sm.webp" },
+      { name: "Mueble de TV Atrato", desc: "Mueble bajo en madera oscura con cuatro cajones y repisas abiertas en el centro, sobre patas cortas.", tag: "catalogo-muebles-tv.html", filtro: "piso", cat: "Mueble de TV", img: "assets/catalogo/otros/muebles-tv/mueble1_4cajones/mesa1-sm.webp" },
+      { name: "Mueble de TV Guaviare", desc: "Mueble de esquinas redondeadas en madera oscura, con puertas a los lados, nicho central y patas inclinadas.", tag: "catalogo-muebles-tv.html", filtro: "piso", cat: "Mueble de TV", img: "assets/catalogo/otros/muebles-tv/mueble2_redondeado/mesa1-sm.webp" },
+      { name: "Mueble de TV Orinoco", desc: "Mueble en madera clara con cajones de frente blanco y repisa abierta en la parte de arriba.", tag: "catalogo-muebles-tv.html", filtro: "piso", cat: "Mueble de TV", img: "assets/catalogo/otros/muebles-tv/muebleduotono/mesa1-sm.webp" },
+      { name: "Mueble de TV Arauca", desc: "Mueble en madera clara con cuatro cajones, nicho central y patas inclinadas.", tag: "catalogo-muebles-tv.html", filtro: "piso", cat: "Mueble de TV", img: "assets/catalogo/otros/muebles-tv/mueblesencillo4cajones/mesa1-sm.webp" },
+      { name: "Mesa de noche Lucero", desc: "Mesa de noche blanca de esquinas redondeadas, con dos cajones y agarre en ranura.", tag: "catalogo-mesas-noche.html", filtro: "base", cat: "Mesa de noche", img: "assets/catalogo/otros/mesas-noche/mesablanca_ladosredondos/mesa1-sm.webp" },
+      { name: "Mesa de noche Cometa", desc: "Dos cajones con frente de diseño curvo que combina beige y madera.", tag: "catalogo-mesas-noche.html", filtro: "base", cat: "Mesa de noche", img: "assets/catalogo/otros/mesas-noche/mesacajonescurvos/mesa1-sm.webp" },
+      { name: "Mesa de noche Orión", desc: "Mesa flotante blanca con cajón en madera y luz cálida en la parte de abajo.", tag: "catalogo-mesas-noche.html", filtro: "flotantes", cat: "Mesa de noche", img: "assets/catalogo/otros/mesas-noche/mesadenocheflotanteduotono/mesa-sm.webp" },
+      { name: "Mesa de noche Sirio", desc: "Madera clara con cajón de frente blanco, nicho abierto y base de pies tallados.", tag: "catalogo-mesas-noche.html", filtro: "base", cat: "Mesa de noche", img: "assets/catalogo/otros/mesas-noche/mesaduotono4uncajon/mesa-sm.webp" },
+      { name: "Mesa de noche Antares", desc: "Mesa blanca con cajón en madera y espacio abierto abajo.", tag: "catalogo-mesas-noche.html", filtro: "base", cat: "Mesa de noche", img: "assets/catalogo/otros/mesas-noche/mesaduotono_uncajon/mesa_frente-sm.webp" },
+      { name: "Mesa de noche Polaris", desc: "Mesa en madera sobre patas altas inclinadas, con nicho arriba y dos cajones blancos.", tag: "catalogo-mesas-noche.html", filtro: "patas", cat: "Mesa de noche", img: "assets/catalogo/otros/mesas-noche/mesaduotonopataslargas/mesa-sm.webp" },
+      { name: "Mesa de noche Eclipse", desc: "Dos cajones en madera de tono oscuro con tapa clara.", tag: "catalogo-mesas-noche.html", filtro: "base", cat: "Mesa de noche", img: "assets/catalogo/otros/mesas-noche/mesaenchapenegro/mesa-sm.webp" },
+      { name: "Mesa de noche Astro", desc: "Mesa flotante en madera con cajón de frente blanco.", tag: "catalogo-mesas-noche.html", filtro: "flotantes", cat: "Mesa de noche", img: "assets/catalogo/otros/mesas-noche/mesaflotante/mesa-sm.webp" },
+      { name: "Mesa de noche Selene", desc: "Madera clara con un cajón arriba y repisa abierta abajo.", tag: "catalogo-mesas-noche.html", filtro: "base", cat: "Mesa de noche", img: "assets/catalogo/otros/mesas-noche/mesahueco/mesa-sm.webp" },
+      { name: "Mesa de noche Altair", desc: "Madera de tono medio con nicho abierto arriba y dos cajones.", tag: "catalogo-mesas-noche.html", filtro: "base", cat: "Mesa de noche", img: "assets/catalogo/otros/mesas-noche/mesahuecodoscajones/mesa-sm.webp" },
+      { name: "Mesa de noche Rigel", desc: "Madera clara con nicho abierto arriba y dos cajones.", tag: "catalogo-mesas-noche.html", filtro: "base", cat: "Mesa de noche", img: "assets/catalogo/otros/mesas-noche/mesahuecodoscajones2/mesa-sm.webp" },
+      { name: "Mesa de noche Vesta", desc: "Dos cajones en madera clara sobre patas inclinadas.", tag: "catalogo-mesas-noche.html", filtro: "patas", cat: "Mesa de noche", img: "assets/catalogo/otros/mesas-noche/mesapataslargasdoscajones3/mesa-sm.webp" },
+      { name: "Mesa de noche Perseo", desc: "Cajón de arriba en blanco, cajón de abajo en madera y base de pies tallados.", tag: "catalogo-mesas-noche.html", filtro: "base", cat: "Mesa de noche", img: "assets/catalogo/otros/mesas-noche/mesasencilla2duotono/mesa-sm.webp" },
+      { name: "Mesa de noche Andrómeda", desc: "Dos cajones en madera clara con base de pies tallados.", tag: "catalogo-mesas-noche.html", filtro: "base", cat: "Mesa de noche", img: "assets/catalogo/otros/mesas-noche/mesasencilla3/mesa-sm.webp" },
+      { name: "Mesa de noche Casiopea", desc: "Madera clara con dos cajones de frente blanco.", tag: "catalogo-mesas-noche.html", filtro: "base", cat: "Mesa de noche", img: "assets/catalogo/otros/mesas-noche/mesasencillasuotono/mesa-sm.webp" },
+      { name: "Mesa de noche Fénix", desc: "Dos cajones en madera de tono oscuro, de líneas simples.", tag: "catalogo-mesas-noche.html", filtro: "base", cat: "Mesa de noche", img: "assets/catalogo/otros/mesas-noche/mesasimple/mesa-sm.webp" },
+      { name: "Mesa de noche Centauro", desc: "Dos cajones en madera clara sobre patas cortas inclinadas.", tag: "catalogo-mesas-noche.html", filtro: "patas", cat: "Mesa de noche", img: "assets/catalogo/otros/mesas-noche/mesasimplepataslargas/mesa-sm.webp" },
+      { name: "Mesa de centro Ágata", desc: "Tapa blanca de esquinas redondeadas sobre dos apoyos en madera oscura.", tag: "catalogo-mesas-centro.html", filtro: "rectangulares", cat: "Mesa de centro", img: "assets/catalogo/otros/mesas-centro/duotonobase2apoyos/mesa1-sm.webp" },
+      { name: "Mesa de centro Jade", desc: "Mesa en madera con repisa abierta abajo y un cajón de frente blanco.", tag: "catalogo-mesas-centro.html", filtro: "rectangulares", cat: "Mesa de centro", img: "assets/catalogo/otros/mesas-centro/mesacajon/mesa1-sm.webp" },
+      { name: "Mesa de centro Ónix", desc: "Dos niveles en madera clara que se cruzan, con espacio para revistas y decoración.", tag: "catalogo-mesas-centro.html", filtro: "rectangulares", cat: "Mesa de centro", img: "assets/catalogo/otros/mesas-centro/mesadoblepiso/mesa1-sm.webp" },
+      { name: "Mesa de centro Cuarzo", desc: "Tapa en madera clara, cajón blanco con tirador dorado, nicho abierto y patas inclinadas.", tag: "catalogo-mesas-centro.html", filtro: "rectangulares", cat: "Mesa de centro", img: "assets/catalogo/otros/mesas-centro/mesaduotonocajon/mesa1-sm.webp" },
+      { name: "Mesa de centro Topacio", desc: "Bloque en madera oscura con nichos abiertos en blanco a los dos lados.", tag: "catalogo-mesas-centro.html", filtro: "rectangulares", cat: "Mesa de centro", img: "assets/catalogo/otros/mesas-centro/mesaduotonodobledivision/mesa1-sm.webp" },
+      { name: "Mesa de centro Perla", desc: "Tapa ovalada en madera sobre tres patas cilíndricas.", tag: "catalogo-mesas-centro.html", filtro: "redondas", cat: "Mesa de centro", img: "assets/catalogo/otros/mesas-centro/mesahuevotrespatas/mesa1-sm.webp" },
+      { name: "Mesa de centro Ópalo", desc: "Tapa ovalada en madera sobre dos bases acanaladas.", tag: "catalogo-mesas-centro.html", filtro: "redondas", cat: "Mesa de centro", img: "assets/catalogo/otros/mesas-centro/mesaovalo_apalillado/mesa1-sm.webp" },
+      { name: "Mesa de centro Esmeralda", desc: "Tapa ovalada en madera oscura sobre dos apoyos planos.", tag: "catalogo-mesas-centro.html", filtro: "redondas", cat: "Mesa de centro", img: "assets/catalogo/otros/mesas-centro/mesaovalo_dosapoyos/mesa1-sm.webp" },
+      { name: "Mesa de centro Jaspe", desc: "Madera clara con dos nichos abiertos y patas inclinadas.", tag: "catalogo-mesas-centro.html", filtro: "rectangulares", cat: "Mesa de centro", img: "assets/catalogo/otros/mesas-centro/mesapataslargas/mesa1-sm.webp" },
+      { name: "Mesa de centro Turquesa", desc: "Tapa redonda blanca sobre patas en madera de estilo escandinavo.", tag: "catalogo-mesas-centro.html", filtro: "redondas", cat: "Mesa de centro", img: "assets/catalogo/otros/mesas-centro/mesaredondatapablanca/mesa1-sm.webp" },
+      { name: "Mesa de centro Obsidiana", desc: "Tapa de forma orgánica en madera sobre patas inclinadas de estilo escandinavo.", tag: "catalogo-mesas-centro.html", filtro: "redondas", cat: "Mesa de centro", img: "assets/catalogo/otros/mesas-centro/mesasencillapataescandinaba/mesa1-sm.webp" }
     ];
 
     // ---------- Buscador ----------
     // La idea es NO mostrar una cuadrícula para que el usuario escoja, sino llevarlo
     // directo a donde está lo que busca. Se prueba en este orden:
-    //   1. Código de artículo (SAL-05, COM-12, ALC-03)      -> abre esa pieza.
+    //   1. Código de artículo (SAL-05, COM-12, ALC-03, TV-02, MN-07, MC-04) -> abre esa pieza.
     //   2. Nombre de una pieza ("aurora", "comedor nube")    -> abre esa pieza.
     //   3. Tipo de mueble o sección del sitio (ROUTES)       -> esa página, con el filtro puesto
     //      ("sofá cama", "comedor redondo", "cama nido", "horario", "garantía"…).
@@ -790,8 +826,11 @@
     // Destinos por palabra clave. Cada entrada de "keys" es una frase: coincide si TODAS
     // sus palabras aparecen en la búsqueda. "filters" son los data-filter del catálogo.
     // Ante empate gana la que esté más arriba, por eso los catálogos van primero.
+    // Catálogos que agrupa el filtro "Otros" de los resultados
+    var OTROS_PAGES = ['catalogo-muebles-tv.html', 'catalogo-mesas-noche.html', 'catalogo-mesas-centro.html'];
+
     var ROUTES = [
-      { href: 'catalogo-salas.html', keys: ['sala', 'sofa', 'sillon', 'mueble de sala', 'living', 'poltrona'],
+      { href: 'catalogo-salas.html', keys: ['sala', 'sofa', 'sillon', 'mueble de sala', 'living'],
         filters: {
           'sofa': ['dos puestos', 'tres puestos', 'recto', 'loveseat'],
           'en-l': ['l', 'ele', 'esquinero', 'esquinera', 'esquina', 'rinconero', 'rinconera', 'modular', 'seccional', 'chaise longue'],
@@ -804,13 +843,30 @@
           'redondos': ['redondo', 'redonda', 'circular', 'ovalado', 'ovalada', 'ovalo'],
           'expandibles': ['expandible', 'extensible', 'extendible', 'ampliable']
         } },
-      { href: 'catalogo-alcobas.html', keys: ['alcoba', 'cama', 'habitacion', 'dormitorio', 'cuarto', 'recamara', 'cabecero', 'cabecera', 'nochero', 'mesa de noche', 'mesita de noche', 'cama doble', 'semidoble', 'king', 'queen'],
+      { href: 'catalogo-alcobas.html', keys: ['alcoba', 'cama', 'habitacion', 'dormitorio', 'cuarto', 'recamara', 'cabecero', 'cabecera', 'cama doble', 'semidoble', 'king', 'queen'],
         filters: {
           'tableros': ['cabecero extendido', 'tablero', 'tablero extendido'],
           'clasicas': ['clasica', 'clasico', 'tradicional'],
           'nido': ['nido', 'cajon', 'auxiliar', 'sencilla', 'almacenamiento']
         } },
-      { href: 'catalogo.html', keys: ['catalogo', 'producto', 'mueble', 'todo', 'otro'] },
+      { href: 'catalogo-muebles-tv.html', keys: ['mueble de tv', 'mueble tv', 'mueble para tv', 'mueble de television', 'centro de entretenimiento', 'rack', 'television', 'tv', 'tele'],
+        filters: {
+          'flotantes': ['flotante', 'colgante', 'pared'],
+          'piso': ['piso', 'pata', 'cajonera']
+        } },
+      { href: 'catalogo-mesas-noche.html', keys: ['mesa de noche', 'mesita de noche', 'mesa noche', 'nochero', 'mesa de luz'],
+        filters: {
+          'flotantes': ['flotante', 'colgante'],
+          'patas': ['pata', 'patas altas'],
+          'base': ['base']
+        } },
+      { href: 'catalogo-mesas-centro.html', keys: ['mesa de centro', 'mesa centro', 'mesa de sala', 'mesa auxiliar', 'mesa de cafe', 'mesa ratona', 'mesa baja'],
+        filters: {
+          'rectangulares': ['rectangular', 'cuadrada', 'cuadrado'],
+          'redondas': ['redonda', 'redondo', 'ovalada', 'ovalado', 'ovalo', 'circular']
+        } },
+      { href: 'catalogo-otros.html', keys: ['otro', 'otros muebles', 'bife', 'buffet', 'bufe', 'aparador', 'cajonero', 'perfumero', 'chifonier', 'poltrona', 'butaca', 'sillon individual'] },
+      { href: 'catalogo.html', keys: ['catalogo', 'producto', 'mueble', 'todo'] },
       { href: 'index.html#contacto', keys: ['contacto', 'contactar', 'contactenos', 'contactarnos', 'telefono', 'celular', 'whatsapp', 'whatsap', 'wasap', 'guasap', 'numero', 'llamar', 'direccion', 'ubicacion', 'ubicado', 'donde', 'local', 'tienda', 'almacen', 'showroom', 'visitar', 'visita', 'horario', 'hora', 'abierto', 'abren', 'atencion', 'correo', 'email', 'mail', 'cotizacion', 'cotizar', 'precio', 'valor', 'costo', 'cuesta', 'cuanto', 'envio', 'domicilio', 'entrega', 'pedido', 'comprar', 'compra', 'medida', 'personalizado'] },
       { href: 'index.html#nosotros', keys: ['nosotros', 'quienes somos', 'empresa', 'historia', 'fabrica', 'fabricante', 'taller', 'ansulais', 'madera', 'flor morado', 'espuma', 'espumados', 'material', 'calidad', 'certificado', 'certificacion', 'certipur', 'iso'] },
       { href: 'reembolsos.html', keys: ['garantia', 'devolucion', 'devolver', 'cambio', 'reembolso', 'retracto', 'reclamo', 'reclamacion', 'dano', 'danado', 'defecto'] },
@@ -975,12 +1031,16 @@
       if (!tokens.length) return { results: [] };
 
       // 1. Código de artículo
-      var code = normalize(query).match(/\b(sal|com|alc)\s*-?\s*(\d{1,3})\b/);
+      // TV, MN y MC piden el número pegado o con guion ("TV-03", "mc2") para no confundir
+      // "mueble tv 2 metros" con el artículo TV-02.
+      var code = normalize(query).match(/\b(?:(sal|com|alc)\s*-?\s*|(tv|mn|mc)-?)(\d{1,3})\b/);
       if (code) {
-        var pages = { sal: 'catalogo-salas.html', com: 'catalogo-comedores.html', alc: 'catalogo-alcobas.html' };
-        var num = String(parseInt(code[2], 10));
+        var pages = { sal: 'catalogo-salas.html', com: 'catalogo-comedores.html', alc: 'catalogo-alcobas.html',
+          tv: 'catalogo-muebles-tv.html', mn: 'catalogo-mesas-noche.html', mc: 'catalogo-mesas-centro.html' };
+        var prefix = code[1] || code[2];
+        var num = String(parseInt(code[3], 10));
         if (num.length < 2) num = '0' + num;
-        return { go: pages[code[1]] + '?pieza=' + code[1].toUpperCase() + '-' + num };
+        return { go: pages[prefix] + '?pieza=' + prefix.toUpperCase() + '-' + num };
       }
 
       // 2. Nombre de una pieza (primero exacto; si no, tolerando errores de tipeo)
@@ -1024,7 +1084,8 @@
 
     function render() {
       var results = currentResults.filter(function (item) {
-        return activeFilter === 'all' || item.tag === activeFilter;
+        return activeFilter === 'all' || item.tag === activeFilter ||
+          (activeFilter === 'otros' && OTROS_PAGES.indexOf(item.tag) !== -1);
       });
 
       grid.innerHTML = '';

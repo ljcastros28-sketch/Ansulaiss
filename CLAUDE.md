@@ -30,10 +30,14 @@ Workflow típico de cada cambio:
 | Archivo | Qué es |
 |---|---|
 | `index.html` | Home: hero (foto `sofa123.webp`/`sofa123_9-16.webp` de fondo), franja de datos animada (marquee de vidrio sobre el hero), "Descubre nuestra colección" (antes "¿Qué ofrecemos?"; carrusel `.quequieres` horizontal con flechas en desktop / swipe en móvil), Nosotros, materiales (madera + espuma Espumados), Contacto |
-| `catalogo.html` | Selector de categorías ("¿Qué buscas el día de hoy?") → enlaza a los tres catálogos reales (comedores, salas, alcobas); "otros" sigue "próximamente" |
+| `catalogo.html` | Selector de categorías ("¿Qué buscas el día de hoy?") → comedores, salas, alcobas y "otros" (→ `catalogo-otros.html`) |
+| `catalogo-otros.html` | Selector "¿Qué otro mueble buscas?": 3 tarjetas con foto (muebles de TV, mesas de noche, mesas de centro) + 3 recuadros "próximamente" (bifés, cajoneros & perfumeros, poltronas) que abren WhatsApp con un mensaje listo. Cuando haya fotos de uno de esos 3, se le hace su catálogo y su recuadro pasa a tarjeta con foto |
 | `catalogo-salas.html` | Catálogo de salas/sofás — 39 piezas, con filtros y lightbox |
 | `catalogo-comedores.html` | Catálogo de comedores — 25 piezas, con filtros y lightbox |
 | `catalogo-alcobas.html` | Catálogo de alcobas/camas — 25 piezas (códigos `ALC-xx`), filtros: Cabecero extendido / Clásicas / Nido y cajones, con lightbox. Faltan fotos de más piezas: se irán agregando |
+| `catalogo-muebles-tv.html` | Muebles de TV — 7 piezas (códigos `TV-xx`), filtros: Flotantes / De piso |
+| `catalogo-mesas-noche.html` | Mesas de noche — 17 piezas (códigos `MN-xx`), filtros: Flotantes / Con patas / Sobre base. Casi todas con 1 foto |
+| `catalogo-mesas-centro.html` | Mesas de centro — 11 piezas (códigos `MC-xx`), filtros: Rectangulares / Redondas y ovaladas |
 | `search.html` | Buscador "directo": en vez de listar opciones, lleva a la pieza (por nombre o código `SAL-05`), al catálogo con el filtro puesto ("sofá cama", "comedor redondo", "cama nido") o a la sección ("horario" → contacto, "garantía" → reembolsos). Solo lista resultados cuando de verdad hay varias piezas posibles ("botones", "comedor 6 puestos"). Palabras clave en el array `ROUTES` |
 | `privacidad.html` | Política de tratamiento de datos (Ley 1581 de 2012, Colombia) |
 | `cookies.html` | Política de cookies (el sitio NO usa analítica/tracking, solo Google Fonts + una preferencia local de "ya viste el aviso") |
@@ -93,21 +97,22 @@ Los productos (nombre inventado + descripción + tag + carpeta de fotos) están 
 - `catalogo-salas.html` (39 piezas, con `desc` completo para el lightbox)
 - `catalogo-comedores.html` (25 piezas, con `desc` completo para el lightbox)
 - `catalogo-alcobas.html` (25 piezas, con `desc` completo para el lightbox)
-- `index.html` → array `offerPool` (las mismas 89 piezas combinadas, solo nombre/href/img, para el carrusel "Descubre nuestra colección")
-- `search.html` → array `catalog` (las mismas 89, con `cat`, `filtro` = `tag` del catálogo y `desc` copiada del catálogo, porque el buscador también busca en la descripción)
+- `catalogo-muebles-tv.html` (7), `catalogo-mesas-noche.html` (17) y `catalogo-mesas-centro.html` (11), generados copiando `catalogo-alcobas.html`
+- `index.html` → array `offerPool` (las mismas 124 piezas combinadas, solo nombre/href/img, para el carrusel "Descubre nuestra colección")
+- `search.html` → array `catalog` (las mismas 124, con `cat`, `filtro` = `tag` del catálogo y `desc` copiada del catálogo, porque el buscador también busca en la descripción)
 
 **Si se agrega o quita una pieza del catálogo, hay que actualizar los 3 lugares donde está duplicada la lista** (no hay una sola fuente de verdad, es intencional por ser sitio estático sin build).
 
-Fotos de catálogo en: `web/assets/catalogo/{salas,comedores,alcobas}/<carpeta>/<foto>.webp` (1024 px, lightbox) y `<foto>-sm.webp` (600 px, tarjetas/carrusel/buscador). Se generan con `tools/optimizar_fotos.py`. **Las fotos NO llevan marca de agua grabada** (el usuario notó pérdida de calidad y lo pidió así): la "A" del logo se pone ENCIMA con CSS (`::after` en `.product-card-media`, `.lightbox-media`, `.quequieres-item`, `.search-card-media`), sin tocar los archivos. Los `.jpg` originales de cada foto están en `material/originales-web/` (misma ruta que en `web/`): no borrarlos. **Nunca referenciar `.jpg` en el código** (salvo `og-ansulais.jpg`). En `index.html` (`offerPool`) y `search.html` (`catalog`) se usa siempre la versión `-sm.webp`. Las piezas nuevas van **al final** del array `products`, porque el código de artículo sale de la posición.
+Fotos de catálogo en: `web/assets/catalogo/{salas,comedores,alcobas,otros/muebles-tv,otros/mesas-noche,otros/mesas-centro}/<carpeta>/<foto>.webp` (1024 px, lightbox) y `<foto>-sm.webp` (600 px, tarjetas/carrusel/buscador). Se generan con `tools/optimizar_fotos.py`. **Las fotos NO llevan marca de agua grabada** (el usuario notó pérdida de calidad y lo pidió así): la "A" del logo se pone ENCIMA con CSS (`::after` en `.product-card-media`, `.lightbox-media`, `.quequieres-item`, `.search-card-media`), sin tocar los archivos. Los `.jpg` originales de cada foto están en `material/originales-web/` (misma ruta que en `web/`): no borrarlos. **Nunca referenciar `.jpg` en el código** (salvo `og-ansulais.jpg`). En `index.html` (`offerPool`) y `search.html` (`catalog`) se usa siempre la versión `-sm.webp`. Las piezas nuevas van **al final** del array `products`, porque el código de artículo sale de la posición.
 
 ## Cosas ya implementadas (no reinventar)
 
-- Page loader (logo + 3 puntos) en las 10 páginas — se oculta solo al cargar o a los 4s.
-- Banner de cookies (aceptar/rechazar) con `localStorage` key `ansulais_cookie_choice`, en las 10 páginas.
+- Page loader (logo + 3 puntos) en todas las páginas — se oculta solo al cargar o a los 4s.
+- Banner de cookies (aceptar/rechazar) con `localStorage` key `ansulais_cookie_choice`, en todas las páginas.
 - Nav-search: en móvil el input estaba `display:none` — se arregló para que se expanda al tocar el ícono (clase `.is-open` en `#navSearchForm`).
-- Skip-link de accesibilidad ("Saltar al contenido") en las 10 páginas.
-- Footer con links legales (Términos, Privacidad, Cookies, Cambios y devoluciones) en las 10 páginas.
-- Enlaces directos en los 3 catálogos: `?filtro=<data-filter>` activa el filtro y `?pieza=<código o nombre-en-slug>` abre la pieza en el lightbox (ej. `catalogo-salas.html?pieza=SAL-05` o `?pieza=sofa-cedro`). Los usa el buscador y sirven para compartir una pieza por WhatsApp.
+- Skip-link de accesibilidad ("Saltar al contenido") en todas las páginas.
+- Footer con links legales (Términos, Privacidad, Cookies, Cambios y devoluciones) en todas las páginas.
+- Enlaces directos en los 6 catálogos: `?filtro=<data-filter>` activa el filtro y `?pieza=<código o nombre-en-slug>` abre la pieza en el lightbox (ej. `catalogo-salas.html?pieza=SAL-05` o `?pieza=sofa-cedro`). Los usa el buscador y sirven para compartir una pieza por WhatsApp.
 
 ## Lecciones aprendidas (para no repetir bugs ya resueltos)
 
@@ -150,3 +155,4 @@ Fotos de catálogo en: `web/assets/catalogo/{salas,comedores,alcobas}/<carpeta>/
 - **2026-10-06** — Título del home (y `og:title`) cambiado a "Ansulais | Muebles de madera y tapizados en Bogotá" para que Google lo relacione con búsquedas de muebles en Bogotá. "Comodidad para tu hogar" sigue como lema en el hero.
 - **2026-10-06** — `sitemap.xml`: `lastmod` de las 9 páginas actualizado a 2026-10-06 (cambiaron títulos, textos y catálogo).
 - **2026-10-06** — 4 sofás nuevos (SAL-36 Sofá Ceiba `sofaestructuramadera1`, SAL-37 Sofá Raíz `sofamadera2`, SAL-38 Sofá Arrayán `sofamadera3_brazoscurvos`, SAL-39 Sofá Samán `sofamaderacurvo`, todos filtro Sofás) y 1 comedor (COM-25 Comedor Pilar `comedoresquinascurvas`, filtro Clásicos; la foto `comedor 1` se publicó como `comedor1` sin espacio), en los 3 lugares. Total: 89 piezas.
+- **2026-10-06** — Sección "Otros": nueva `catalogo-otros.html` (selector) y 3 catálogos nuevos desde `material/fotos-catalogo/otros_fondoblanco/`: `catalogo-muebles-tv.html` (7, TV-01..07), `catalogo-mesas-noche.html` (17, MN-01..17) y `catalogo-mesas-centro.html` (11, MC-01..11; la carpeta `mesasdecentro/mesaduotono` estaba vacía y no se publicó). Bifés, cajoneros & perfumeros y poltronas quedan "próximamente" con enlace a WhatsApp. En `catalogo.html` la tarjeta "otros" ya enlaza. Portadas `assets/qh_muebles_tv.webp` y `assets/qh_mesas_centro.webp` (mesas de noche reutiliza `qh_otros.webp`). Buscador: códigos TV/MN/MC (con guion o pegados al número, para que "mueble tv 2 metros" no se tome como TV-02), filtro "Otros" en resultados (`OTROS_PAGES`), rutas nuevas para mueble de TV / mesa de noche / mesa de centro / bifé-cajonero-perfumero-poltrona-aparador (→ `catalogo-otros.html`); "mesa de noche" y "nochero" dejaron de llevar a alcobas y "poltrona" a salas. 35 piezas agregadas también a `offerPool` (124 en total). 4 páginas nuevas en `sitemap.xml`.

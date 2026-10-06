@@ -14,6 +14,8 @@ web/                      ← todo lo que se publica
   catalogo-salas.html     Catálogo de salas y sofás   (códigos SAL-xx)
   catalogo-comedores.html Catálogo de comedores       (códigos COM-xx)
   catalogo-alcobas.html   Catálogo de alcobas         (códigos ALC-xx)
+  catalogo-otros.html     Selector de "otros muebles" (TV, mesas de noche, mesas de centro + 3 próximamente)
+  catalogo-muebles-tv.html, catalogo-mesas-noche.html, catalogo-mesas-centro.html   (códigos TV-xx, MN-xx, MC-xx)
   search.html             Buscador: lleva directo a la pieza, al filtro o a la sección (ver ROUTES)
   privacidad.html, cookies.html, terminos.html, reembolsos.html   Páginas legales
   404.html                Página de error (enlaces con "/" inicial, se sirve en cualquier ruta)
@@ -59,7 +61,7 @@ Las piezas están en tres lugares porque el sitio no tiene una base de datos ni 
 
 ## Agregar una categoría nueva
 
-Copia uno de los `catalogo-*.html` y cambia el `<title>`, las etiquetas `description`/`canonical`/`og:*` del `<head>`, los botones de filtro, `products`, `tagLabels`, `basePath` y el prefijo de `articleCode`. Después enlázala desde `catalogo.html`, agrégala a `sitemap.xml` y, en `search.html`, agrega su botón de filtro y una entrada en `ROUTES` con sus palabras clave y filtros.
+Copia uno de los `catalogo-*.html` y cambia el `<title>`, las etiquetas `description`/`canonical`/`og:*` del `<head>`, los botones de filtro, `products`, `tagLabels`, `basePath` y el prefijo de `articleCode`. Después enlázala desde `catalogo.html` (o desde `catalogo-otros.html` si es un mueble de "otros"), agrégala a `sitemap.xml` y, en `search.html`, agrega su botón de filtro (o súmala a `OTROS_PAGES`), una entrada en `ROUTES` con sus palabras clave y filtros, y su prefijo en la expresión de códigos de `resolveSearch`.
 
 ## Rendimiento
 
