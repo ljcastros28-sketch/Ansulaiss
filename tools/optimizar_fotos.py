@@ -1,6 +1,6 @@
 """
 Optimiza fotos para el sitio web de Ansulais (convierte a WebP, genera miniaturas y
-graba la marca de agua de Ansulais en el centro de cada foto).
+graba la "A" del logo de Ansulais, sutil, en el centro de cada foto).
 
 Requisito: Python 3 + Pillow  ->  pip install pillow
 
@@ -14,8 +14,8 @@ USO
        <nombre>.webp     -> tamaño completo (lado mayor máx. 1024 px), se usa en el lightbox
        <nombre>-sm.webp  -> miniatura (lado mayor máx. 600 px), se usa en tarjetas,
                             carrusel del home y buscador
-     Las dos versiones llevan la marca de agua (tools/marca_agua.png) grabada en el
-     centro, para que aparezca en cualquier pantallazo o descarga de la foto.
+     Las dos versiones llevan la "A" del logo (tools/marca_agua.png) grabada suave en
+     el centro, para que aparezca en cualquier pantallazo o descarga de la foto.
 
   2) Una foto suelta (hero, portadas de categoría, etc.), sin miniatura:
 
@@ -40,13 +40,14 @@ MAX_MINIATURA = 600   # px, lado mayor de la miniatura de tarjeta
 CALIDAD_COMPLETA = 80
 CALIDAD_MINIATURA = 75
 
-# Marca de agua: forma en tools/marca_agua.png (solo importa su transparencia).
-# Se dibuja en gris oscuro con un halo claro, para que se vea tanto sobre fondo
-# blanco como sobre telas oscuras. Ajusta estos valores si se ve muy fuerte o suave.
+# Marca de agua: la "A" del logo, en tools/marca_agua.png (solo importa su transparencia).
+# Se dibuja en gris oscuro muy suave con un halo claro, para que se intuya tanto sobre
+# fondo blanco como sobre telas oscuras sin afear la foto. Si se ve muy fuerte o suave,
+# ajusta estos valores y vuelve a generar las fotos.
 MARCA = Path(__file__).with_name("marca_agua.png")
-MARCA_ANCHO = 0.46           # proporción del ancho de la foto que ocupa la marca
-MARCA_OPACIDAD = 0.30        # 0 = invisible, 1 = sólida
-MARCA_OPACIDAD_HALO = 0.35
+MARCA_ANCHO = 0.16           # proporción del ancho de la foto que ocupa la marca
+MARCA_OPACIDAD = 0.13        # 0 = invisible, 1 = sólida
+MARCA_OPACIDAD_HALO = 0.10
 
 
 def poner_marca(img):
@@ -55,7 +56,7 @@ def poner_marca(img):
     ancho = round(img.width * MARCA_ANCHO)
     alto = round(forma.height * ancho / forma.width)
     forma = forma.resize((ancho, alto), Image.LANCZOS)
-    grosor = max(3, ancho // 90) | 1  # MaxFilter necesita un tamaño impar
+    grosor = max(3, ancho // 40) | 1  # MaxFilter necesita un tamaño impar
     halo = forma.filter(ImageFilter.MaxFilter(grosor)).filter(ImageFilter.GaussianBlur(grosor / 2))
     pos = ((img.width - ancho) // 2, (img.height - alto) // 2)
     img.paste((255, 255, 255), pos + (pos[0] + ancho, pos[1] + alto), halo.point(lambda v: round(v * MARCA_OPACIDAD_HALO)))
