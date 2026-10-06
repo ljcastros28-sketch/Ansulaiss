@@ -539,7 +539,7 @@
 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width: 900px) {
-    .wrap { padding: 0 24px; }
+    .wrap { padding-left: 24px; padding-right: 24px; } /* solo los lados: no borrar el padding vertical de .legal-hero, .footer-bottom, etc. */
 
     .nav-inner {
       display: grid;
@@ -654,6 +654,19 @@
       padding-bottom: 40px;
     }
   }
+  /* ---------- TABLET VERTICAL (iPad parado: 601–900 px) ----------
+     Más columnas que en celular para no dejar tarjetas gigantes. Va DESPUÉS
+     de los bloques de celular para ganarles en la cascada. */
+  @media (min-width: 601px) and (max-width: 900px) {
+    .wrap { padding-left: 40px; padding-right: 40px; }
+    .quequieres-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .quequieres-card { aspect-ratio: 4 / 5; }
+  }
+
   /* Fotos de producto: se desactiva arrastrarlas y el "mantener presionado → guardar" de iPhone. */
   img { -webkit-user-drag: none; -webkit-touch-callout: none; user-select: none; }
 </style>

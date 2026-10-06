@@ -364,7 +364,7 @@
 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width: 900px) {
-    .wrap { padding: 0 24px; }
+    .wrap { padding-left: 24px; padding-right: 24px; } /* solo los lados: no borrar el padding vertical de .legal-hero, .footer-bottom, etc. */
 
     .nav-inner { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
     .logo { justify-self: center; }
@@ -419,6 +419,14 @@
     .site-footer { padding-top: 56px; }
     .footer-top { grid-template-columns: 1fr; gap: 40px; padding-bottom: 40px; }
   }
+  /* ---------- TABLET VERTICAL (iPad parado: 601–900 px) ----------
+     Más columnas que en celular para no dejar tarjetas gigantes. Va DESPUÉS
+     de los bloques de celular para ganarles en la cascada. */
+  @media (min-width: 601px) and (max-width: 900px) {
+    .wrap { padding-left: 40px; padding-right: 40px; }
+    .search-grid { grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  }
+
   /* Marca sutil: la "A" del logo encima de cada foto de producto. Es una capa
      visual (sale en pantallazos) y NO modifica los archivos de las fotos. */
   .search-card-media::after {

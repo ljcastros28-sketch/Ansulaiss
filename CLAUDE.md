@@ -67,6 +67,14 @@ Archivos de soporte en `web/`: `robots.txt`, `sitemap.xml` (agregar ahí cualqui
 - Animación de aparición al hacer scroll: clase `.reveal` + `IntersectionObserver`, repetido en cada página.
 - Logo: SVG inline (el glyph "A" estilizado), no son imágenes — se repite el mismo `<path>` en header/footer de cada página.
 
+## Puntos de quiebre (responsive)
+
+- **≤ 900 px**: diseño de celular (menú hamburguesa). En catálogos, **≤ 560 px** baja a 2 columnas.
+- **601–900 px (tablet vertical / iPad parado)**: bloque `@media (min-width: 601px) and (max-width: 900px)` que va DESPUÉS del de celular y recupera columnas (home: Nosotros/madera/contacto lado a lado, stats en fila, footer 2 columnas; catálogo de categorías 2×2; catálogos y buscador 3 columnas).
+- **901–1279 px (tablet horizontal / laptop pequeño)**: solo en `index.html`, hero más alto (16:11) y logo al 66 % para que no tape el sofá ni el botón choque con la franja.
+- **≥ 1280 px**: diseño de computador original.
+- Para revisar se usan capturas con Edge headless a 820×1180, 1024×768 y 1180×820 (tamaños de iPad), además de 390 (celular) y 1920 (computador).
+
 ## Catálogo: dónde vive la data
 
 Los productos (nombre inventado + descripción + tag + carpeta de fotos) están **hardcodeados como arrays JS**, duplicados en:
@@ -95,7 +103,8 @@ Fotos de catálogo en: `web/assets/catalogo/{salas,comedores,alcobas}/<carpeta>/
 2. **`overflow-x: auto` sin `overflow-y` explícito**: el navegador computa `overflow-y` como `auto` también, lo que puede atrapar el scroll vertical/táctil dentro de un carrusel horizontal. Usar `overflow-y: hidden` + `touch-action: pan-x` para scroll horizontal puro.
 3. **`aspect-ratio` + `max-height` en el mismo elemento**: compiten entre sí y fuerzan recortes raros con `object-fit: cover`. Usar solo uno de los dos.
 4. **`box-shadow` cortado por `overflow: hidden`** del contenedor que oculta el scroll horizontal de un carrusel: si no hay suficiente padding vertical, se corta la sombra de las tarjetas. Más robusto: quitar el `overflow:hidden` de ese contenedor puntual y dejar que lo maneje un ancestro más grande (ej. `.hero` completo) que no necesita recortar verticalmente.
-5. Antes de dar por "arreglado" un cambio visual reportado por el usuario, recordar que puede ser **caché del navegador/GitHub Pages** mostrando la versión anterior — pedir refresh forzado si el código ya se ve correcto en el archivo.
+5. **Nunca usar el atajo `padding: 0 Xpx` en `.wrap` dentro de un media query**: `.wrap` comparte elemento con otras clases (`wrap legal-hero`, `wrap footer-bottom`, `wrap hero-inner`…) y el atajo borra su padding vertical (así quedaban títulos pegados al menú). Usar `padding-left` / `padding-right`.
+6. Antes de dar por "arreglado" un cambio visual reportado por el usuario, recordar que puede ser **caché del navegador/GitHub Pages** mostrando la versión anterior — pedir refresh forzado si el código ya se ve correcto en el archivo.
 
 ## Historial de cambios
 
@@ -115,3 +124,4 @@ Fotos de catálogo en: `web/assets/catalogo/{salas,comedores,alcobas}/<carpeta>/
 - **2026-10-05** — Marca de agua anti-copia: las 220 fotos del catálogo (completas y miniaturas) regeneradas desde los originales con la marca "A + ANSULAIS + ansulais.com" grabada en el centro. `tools/optimizar_fotos.py` la pone por defecto. En index, catálogo, los 3 catálogos y search se desactivó el menú "guardar imagen", arrastrar fotos y el guardado por presión larga en iPhone. (Los pantallazos no se pueden bloquear desde una web; por eso la marca va dentro de la imagen.)
 - **2026-10-05** — La marca de agua grande (A + ANSULAIS + ansulais.com) se veía fea: se cambió por solo la "A" del logo, pequeña (16 % del ancho) y suave (13 % de opacidad), en el centro. Las 220 fotos regeneradas. Al usuario NO le gustan marcas grandes/visibles; ajustar solo con su visto bueno.
 - **2026-10-05** — Revertida la marca grabada: las 440 imágenes del catálogo vuelven a ser idénticas (byte a byte) a las de antes, y `tools/optimizar_fotos.py` volvió a su versión sin marca. La "A" del logo ahora es una capa CSS encima de las fotos (fichas, lightbox, carrusel del home, buscador), 16 % del ancho, muy suave. Se mantiene el bloqueo de "guardar imagen"/arrastrar.
+- **2026-10-05** — Responsive para iPad: nuevo punto de quiebre de tablet vertical (601–900 px) en home, catálogo, los 3 catálogos y buscador, y de tablet horizontal (901–1279 px) en el hero del home. Corregido en las 10 páginas el `.wrap { padding: 0 24px }` de celular que borraba el espacio superior de los títulos legales y del pie de página.

@@ -1245,7 +1245,7 @@
 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width: 900px) {
-    .wrap { padding: 0 24px; }
+    .wrap { padding-left: 24px; padding-right: 24px; } /* solo los lados: no borrar el padding vertical de .legal-hero, .footer-bottom, etc. */
 
 
     .nav-inner {
@@ -1531,6 +1531,117 @@
     }
 
   }
+
+  /* ---------- TABLET VERTICAL (iPad parado: 601–900 px) ----------
+     Parte del diseño de celular (menú hamburguesa, foto vertical del hero) pero
+     recupera las columnas de computador, que en celular se apilan y en un iPad
+     dejan fotos gigantes y mucho espacio vacío. Va DESPUÉS del bloque de celular
+     para ganarle en la cascada. */
+  @media (min-width: 601px) and (max-width: 900px) {
+    .wrap { padding-left: 40px; padding-right: 40px; }
+
+    .hero { aspect-ratio: 4 / 5; }
+
+    .hero-tagline { font-size: 22px; }
+
+    .hero-desc {
+      display: block;
+      max-width: 420px;
+      font-size: 15px;
+    }
+
+    .quequieres-title,
+    .quequieres-scroll-outer { padding: 0 40px; }
+
+    .quequieres-item { width: 230px; }
+
+    .quequieres-item-label { font-size: 13px; }
+
+    .nosotros-card { padding: 40px; }
+
+    .nosotros-card-inner {
+      flex-direction: row;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nosotros-card-media {
+      flex: 0 0 42%;
+      width: auto;
+    }
+
+    .nosotros-card-stats {
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .material-feature {
+      flex-direction: row;
+      align-items: center;
+      gap: 32px;
+      padding: 32px;
+    }
+
+    .material-feature-media {
+      flex: 0 0 44%;
+      width: auto;
+    }
+
+    .material-foam { padding: 32px; }
+
+    .nosotros-video-feature { height: 70vw; }
+
+    .nosotros-video-feature-text {
+      font-size: 1.8rem;
+      padding: 0 56px;
+    }
+
+    .nosotros-cta { flex-direction: row; }
+
+    .nosotros-cta-item { width: auto; }
+
+    .contacto-card { padding: 40px; }
+
+    .contacto-grid {
+      flex-direction: row;
+      gap: 40px;
+    }
+
+    .contacto-buttons,
+    .contacto-info { flex: 1 1 0; }
+
+    .footer-top {
+      grid-template-columns: 1fr 1fr;
+      gap: 40px 48px;
+    }
+
+    .footer-brand { grid-column: 1 / -1; }
+  }
+
+  /* ---------- TABLET HORIZONTAL / LAPTOP PEQUEÑO (901–1279 px) ----------
+     El hero de computador (16:9) queda muy bajo: el logo tapa el sofá y el botón
+     "Ver catálogo" se monta sobre la franja de datos. Aquí el hero es más alto y
+     el logo más angosto, para que todo quepa a la derecha del sofá. */
+  @media (min-width: 901px) and (max-width: 1279px) {
+    .wrap { padding-left: 40px; padding-right: 40px; }
+
+    .hero { aspect-ratio: 16 / 11; }
+
+    h1.hero-logo { max-width: 66%; }
+
+    .hero-tagline { font-size: 23px; }
+
+    .hero-desc {
+      max-width: 400px;
+      font-size: 15px;
+    }
+
+    .material-feature-media { flex-basis: 40%; }
+
+    .contacto-grid { gap: 40px; }
+  }
+
   /* Marca sutil: la "A" del logo encima de cada foto de producto. Es una capa
      visual (sale en pantallazos) y NO modifica los archivos de las fotos. */
   .quequieres-item::after {

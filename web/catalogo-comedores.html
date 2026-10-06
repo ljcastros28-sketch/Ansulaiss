@@ -751,7 +751,7 @@
 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width: 900px) {
-    .wrap { padding: 0 24px; }
+    .wrap { padding-left: 24px; padding-right: 24px; } /* solo los lados: no borrar el padding vertical de .legal-hero, .footer-bottom, etc. */
 
     .nav-inner {
       display: grid;
@@ -866,6 +866,17 @@
   @media (max-width: 560px) {
     .catalog-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   }
+  /* ---------- TABLET VERTICAL (iPad parado: 601–900 px) ----------
+     Más columnas que en celular para no dejar tarjetas gigantes. Va DESPUÉS
+     de los bloques de celular para ganarles en la cascada. */
+  @media (min-width: 601px) and (max-width: 900px) {
+    .wrap { padding-left: 40px; padding-right: 40px; }
+    .catalog-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+  }
+
   /* Marca sutil: la "A" del logo encima de cada foto de producto. Es una capa
      visual (sale en pantallazos) y NO modifica los archivos de las fotos. */
   .product-card-media::after,
