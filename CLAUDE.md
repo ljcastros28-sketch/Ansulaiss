@@ -31,8 +31,8 @@ Workflow típico de cada cambio:
 |---|---|
 | `index.html` | Home: hero (foto `sofa123.webp`/`sofa123_9-16.webp` de fondo), franja de datos animada (marquee de vidrio sobre el hero), "Descubre nuestra colección" (antes "¿Qué ofrecemos?"; carrusel `.quequieres` horizontal con flechas en desktop / swipe en móvil), Nosotros, materiales (madera + espuma Espumados), Contacto |
 | `catalogo.html` | Selector de categorías ("¿Qué buscas el día de hoy?") → enlaza a los tres catálogos reales (comedores, salas, alcobas); "otros" sigue "próximamente" |
-| `catalogo-salas.html` | Catálogo de salas/sofás — 35 piezas, con filtros y lightbox |
-| `catalogo-comedores.html` | Catálogo de comedores — 24 piezas, con filtros y lightbox |
+| `catalogo-salas.html` | Catálogo de salas/sofás — 39 piezas, con filtros y lightbox |
+| `catalogo-comedores.html` | Catálogo de comedores — 25 piezas, con filtros y lightbox |
 | `catalogo-alcobas.html` | Catálogo de alcobas/camas — 25 piezas (códigos `ALC-xx`), filtros: Cabecero extendido / Clásicas / Nido y cajones, con lightbox. Faltan fotos de más piezas: se irán agregando |
 | `search.html` | Buscador "directo": en vez de listar opciones, lleva a la pieza (por nombre o código `SAL-05`), al catálogo con el filtro puesto ("sofá cama", "comedor redondo", "cama nido") o a la sección ("horario" → contacto, "garantía" → reembolsos). Solo lista resultados cuando de verdad hay varias piezas posibles ("botones", "comedor 6 puestos"). Palabras clave en el array `ROUTES` |
 | `privacidad.html` | Política de tratamiento de datos (Ley 1581 de 2012, Colombia) |
@@ -90,11 +90,11 @@ Archivos de soporte en `web/`: `robots.txt`, `sitemap.xml` (agregar ahí cualqui
 ## Catálogo: dónde vive la data
 
 Los productos (nombre inventado + descripción + tag + carpeta de fotos) están **hardcodeados como arrays JS**, duplicados en:
-- `catalogo-salas.html` (35 piezas, con `desc` completo para el lightbox)
-- `catalogo-comedores.html` (24 piezas, con `desc` completo para el lightbox)
+- `catalogo-salas.html` (39 piezas, con `desc` completo para el lightbox)
+- `catalogo-comedores.html` (25 piezas, con `desc` completo para el lightbox)
 - `catalogo-alcobas.html` (25 piezas, con `desc` completo para el lightbox)
-- `index.html` → array `offerPool` (las mismas 84 piezas combinadas, solo nombre/href/img, para el carrusel "Descubre nuestra colección")
-- `search.html` → array `catalog` (las mismas 84, con `cat`, `filtro` = `tag` del catálogo y `desc` copiada del catálogo, porque el buscador también busca en la descripción)
+- `index.html` → array `offerPool` (las mismas 89 piezas combinadas, solo nombre/href/img, para el carrusel "Descubre nuestra colección")
+- `search.html` → array `catalog` (las mismas 89, con `cat`, `filtro` = `tag` del catálogo y `desc` copiada del catálogo, porque el buscador también busca en la descripción)
 
 **Si se agrega o quita una pieza del catálogo, hay que actualizar los 3 lugares donde está duplicada la lista** (no hay una sola fuente de verdad, es intencional por ser sitio estático sin build).
 
@@ -117,6 +117,7 @@ Fotos de catálogo en: `web/assets/catalogo/{salas,comedores,alcobas}/<carpeta>/
 4. **`box-shadow` cortado por `overflow: hidden`** del contenedor que oculta el scroll horizontal de un carrusel: si no hay suficiente padding vertical, se corta la sombra de las tarjetas. Más robusto: quitar el `overflow:hidden` de ese contenedor puntual y dejar que lo maneje un ancestro más grande (ej. `.hero` completo) que no necesita recortar verticalmente.
 5. **Nunca usar el atajo `padding: 0 Xpx` en `.wrap` dentro de un media query**: `.wrap` comparte elemento con otras clases (`wrap legal-hero`, `wrap footer-bottom`, `wrap hero-inner`…) y el atajo borra su padding vertical (así quedaban títulos pegados al menú). Usar `padding-left` / `padding-right`.
 6. Antes de dar por "arreglado" un cambio visual reportado por el usuario, recordar que puede ser **caché del navegador/GitHub Pages** mostrando la versión anterior — pedir refresh forzado si el código ya se ve correcto en el archivo.
+7. **Al agregar piezas en `offerPool` (index) y `catalog` (search), la última sala y el último comedor NO son el final del array** (después vienen comedores y alcobas). Si se inserta después de esa línea hay que cuidar las comas: la línea anterior ya termina en `},` y la última pieza nueva necesita su propia `,`. Después de cada cambio, abrir `search.html` e `index.html` y revisar la consola (un `Unexpected token '{'` deja el buscador vacío).
 
 ## Historial de cambios
 
@@ -148,3 +149,4 @@ Fotos de catálogo en: `web/assets/catalogo/{salas,comedores,alcobas}/<carpeta>/
 - **2026-10-06** — Resultados de Google: los títulos de las 11 páginas pasan de "X — Ansulais" a "X | Ansulais" (la raya larga se veía "de IA"); quitadas también las rayas largas del texto de Privacidad y Cambios y devoluciones. Ícono nuevo cuadrado (fondo beige + "A" oscura, igual que apple-touch-icon) en `favicon.ico`, `favicon.svg` y `favicon-192.png`; el SVG viejo pasó a `material/marca/logosimplificado_favicon-viejo.svg`. **No usar "—" en textos nuevos del sitio.** El usuario activó "Enforce HTTPS" en GitHub → Settings → Pages: `http://` y `www` redirigen (301) a `https://ansulais.com/`.
 - **2026-10-06** — Título del home (y `og:title`) cambiado a "Ansulais | Muebles de madera y tapizados en Bogotá" para que Google lo relacione con búsquedas de muebles en Bogotá. "Comodidad para tu hogar" sigue como lema en el hero.
 - **2026-10-06** — `sitemap.xml`: `lastmod` de las 9 páginas actualizado a 2026-10-06 (cambiaron títulos, textos y catálogo).
+- **2026-10-06** — 4 sofás nuevos (SAL-36 Sofá Ceiba `sofaestructuramadera1`, SAL-37 Sofá Raíz `sofamadera2`, SAL-38 Sofá Arrayán `sofamadera3_brazoscurvos`, SAL-39 Sofá Samán `sofamaderacurvo`, todos filtro Sofás) y 1 comedor (COM-25 Comedor Pilar `comedoresquinascurvas`, filtro Clásicos; la foto `comedor 1` se publicó como `comedor1` sin espacio), en los 3 lugares. Total: 89 piezas.
