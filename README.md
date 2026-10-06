@@ -19,6 +19,7 @@ web/                      ← todo lo que se publica
   404.html                Página de error (enlaces con "/" inicial, se sirve en cualquier ruta)
   robots.txt, sitemap.xml Para buscadores. Agrega al sitemap cualquier página nueva
   apple-touch-icon.png    Ícono al guardar el sitio en el celular
+  favicon.ico, favicon.svg, favicon-192.png   Ícono de la pestaña y de Google (cuadrado)
   assets/
     catalogo/<categoria>/<pieza>/<foto>.webp      foto completa (lightbox)
     catalogo/<categoria>/<pieza>/<foto>-sm.webp   miniatura (tarjetas, carrusel, buscador)
