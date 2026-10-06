@@ -646,8 +646,11 @@
     gap: 18px;
     overflow-x: auto;
     overflow-y: hidden;
-    touch-action: pan-x;
-    overscroll-behavior-y: contain;
+    /* pan-x pan-y: el dedo mueve el carrusel de lado y la página hacia abajo.
+       overscroll-x: al llegar al final del carrusel no "regresa" de página en el celular.
+       No usar overscroll-behavior-y aquí: atrapa la rueda del mouse y la página no baja. */
+    touch-action: pan-x pan-y;
+    overscroll-behavior-x: contain;
     scroll-snap-type: x proximity;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
