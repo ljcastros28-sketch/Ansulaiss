@@ -21,7 +21,7 @@ Workflow típico de cada cambio:
 
 | Archivo | Qué es |
 |---|---|
-| `index.html` | Home: hero (foto `sofa123.jpg`/`sofa123_9-16.jpg` de fondo), franja de datos animada (marquee de vidrio sobre el hero), "¿Qué ofrecemos?" (carrusel horizontal con flechas en desktop / swipe en móvil), Nosotros, materiales (madera + espuma Espumados), Contacto |
+| `index.html` | Home: hero (foto `sofa123.jpg`/`sofa123_9-16.jpg` de fondo), franja de datos animada (marquee de vidrio sobre el hero), "Descubre nuestra colección" (antes "¿Qué ofrecemos?"; carrusel `.quequieres` horizontal con flechas en desktop / swipe en móvil), Nosotros, materiales (madera + espuma Espumados), Contacto |
 | `catalogo.html` | Selector de categorías ("¿Qué buscas el día de hoy?") → enlaza a los tres catálogos reales (comedores, salas, alcobas); "otros" sigue "próximamente" |
 | `catalogo-salas.html` | Catálogo de salas/sofás — 35 piezas, con filtros y lightbox |
 | `catalogo-comedores.html` | Catálogo de comedores — 24 piezas, con filtros y lightbox |
@@ -84,7 +84,7 @@ Los productos (nombre inventado + descripción + tag + carpeta de fotos) están 
 - `catalogo-salas.html` (35 piezas, con `desc` completo para el lightbox)
 - `catalogo-comedores.html` (24 piezas, con `desc` completo para el lightbox)
 - `catalogo-alcobas.html` (21 piezas, con `desc` completo para el lightbox)
-- `index.html` → array `offerPool` (las mismas 80 piezas combinadas, solo nombre/href/img, para el carrusel "¿Qué ofrecemos?")
+- `index.html` → array `offerPool` (las mismas 80 piezas combinadas, solo nombre/href/img, para el carrusel "Descubre nuestra colección")
 - `search.html` → array `catalog` (las mismas 80, con `cat`, `filtro` = `tag` del catálogo y `desc` copiada del catálogo, porque el buscador también busca en la descripción)
 
 **Si se agrega o quita una pieza del catálogo, hay que actualizar los 3 lugares donde está duplicada la lista** (no hay una sola fuente de verdad, es intencional por ser sitio estático sin build).
@@ -131,3 +131,4 @@ Fotos de catálogo en: `web/assets/catalogo/{salas,comedores,alcobas}/<carpeta>/
 - **2026-10-05** — 8 alcobas nuevas (ALC-14 a ALC-21: Cama Nido Trigo, Alcoba Arcilla, Nácar, Prisma, Marco, Marfil, Canela, Junco) desde `alcobas_fondoblanco/`, agregadas a los 3 lugares (catálogo, `offerPool`, `catalog` de search). La carpeta `espaldargeométrico` se publicó sin tilde (`espaldargeometrico`). Las tarjetas dicen "1 foto" en singular y el lightbox oculta las flechas si la pieza tiene una sola foto.
 - **2026-10-06** — NIT sin dígito de verificación (900963049) en las 10 páginas y el JSON-LD. Garantía de 1 año en Términos y Cambios y devoluciones; nueva sección de transporte e instalación en Términos. Páginas legales en celular: el menú (Inicio/Catálogo/Contacto) ya no se oculta, texto y títulos más cómodos, tabla de Cookies como tarjeta y los links del pie de página, que salían negros sobre negro, ahora se ven (también en computador).
 - **2026-10-06** — Términos: anticipo mínimo 30 %, entrega en 20 días calendario, bodegaje tras 5 días hábiles, Bogotá = solo Bogotá D.C. Cambios y devoluciones: sin garantía sobre materiales del cliente, nueva sección 6 de cuidados del mueble (secciones siguientes renumeradas a 7–9).
+- **2026-10-06** — Home: el carrusel "¿Qué ofrecemos?" pasa a "Nuestros modelos / Descubre nuestra colección" con una frase debajo, y "Nosotros" pasa a etiqueta pequeña con el título "Tradición familiar, hecha a mano" (el ancla `#nosotros` y los links del menú siguen igual). Nueva clase `.section-eyebrow` para esas etiquetas.

@@ -597,15 +597,40 @@
     overflow: hidden;
   }
 
-  .quequieres-title {
-    color: var(--beige-light);
-    font-size: clamp(2.6rem, 6.5vw, 5.6rem);
+  /* Etiqueta pequeña sobre los títulos de sección (home) */
+  .section-eyebrow {
+    display: inline-block;
+    margin-bottom: 14px;
+    font-size: 13px;
     font-weight: 700;
-    letter-spacing: -0.01em;
-    line-height: 1.12;
-    max-width: 950px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .quequieres-head {
+    max-width: 1200px;
     margin: 0 auto 40px;
     padding: 0 48px;
+    text-align: center;
+  }
+
+  .quequieres-head .section-eyebrow { color: rgba(253, 248, 236, 0.6); }
+
+  .quequieres-title {
+    color: var(--beige-light);
+    font-size: clamp(2.4rem, 5.2vw, 4.6rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .quequieres-sub {
+    max-width: 620px;
+    margin: 0 auto;
+    font-size: clamp(1rem, 1.4vw, 1.15rem);
+    line-height: 1.6;
+    color: rgba(253, 248, 236, 0.7);
   }
 
   .quequieres-scroll-outer {
@@ -739,12 +764,14 @@
     padding-top: 64px;
   }
 
+  .nosotros-intro .section-eyebrow { color: var(--wood); }
+
   .nosotros-intro-title {
     color: var(--maroon);
-    font-size: clamp(3rem, 9vw, 8rem);
+    font-size: clamp(2.6rem, 7vw, 6.4rem);
     font-weight: 800;
     letter-spacing: -0.03em;
-    line-height: 1;
+    line-height: 1.02;
   }
 
   .nosotros-lead {
@@ -1385,11 +1412,16 @@
       padding: 44px 0 52px;
     }
 
-    .quequieres-title {
-      font-size: 2.1rem;
-      margin-bottom: 22px;
+    .quequieres-head {
+      margin-bottom: 26px;
       padding: 0 24px;
     }
+
+    .quequieres-title { font-size: 2.1rem; }
+
+    .quequieres-sub { font-size: 15px; }
+
+    .section-eyebrow { font-size: 12px; margin-bottom: 10px; }
 
     .quequieres-scroll-outer {
       padding: 0 24px;
@@ -1550,7 +1582,7 @@
       font-size: 15px;
     }
 
-    .quequieres-title,
+    .quequieres-head,
     .quequieres-scroll-outer { padding: 0 40px; }
 
     .quequieres-item { width: 230px; }
@@ -1828,7 +1860,11 @@
   </section>
 
   <section class="quequieres">
-    <h2 class="quequieres-title reveal">¿Qué ofrecemos?</h2>
+    <div class="quequieres-head reveal">
+      <span class="section-eyebrow">Nuestros modelos</span>
+      <h2 class="quequieres-title">Descubre nuestra colección</h2>
+      <p class="quequieres-sub">Salas, comedores y alcobas fabricados sobre pedido, con la medida, la tela y el acabado que tú elijas.</p>
+    </div>
     <div class="quequieres-scroll-outer">
       <button class="quequieres-arrow quequieres-arrow-prev" type="button" aria-label="Ver anteriores">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
@@ -1843,7 +1879,8 @@
   <section class="nosotros" id="nosotros">
 
     <div class="wrap nosotros-intro">
-      <h2 class="nosotros-intro-title reveal">Nosotros</h2>
+      <span class="section-eyebrow reveal">Nosotros</span>
+      <h2 class="nosotros-intro-title reveal">Tradición familiar,<br> hecha a mano</h2>
     </div>
 
     <div class="wrap nosotros-lead reveal">
