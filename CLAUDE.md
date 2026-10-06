@@ -33,7 +33,7 @@ Workflow típico de cada cambio:
 | `catalogo.html` | Selector de categorías ("¿Qué buscas el día de hoy?") → enlaza a los tres catálogos reales (comedores, salas, alcobas); "otros" sigue "próximamente" |
 | `catalogo-salas.html` | Catálogo de salas/sofás — 35 piezas, con filtros y lightbox |
 | `catalogo-comedores.html` | Catálogo de comedores — 24 piezas, con filtros y lightbox |
-| `catalogo-alcobas.html` | Catálogo de alcobas/camas — 21 piezas (códigos `ALC-xx`), filtros: Cabecero extendido / Clásicas / Nido y cajones, con lightbox. Faltan fotos de más piezas: se irán agregando |
+| `catalogo-alcobas.html` | Catálogo de alcobas/camas — 25 piezas (códigos `ALC-xx`), filtros: Cabecero extendido / Clásicas / Nido y cajones, con lightbox. Faltan fotos de más piezas: se irán agregando |
 | `search.html` | Buscador "directo": en vez de listar opciones, lleva a la pieza (por nombre o código `SAL-05`), al catálogo con el filtro puesto ("sofá cama", "comedor redondo", "cama nido") o a la sección ("horario" → contacto, "garantía" → reembolsos). Solo lista resultados cuando de verdad hay varias piezas posibles ("botones", "comedor 6 puestos"). Palabras clave en el array `ROUTES` |
 | `privacidad.html` | Política de tratamiento de datos (Ley 1581 de 2012, Colombia) |
 | `cookies.html` | Política de cookies (el sitio NO usa analítica/tracking, solo Google Fonts + una preferencia local de "ya viste el aviso") |
@@ -92,9 +92,9 @@ Archivos de soporte en `web/`: `robots.txt`, `sitemap.xml` (agregar ahí cualqui
 Los productos (nombre inventado + descripción + tag + carpeta de fotos) están **hardcodeados como arrays JS**, duplicados en:
 - `catalogo-salas.html` (35 piezas, con `desc` completo para el lightbox)
 - `catalogo-comedores.html` (24 piezas, con `desc` completo para el lightbox)
-- `catalogo-alcobas.html` (21 piezas, con `desc` completo para el lightbox)
-- `index.html` → array `offerPool` (las mismas 80 piezas combinadas, solo nombre/href/img, para el carrusel "Descubre nuestra colección")
-- `search.html` → array `catalog` (las mismas 80, con `cat`, `filtro` = `tag` del catálogo y `desc` copiada del catálogo, porque el buscador también busca en la descripción)
+- `catalogo-alcobas.html` (25 piezas, con `desc` completo para el lightbox)
+- `index.html` → array `offerPool` (las mismas 84 piezas combinadas, solo nombre/href/img, para el carrusel "Descubre nuestra colección")
+- `search.html` → array `catalog` (las mismas 84, con `cat`, `filtro` = `tag` del catálogo y `desc` copiada del catálogo, porque el buscador también busca en la descripción)
 
 **Si se agrega o quita una pieza del catálogo, hay que actualizar los 3 lugares donde está duplicada la lista** (no hay una sola fuente de verdad, es intencional por ser sitio estático sin build).
 
@@ -144,3 +144,4 @@ Fotos de catálogo en: `web/assets/catalogo/{salas,comedores,alcobas}/<carpeta>/
 - **2026-10-06** — Arreglado el carrusel del home: con el mouse o el dedo encima de las fotos la página no bajaba (`overscroll-behavior-y: contain` + `touch-action: pan-x`). Ahora baja normal y el carrusel sigue moviéndose de lado con flechas, trackpad o deslizando.
 - **2026-10-06** — Home, sección Nosotros: la tarjeta blanca con la línea divisoria se reemplazó por una cuadrícula "bento" (`.nosotros-bento`, 4×3 en escritorio, 2 columnas en ≤900 px) con fotos (`nosotros_silla.webp` —referencia de internet de una silla que el usuario ya fabricó—, `nosotros_almacen.webp` desde `nosotros/almacen1.jpeg`, y `nosotros_lijado.webp`), texto de empresa familiar y las cifras +30 / +1000 / 100 %. Se quitaron las etiquetas "NOSOTROS" y "NUESTROS MODELOS". Textos del home reescritos en tono más natural; la franja y el video ya no prometen instalación siempre ("Instalación en tu casa" / "cuando el mueble va con nuestro transporte, la instalación está incluida"), acorde con Términos §5.
 - **2026-10-06** — Limpieza y orden: la raíz del repo queda solo con `web/` (lo que usa la página), `material/` (todo lo demás: 512 archivos, ~1 GB, incluidos los 229 `.jpg` originales que estaban dentro de `web/assets/`), `tools/` y la documentación. Código: quitada la variable `--navy` sin uso de las 10 páginas, estilos muertos (`.menu-toggle` en privacidad, `a.is-featured` en search, `.reveal-delay-3` en index) y la cursiva de Montserrat que se pedía a Google Fonts sin usarse. `quercus-petraeaarbol.webp` de 194 a 123 KB (880 px, que es el doble de lo que se muestra).
+- **2026-10-06** — 4 alcobas nuevas desde `material/fotos-catalogo/alcobas_fondoblanco/`: ALC-22 Alcoba Abedul (`camacajones_lineaspintadas`), ALC-23 Cama Cuna Nogal (`camacuna`, cat "Cama cuna" en search), ALC-24 Alcoba Coral (`camacurvasesquinas_cajones`), ALC-25 Alcoba Serena (`clasicaclasica`), en los 3 lugares. Alcoba Prisma (ALC-17) pasa de 1 a 3 fotos y su foto principal se cambió por la nueva del usuario (fondo beige). Buscador: en texto libre una palabra exacta o de la misma raíz vale 1 y un error de tipeo 0.8, para que "cuna" no empate con "Duna"/"Luna" (se comprobó que otras 29 búsquedas dan lo mismo que antes).

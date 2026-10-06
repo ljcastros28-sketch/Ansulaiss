@@ -760,7 +760,11 @@
       { name: "Alcoba Marco", desc: "Cabecero tapizado capitoneado dentro de un marco de madera, base sobre patas y mesas de noche de dos cajones con patas abiertas.", tag: "catalogo-alcobas.html", filtro: "clasicas", cat: "Alcoba", img: "assets/catalogo/alcobas/espaldarmarcotapizado/cama1-sm.webp" },
       { name: "Alcoba Marfil", desc: "Estructura en madera decapé con paneles tapizados en gris en el cabecero, patas robustas y mesas de noche en tono oscuro con cubierta clara.", tag: "catalogo-alcobas.html", filtro: "clasicas", cat: "Alcoba", img: "assets/catalogo/alcobas/espaldartapizadodecape/cama1-sm.webp" },
       { name: "Alcoba Canela", desc: "Cabecero en madera de tono medio con panel tapizado claro de líneas verticales, base tipo plataforma y mesas de noche de dos cajones.", tag: "catalogo-alcobas.html", filtro: "clasicas", cat: "Alcoba", img: "assets/catalogo/alcobas/espaldartapizadolineas/cama1-sm.webp" },
-      { name: "Alcoba Junco", desc: "Cabecero extendido con listones verticales, repisas abiertas a los lados, panel central tapizado y mesas de noche flotantes de un cajón.", tag: "catalogo-alcobas.html", filtro: "tableros", cat: "Alcoba", img: "assets/catalogo/alcobas/tableroextendidopalitos/cama1-sm.webp" }
+      { name: "Alcoba Junco", desc: "Cabecero extendido con listones verticales, repisas abiertas a los lados, panel central tapizado y mesas de noche flotantes de un cajón.", tag: "catalogo-alcobas.html", filtro: "tableros", cat: "Alcoba", img: "assets/catalogo/alcobas/tableroextendidopalitos/cama1-sm.webp" },
+      { name: "Alcoba Abedul", desc: "Cabecero de listones horizontales en madera clara y base con cajones de almacenamiento en los costados.", tag: "catalogo-alcobas.html", filtro: "nido", cat: "Alcoba", img: "assets/catalogo/alcobas/camacajones_lineaspintadas/cama1-sm.webp" },
+      { name: "Cama Cuna Nogal", desc: "Cama sencilla en madera oscura con baranda tipo cuna para los más pequeños y cama auxiliar deslizante en la base.", tag: "catalogo-alcobas.html", filtro: "nido", cat: "Cama cuna", img: "assets/catalogo/alcobas/camacuna/cama1-sm.webp" },
+      { name: "Alcoba Coral", desc: "Cabecero y piecero en madera con esquinas redondeadas y cajones de almacenamiento en la base.", tag: "catalogo-alcobas.html", filtro: "nido", cat: "Alcoba", img: "assets/catalogo/alcobas/camacurvasesquinas_cajones/cama-sm.webp" },
+      { name: "Alcoba Serena", desc: "Cabecero liso en madera clara, base sobre patas y mesas de noche flotantes de un cajón.", tag: "catalogo-alcobas.html", filtro: "clasicas", cat: "Alcoba", img: "assets/catalogo/alcobas/clasicaclasica/cama1-sm.webp" }
     ];
 
     // ---------- Buscador ----------
@@ -939,12 +943,17 @@
       var bestScore = 0;
       var scored = items.map(function (item) {
         var score = 0;
+        // Cada palabra suma lo que vale su mejor coincidencia: 1 si es exacta o de la misma
+        // raíz ("made" -> madera, "capitoneado" -> capitoné), 0.8 si es un error de tipeo.
+        // Así "cuna" lleva a la Cama Cuna y no empata con "Duna" o "Luna".
         tokens.forEach(function (t) {
-          var hit = item.words.some(function (w) {
-            // también por raíz común: "made" -> madera, "capitoneado" -> capitoné
-            return wordMatch(t, w) > 0 || (t.length >= 4 && w.indexOf(t) === 0) || (w.length >= 6 && t.indexOf(w) === 0);
+          var best = 0;
+          item.words.forEach(function (w) {
+            var sameRoot = t === w || (t.length >= 4 && w.indexOf(t) === 0) || (w.length >= 6 && t.indexOf(w) === 0);
+            var m = sameRoot ? 1 : wordMatch(t, w);
+            if (m > best) best = m;
           });
-          if (hit) score++;
+          score += best;
         });
         if (score > bestScore) bestScore = score;
         return { item: item, score: score };
