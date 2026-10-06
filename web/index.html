@@ -597,24 +597,12 @@
     overflow: hidden;
   }
 
-  /* Etiqueta pequeña sobre los títulos de sección (home) */
-  .section-eyebrow {
-    display: inline-block;
-    margin-bottom: 14px;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-  }
-
   .quequieres-head {
     max-width: 1200px;
     margin: 0 auto 40px;
     padding: 0 48px;
     text-align: center;
   }
-
-  .quequieres-head .section-eyebrow { color: rgba(253, 248, 236, 0.6); }
 
   .quequieres-title {
     color: var(--beige-light);
@@ -767,8 +755,6 @@
     padding-top: 64px;
   }
 
-  .nosotros-intro .section-eyebrow { color: var(--wood); }
-
   .nosotros-intro-title {
     color: var(--maroon);
     font-size: clamp(2.6rem, 7vw, 6.4rem);
@@ -802,85 +788,136 @@
     font-weight: 700;
   }
 
-  .nosotros-card {
-    background: #fff;
-    border-radius: 28px;
-    padding: 56px;
-    margin: 60px 0 110px;
-    box-shadow: 0 30px 60px -35px rgba(26, 26, 26, 0.3);
+  /* Nosotros: cuadrícula "bento" de fotos, texto y cifras.
+     Escritorio: 4 columnas × 3 filas, cada pieza ubicada a mano con grid-column / grid-row.
+     Celular y tablet (≤ 900 px): 2 columnas en el orden del HTML. */
+  .nosotros-bento {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: minmax(250px, auto);
+    gap: 18px;
+    margin: 50px 0 110px;
   }
 
-  .nosotros-card-inner {
+  .bento-tile {
+    position: relative;
+    overflow: hidden;
+    border-radius: 24px;
+    margin: 0;
+  }
+
+  .bento-text {
+    grid-column: 2 / 4;
+    grid-row: 1;
     display: flex;
-    align-items: center;
-    gap: 48px;
-    margin-bottom: 56px;
-    padding-bottom: 56px;
-    border-bottom: 1px solid rgba(26, 26, 26, 0.08);
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px;
+    background: #fff;
+    box-shadow: 0 30px 60px -40px rgba(26, 26, 26, 0.35);
   }
 
-  .nosotros-card-media {
-    flex: 0 0 260px;
-  }
-
-  .nosotros-card-media img {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
-    display: block;
-    border-radius: 16px;
-  }
-
-  .nosotros-card-text p {
-    font-size: clamp(1.1rem, 1.7vw, 1.4rem);
+  .bento-text p {
+    font-size: clamp(1.1rem, 1.5vw, 1.35rem);
     line-height: 1.45;
-    color: var(--ink);
-    opacity: 0.85;
+    color: rgba(36, 26, 18, 0.85);
   }
 
-  .nosotros-card-text strong {
+  .bento-text strong {
     font-weight: 700;
     color: var(--maroon);
-    opacity: 1;
   }
 
-  .nosotros-card-stats {
+  .bento-photo img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+
+  .bento-photo:hover img { transform: scale(1.04); }
+
+  .bento-photo figcaption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 60px 24px 22px;
+    background: linear-gradient(to top, rgba(15, 15, 15, 0.82), rgba(15, 15, 15, 0));
+    color: var(--beige-light);
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .bento-photo figcaption strong {
+    display: block;
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .bento-taller { grid-column: 1; grid-row: 1 / 3; }
+  .bento-almacen { grid-column: 4; grid-row: 1 / 3; }
+  .bento-lijado { grid-column: 1 / 3; grid-row: 3; }
+  .bento-lijado img { object-position: 50% 12%; }
+  .bento-stat-30 { grid-column: 2; grid-row: 2; }
+  .bento-stat-1000 { grid-column: 3; grid-row: 2; }
+  .bento-stat-100 { grid-column: 3 / 5; grid-row: 3; }
+
+  .bento-stat {
     display: flex;
-    gap: 56px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 32px;
   }
 
-  .nosotros-card-stat {
-    flex: 1;
-    min-width: 170px;
-  }
-
-  .nosotros-card-stat-number {
+  .bento-stat-number {
     display: flex;
     align-items: baseline;
     gap: 3px;
-    font-size: clamp(2.6rem, 5vw, 3.8rem);
+    font-size: clamp(3rem, 4.6vw, 4.6rem);
     font-weight: 800;
-    color: var(--maroon);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
     line-height: 1;
-    margin-bottom: 12px;
   }
 
-  .nosotros-card-stat-number .symbol {
+  .bento-stat-number .symbol {
     font-weight: 400;
-    font-size: 0.55em;
+    font-size: 0.5em;
   }
 
-  .nosotros-card-stat-label {
-    display: block;
+  .bento-stat-label {
     font-size: 15px;
-    color: var(--ink);
-    opacity: 0.65;
-    max-width: 200px;
-    line-height: 1.35;
+    line-height: 1.4;
+    max-width: 260px;
   }
+
+  .bento-stat-label strong {
+    display: block;
+    font-size: 17px;
+    margin-bottom: 4px;
+  }
+
+  .bento-stat-dark { background: var(--maroon-deep); color: var(--beige-light); }
+  .bento-stat-dark .bento-stat-label { opacity: 0.7; }
+  .bento-stat-wood { background: var(--wood); color: var(--beige-light); }
+  .bento-stat-wood .bento-stat-label { opacity: 0.85; }
+  .bento-stat-light {
+    background: #fff;
+    color: var(--maroon);
+    box-shadow: 0 30px 60px -40px rgba(26, 26, 26, 0.35);
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 36px;
+    padding: 32px 40px;
+  }
+  .bento-stat-light .bento-stat-number { font-size: clamp(3.6rem, 6vw, 6rem); }
+  .bento-stat-light .bento-stat-label { color: rgba(36, 26, 18, 0.75); }
 
   .materiales {
     margin: 0 0 110px;
@@ -1424,8 +1461,6 @@
 
     .quequieres-sub { font-size: 15px; }
 
-    .section-eyebrow { font-size: 12px; margin-bottom: 10px; }
-
     .quequieres-scroll-outer {
       padding: 0 24px;
     }
@@ -1459,29 +1494,30 @@
       padding-bottom: 30px;
     }
 
-    .nosotros-card {
-      padding: 32px 24px;
+    .nosotros-bento {
+      grid-template-columns: 1fr 1fr;
+      grid-auto-rows: auto;
+      gap: 12px;
       margin: 30px 0 60px;
-      border-radius: 20px;
     }
 
-    .nosotros-card-inner {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 24px;
-      margin-bottom: 32px;
-      padding-bottom: 32px;
-    }
+    .nosotros-bento > .bento-tile { grid-column: auto; grid-row: auto; }
+    .nosotros-bento > .bento-text,
+    .nosotros-bento > .bento-lijado,
+    .nosotros-bento > .bento-stat-100 { grid-column: 1 / -1; }
 
-    .nosotros-card-media {
-      flex: 0 0 auto;
-      width: 100%;
-    }
-
-    .nosotros-card-stats {
-      flex-direction: column;
-      gap: 28px;
-    }
+    .bento-tile { border-radius: 18px; }
+    .bento-text { padding: 26px 22px; }
+    .bento-photo { aspect-ratio: 3 / 4; }
+    .bento-lijado { aspect-ratio: 16 / 10; }
+    .bento-photo figcaption { padding: 46px 14px 14px; font-size: 12px; }
+    .bento-photo figcaption strong { font-size: 14px; }
+    .bento-stat { padding: 22px 18px; gap: 14px; }
+    .bento-stat-number { font-size: 2.6rem; }
+    .bento-stat-label { font-size: 13px; }
+    .bento-stat-label strong { font-size: 15px; }
+    .bento-stat-light { flex-direction: column; align-items: flex-start; gap: 14px; padding: 22px 18px; }
+    .bento-stat-light .bento-stat-number { font-size: 2.6rem; }
 
     .materiales {
       margin: 0 0 60px;
@@ -1592,24 +1628,16 @@
 
     .quequieres-item-label { font-size: 13px; }
 
-    .nosotros-card { padding: 40px; }
-
-    .nosotros-card-inner {
-      flex-direction: row;
-      align-items: center;
-      gap: 32px;
-    }
-
-    .nosotros-card-media {
-      flex: 0 0 42%;
-      width: auto;
-    }
-
-    .nosotros-card-stats {
-      flex-direction: row;
-      justify-content: space-between;
-      gap: 24px;
-    }
+    .nosotros-bento { gap: 16px; }
+    .bento-text { padding: 34px; }
+    .bento-photo { aspect-ratio: 4 / 5; }
+    .bento-lijado { aspect-ratio: 16 / 9; }
+    .bento-photo figcaption { padding: 56px 20px 18px; font-size: 14px; }
+    .bento-photo figcaption strong { font-size: 16px; }
+    .bento-stat { padding: 28px; }
+    .bento-stat-number { font-size: 3.4rem; }
+    .bento-stat-light { flex-direction: row; align-items: center; gap: 28px; padding: 28px; }
+    .bento-stat-light .bento-stat-number { font-size: 3.4rem; }
 
     .material-feature {
       flex-direction: row;
@@ -1778,8 +1806,8 @@
 
         <p class="hero-desc">
           Muebles tapizados y de madera hechos para acompañar tu día a día.
-          Diseñamos cada pieza con materiales seleccionados y acabados
-          pensados para durar, desde el concepto hasta el último detalle.
+          Los fabricamos sobre pedido, con la medida, la tela y el acabado
+          que escojas.
         </p>
 
         <a class="hero-cta" href="catalogo.html">
@@ -1820,7 +1848,7 @@
         </div>
         <div class="trust-marquee-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><rect x="2" y="8" width="11" height="8" rx="1"/><path d="M13 11h4l3 3v2h-7"/><circle cx="6.5" cy="17.5" r="1.6"/><circle cx="16.5" cy="17.5" r="1.6"/></svg>
-          <span>Entrega e instalación incluida</span>
+          <span>Instalación en tu casa</span>
         </div>
         <div class="trust-marquee-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="6" rx="1"/><path d="M7 9v3M11 9v3M15 9v3"/></svg>
@@ -1850,7 +1878,7 @@
         </div>
         <div class="trust-marquee-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><rect x="2" y="8" width="11" height="8" rx="1"/><path d="M13 11h4l3 3v2h-7"/><circle cx="6.5" cy="17.5" r="1.6"/><circle cx="16.5" cy="17.5" r="1.6"/></svg>
-          <span>Entrega e instalación incluida</span>
+          <span>Instalación en tu casa</span>
         </div>
         <div class="trust-marquee-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="6" rx="1"/><path d="M7 9v3M11 9v3M15 9v3"/></svg>
@@ -1864,9 +1892,8 @@
 
   <section class="quequieres">
     <div class="quequieres-head reveal">
-      <span class="section-eyebrow">Nuestros modelos</span>
       <h2 class="quequieres-title">Descubre nuestra colección</h2>
-      <p class="quequieres-sub">Salas, comedores y alcobas fabricados sobre pedido, con la medida, la tela y el acabado que tú elijas.</p>
+      <p class="quequieres-sub">Estos son algunos de nuestros modelos. Si te gusta uno, te lo hacemos a tu medida.</p>
     </div>
     <div class="quequieres-scroll-outer">
       <button class="quequieres-arrow quequieres-arrow-prev" type="button" aria-label="Ver anteriores">
@@ -1882,7 +1909,6 @@
   <section class="nosotros" id="nosotros">
 
     <div class="wrap nosotros-intro">
-      <span class="section-eyebrow reveal">Nosotros</span>
       <h2 class="nosotros-intro-title reveal">Tradición familiar,<br> hecha a mano</h2>
     </div>
 
@@ -1891,28 +1917,33 @@
     </div>
 
     <div class="wrap">
-      <div class="nosotros-card reveal">
-        <div class="nosotros-card-inner">
-          <div class="nosotros-card-media">
-            <img src="assets/nosotros_lijado.webp" alt="Proceso de lijado de una mesa" width="1016" height="1040" loading="lazy" decoding="async">
-          </div>
-          <div class="nosotros-card-text">
-            <p>Somos una <strong>empresa familiar</strong>, fabricantes ante todo, y eso significa que cada mueble que sale de nuestras manos lleva más de tres décadas de experiencia y cuidado en cada detalle.</p>
-          </div>
+      <div class="nosotros-bento">
+        <div class="bento-tile bento-text reveal">
+          <p>Somos una <strong>empresa familiar</strong>, fabricantes ante todo, y eso significa que cada mueble que sale de nuestras manos lleva más de tres décadas de experiencia y cuidado en cada detalle.</p>
         </div>
-        <div class="nosotros-card-stats">
-          <div class="nosotros-card-stat">
-            <span class="nosotros-card-stat-number"><span class="symbol">+</span>30</span>
-            <span class="nosotros-card-stat-label">Años de experiencia</span>
-          </div>
-          <div class="nosotros-card-stat">
-            <span class="nosotros-card-stat-number"><span class="symbol">+</span>1000</span>
-            <span class="nosotros-card-stat-label">Familias que confiaron en nosotros</span>
-          </div>
-          <div class="nosotros-card-stat">
-            <span class="nosotros-card-stat-number"><span class="symbol">%</span>100</span>
-            <span class="nosotros-card-stat-label">Hecho a mano</span>
-          </div>
+        <figure class="bento-tile bento-photo bento-taller reveal">
+          <img src="assets/nosotros_silla.webp" alt="Detalle de una silla en madera con cojines tapizados en tela beige" width="736" height="1104" loading="lazy" decoding="async">
+          <figcaption><strong>Oficio de ebanista</strong>Cada pieza se corta, ensambla y pule a mano.</figcaption>
+        </figure>
+        <figure class="bento-tile bento-photo bento-almacen reveal">
+          <img src="assets/nosotros_almacen.webp" alt="Almacén de Ansulais en Bogotá con comedores, alcobas y muebles exhibidos" width="900" height="1200" loading="lazy" decoding="async">
+          <figcaption><strong>Visítanos en Bogotá</strong>Crr 51 # 76-32 · Abierto todos los días</figcaption>
+        </figure>
+        <div class="bento-tile bento-stat bento-stat-dark bento-stat-30 reveal">
+          <span class="bento-stat-number"><span class="symbol">+</span>30</span>
+          <span class="bento-stat-label">Años de experiencia</span>
+        </div>
+        <div class="bento-tile bento-stat bento-stat-wood bento-stat-1000 reveal">
+          <span class="bento-stat-number"><span class="symbol">+</span>1000</span>
+          <span class="bento-stat-label">Familias que confiaron en nosotros</span>
+        </div>
+        <figure class="bento-tile bento-photo bento-lijado reveal">
+          <img src="assets/nosotros_lijado.webp" alt="Proceso de lijado de una mesa" width="1016" height="1040" loading="lazy" decoding="async">
+          <figcaption><strong>Antes del acabado</strong>Así lijamos una mesa antes de darle el color final.</figcaption>
+        </figure>
+        <div class="bento-tile bento-stat bento-stat-light bento-stat-100 reveal">
+          <span class="bento-stat-number">100<span class="symbol">%</span></span>
+          <span class="bento-stat-label"><strong>Hecho a mano</strong>No hacemos muebles en serie. Cada uno se fabrica cuando lo pides.</span>
         </div>
       </div>
     </div>
@@ -1921,7 +1952,7 @@
       <div class="materiales reveal">
         <div class="materiales-head">
           <h3>Nuestra madera principal: flor morado</h3>
-          <p>Es la madera con la que fabricamos la mayoría de nuestras piezas: maciza, noble y con un acabado excelente para acompañar tu hogar por muchos años.</p>
+          <p>Con ella hacemos la mayoría de nuestros muebles. Es firme, se deja trabajar bien y queda muy bonita con el acabado.</p>
         </div>
         <div class="material-feature">
           <div class="material-feature-media">
@@ -1930,8 +1961,8 @@
           <ul class="material-feature-list">
             <li><strong>Resistente y duradera</strong> Aguanta bien el uso diario de una casa sin perder firmeza con el tiempo.</li>
             <li><strong>Acabado excelente</strong> Su veta y color permiten un pulido fino y uniforme en cada mueble.</li>
-            <li><strong>Buena relación precio-calidad</strong> Un costo accesible sin sacrificar la calidad de la construcción.</li>
-            <li><strong>Fácil de trabajar</strong> Se talla y ensambla con precisión, ideal para diseños detallados.</li>
+            <li><strong>Buena relación precio-calidad</strong> Es una madera fina a un precio razonable.</li>
+            <li><strong>Fácil de trabajar</strong> Se deja tallar y ensamblar con precisión, por eso sirve para diseños con detalle.</li>
           </ul>
         </div>
 
@@ -1954,7 +1985,7 @@
         <source src="assets/nosotros_entrega.mp4" type="video/mp4">
       </video>
       <div class="nosotros-video-feature-overlay"></div>
-      <p class="nosotros-video-feature-text"><strong>Nuestro compromiso no termina en la fábrica:</strong> entregamos e instalamos cada mueble en tu hogar.</p>
+      <p class="nosotros-video-feature-text"><strong>Te lo llevamos y lo dejamos armado.</strong> Cuando el mueble va con nuestro transporte, la instalación en tu casa está incluida.</p>
     </div>
 
   </section>
